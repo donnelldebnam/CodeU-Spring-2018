@@ -37,13 +37,13 @@
       style="width:75%; margin-left:auto; margin-right:auto; margin-top: 50px;">
 
       <h1>CodeByter's Chat App</h1>
-      <h2>Welcome!</h2>
+      <p>Welcome!</p>
       <p>
         Through our site, you will be able to connect with the world through online chat!
       </p>
       <ul>
         <li><a href="/login">Login</a> to get started.</li>
-        <li>Go to the <a href="/conversations">conversations</a> page to
+        <li> TEST SarojBHatta <a href="/conversations">conversations</a> page to
             create or join a conversation.</li>
         <li>View the <a href="/about.jsp">about</a> page to learn more about the
             project.</li>
