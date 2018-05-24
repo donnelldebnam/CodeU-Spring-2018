@@ -37,7 +37,7 @@
       style="width:75%; margin-left:auto; margin-right:auto; margin-top: 50px;">
 
       <h1>CodeByter's Chat App</h1>
-      <h2>Welcome!</h2>
+      <p>Welcome!</p>
       <p>
         Through our site, you will be able to connect with the world through online chat!
       </p>
