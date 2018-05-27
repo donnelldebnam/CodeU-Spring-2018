@@ -14,6 +14,7 @@
 
 package codeu.model.store.basic;
 
+import codeu.model.data.Conversation;
 import codeu.model.data.User;
 import codeu.model.store.persistence.PersistentStorageAgent;
 import java.time.Instant;
@@ -154,4 +155,10 @@ public class UserStore {
     }
     return admins;
   }
+
+  /** Access the current set of users known to the application. */
+  public List<User> getAllUsers() {
+    return users;
+  }
+
 }
