@@ -7,14 +7,10 @@ import codeu.model.data.User;
 import codeu.model.store.basic.ConversationStore;
 import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.UserStore;
-import codeu.model.store.persistence.PersistentStorageAgent;
 
 import java.io.IOException;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -90,9 +86,46 @@ public class ActivityFeedServlet extends HttpServlet{
       activities.add(Activity.displayPublicMessage(m));
     }
 
+    // Sorts the activities in order to  display them chronologically.
+    sort(activities);
+
     request.setAttribute("activities", activities);
 
     request.getRequestDispatcher("/WEB-INF/view/activityfeed.jsp").forward(request, response);
   }
 
+  /**
+   * This function sorts the activity lists from oldest to newest.
+   */
+  public void sort(List<Activity> activities) {
+    if(activities.size() == 1) return;
+    for (int i = 0; i<activities.size(); i++){
+      int latest = latest(activities, i, activities.size());
+      swap(activities, i, latest);
+    }
+  }
+
+  /**
+   * This helper functions returns the index of the oldest activity.
+   */
+  public int latest(List<Activity> activities, int start, int end){
+    int lastIndex = start;
+    for(int i = start; i< end; i++){
+      if(activities.get(i).getCreationTime().isAfter(activities.get(lastIndex).getCreationTime())){
+        lastIndex = i;
+      }
+    }
+    return lastIndex;
+  }
+
+  /**
+   * This helper functions help swap two activities based on their times.
+   */
+  public void swap(List<Activity> activities, int a, int b){
+    Activity temp1 = activities.get(a);
+    Activity temp2 = activities.get(b);
+    activities.set(a, temp2);
+    activities.set(b, temp1);
+
+  }
 }
