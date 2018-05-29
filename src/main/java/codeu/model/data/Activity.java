@@ -23,9 +23,8 @@ public class Activity {
 
   /**
    * Constructs a new activity.
-   *
-   * @param id the ID of this Conversation
-   * @param type the Type of the activity (user, message, conversation)
+   * @param id       the ID of this Conversation
+   * @param type     the Type of the activity (user, message, conversation)
    * @param creation the creation time of this Conversation
    */
   public Activity(UUID id, UUID owner, String type, Instant creation, String thumbnail) {
@@ -36,22 +35,42 @@ public class Activity {
     this.thumbnail = thumbnail;
   }
 
-  /** Returns the ID of this Conversation. */
+  public Activity(User u) {
+    this(u.getId(), u.getId(), "RegisteringUser", u.getCreationTime(), DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(u.getCreationTime()) + ": " + u.getName() + " joined CodeByters.");
+  }
+
+  public Activity(Conversation c) {
+    this(c.getId(), c.getOwnerId(), "CreatingPublicConversation", c.getCreationTime(), DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(c.getCreationTime()) + ": " + UserStore.getInstance().getUser(c.getOwnerId()).getName() + " created " + "a new public conversation = \" " + c.getTitle() + "\".");
+  }
+
+  public Activity(Message m) {
+    this(m.getId(), m.getAuthorId(), "CreatingPublicMessage", m.getCreationTime(), DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(m.getCreationTime()) + ": " + UserStore.getInstance().getUser(m.getAuthorId()).getName() + " sent a message in " + (ConversationStore.getInstance().getConversationWithID(m.getConversationId())).getTitle() + ".");
+  }
+
+  /**
+   * Returns the ID of this Conversation.
+   */
   public UUID getId() {
     return id;
   }
 
-  /** Returns the ID of the User who created this Conversation. */
+  /**
+   * Returns the ID of the User who created this Conversation.
+   */
   public UUID getOwnerId() {
     return owner;
   }
 
-  /** Returns the title of this Conversation. */
+  /**
+   * Returns the title of this Conversation.
+   */
   public String getType() {
     return type;
   }
 
-  /** Returns the creation time of this Conversation. */
+  /**
+   * Returns the creation time of this Conversation.
+   */
   public Instant getCreationTime() {
     return creation;
   }
@@ -60,21 +79,4 @@ public class Activity {
     return thumbnail;
   }
 
-  /** Returns a thumbnail for registering a new user. */
-  public static Activity displayRegistering(User u){
-    return new Activity(u.getId(), u.getId(), "Registering", u.getCreationTime(), DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(u.getCreationTime()) + " : " + u.getName() + " joined CodeByters.");
-  }
-
-  /** Returns a thumbnail for creating a public conversation. */
-  public static Activity displayPublicConversation(Conversation c){
-    String ownerName = UserStore.getInstance().getUser(c.getOwnerId()).getName();
-    return new Activity(c.getId(), c.getOwnerId(), "CreatingPublicConversation", c.getCreationTime(), DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(c.getCreationTime()) + " : " + ownerName + " created " + "a new public conversation = \" " + c.getTitle() + "\".");
-  }
-
-  /** Returns a thumbnail for creating a public message inside a chat. */
-  public static Activity displayPublicMessage(Message m){
-    String ownerName = UserStore.getInstance().getUser(m.getAuthorId()).getName();
-    String conversationTitle = (ConversationStore.getInstance().getConversationWithID(m.getConversationId())).getTitle();
-    return new Activity(m.getId(), m.getAuthorId(), "CreatingPublicMessage", m.getCreationTime(), DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(m.getCreationTime()) + " : " + ownerName + " sent a message in " + conversationTitle + ".");
-  }
 }

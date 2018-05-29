@@ -7,14 +7,10 @@ import codeu.model.data.User;
 import codeu.model.store.basic.ConversationStore;
 import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.UserStore;
-import codeu.model.store.persistence.PersistentStorageAgent;
 
 import java.io.IOException;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -81,13 +77,13 @@ public class ActivityFeedServlet extends HttpServlet{
 
     for(User u: users){
       if(!u.isAdmin())
-        activities.add(Activity.displayRegistering(u));
+        activities.add(new Activity(u));
     }
     for(Conversation c: conversations){
-      activities.add(Activity.displayPublicConversation(c));
+      activities.add(new Activity(c));
     }
     for(Message m: messages){
-      activities.add(Activity.displayPublicMessage(m));
+      activities.add(new Activity(m));
     }
 
     request.setAttribute("activities", activities);
