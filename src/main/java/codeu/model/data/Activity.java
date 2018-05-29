@@ -36,7 +36,7 @@ public class Activity {
   }
 
   public Activity(User u) {
-    this(u.getId(), u.getId(), "RegisteringUser", u.getCreationTime(), DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(u.getCreationTime()) + ": " + u.getName() + " joined CodeByters.");
+    this(u.getId(), u.getId(), "RegisteringUser", u.getCreationTime(), DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(u.getCreationTime()) + ": " + u.getName() + " joined CodeByters!");
   }
 
   public Activity(Conversation c) {
@@ -75,6 +75,10 @@ public class Activity {
     return creation;
   }
 
+  /**
+   * Returns a small summary of the activity
+   * @return
+   */
   public String getThumbnail() {
     return thumbnail;
   }

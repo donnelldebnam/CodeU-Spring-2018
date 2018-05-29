@@ -86,6 +86,16 @@ public class MessageStore {
     return messagesInConversation;
   }
 
+  /** Find and return the meesage with the given id. */
+  public Message getMessageWithID(UUID id) {
+    for (Message message : messages) {
+      if (message.getId().equals(id)) {
+        return message;
+      }
+    }
+    return null;
+  }
+
   /** Access the current set of Messages sent by current user. */
   public List<Message> getMessagesByUser(UUID id) {
 
@@ -96,7 +106,6 @@ public class MessageStore {
         messagesByUser.add(message);
       }
     }
-
     return messagesByUser;
   }
 
