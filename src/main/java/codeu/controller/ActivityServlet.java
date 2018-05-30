@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Servlet responsible for the activity feed page. */
-public class ActivityFeedServlet extends HttpServlet{
+public class ActivityServlet extends HttpServlet{
 
   /** Store class that gives access to Conversations. */
   private ConversationStore conversationStore;
@@ -88,7 +88,7 @@ public class ActivityFeedServlet extends HttpServlet{
 
     request.setAttribute("activities", activities);
 
-    request.getRequestDispatcher("/WEB-INF/view/activityfeed.jsp").forward(request, response);
+    request.getRequestDispatcher("/WEB-INF/view/activity.jsp").forward(request, response);
   }
 
 }

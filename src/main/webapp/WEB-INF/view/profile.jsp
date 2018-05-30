@@ -64,6 +64,7 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
     <% } else { %>
       <a href="/login">Login</a>
     <% } %>
+    <a href="/activity">ActivityFeed</a>
     <a href="/about.jsp">About</a>
   </nav>
 

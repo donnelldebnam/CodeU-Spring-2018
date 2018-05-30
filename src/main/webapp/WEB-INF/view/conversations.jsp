@@ -34,7 +34,7 @@
     <% } else { %>
       <a href="/login">Login</a>
     <% } %>
-    <a href="/activityfeed">ActivityFeed</a>
+    <a href="/activity">ActivityFeed</a>
     <a href="/about.jsp">About</a>
   </nav>
 
