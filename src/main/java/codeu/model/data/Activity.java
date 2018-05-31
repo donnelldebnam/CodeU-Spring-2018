@@ -40,11 +40,11 @@ public class Activity {
   }
 
   public Activity(Conversation c) {
-    this(c.getId(), c.getOwnerId(), "CreatingPublicConversation", c.getCreationTime(), DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(c.getCreationTime()) + ": " + UserStore.getInstance().getUser(c.getOwnerId()).getName() + " created " + "a new public conversation = \" " + c.getTitle() + "\".");
+    this(c.getId(), c.getOwnerId(), "CreatingPublicConversation", c.getCreationTime(), DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(c.getCreationTime()) + ": [USER] created a new public conversation = \"" + c.getTitle() + "\".");
   }
 
   public Activity(Message m) {
-    this(m.getId(), m.getAuthorId(), "CreatingPublicMessage", m.getCreationTime(), DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(m.getCreationTime()) + ": " + UserStore.getInstance().getUser(m.getAuthorId()).getName() + " sent a message in " + (ConversationStore.getInstance().getConversationWithID(m.getConversationId())).getTitle() + ".");
+    this(m.getId(), m.getAuthorId(), "CreatingPublicMessage", m.getCreationTime(), DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(m.getCreationTime()) + ": [USER] sent a message in [Conversation]: "+m.getContent()+".");
   }
 
   /**
