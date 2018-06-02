@@ -1,6 +1,5 @@
 package codeu.model.data;
 
-import codeu.model.store.basic.UserStore;
 import org.junit.Assert;
 import org.junit.Test;
 import java.time.Instant;
@@ -64,5 +63,5 @@ public class ActivityTest {
     Assert.assertEquals(creation, activity.getCreationTime());
     String time = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(c.getCreationTime());
     Assert.assertEquals( time + ": [USER] sent a message in [Conversation]: hello.", activity.getThumbnail());
-}
+  }
 }
