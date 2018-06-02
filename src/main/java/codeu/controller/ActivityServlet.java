@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Servlet responsible for the activity feed page. */
-public class ActivityFeedServlet extends HttpServlet{
+public class ActivityServlet extends HttpServlet{
 
   /** Store class that gives access to Conversations. */
   private ConversationStore conversationStore;
@@ -77,13 +77,13 @@ public class ActivityFeedServlet extends HttpServlet{
 
     for(User u: users){
       if(!u.isAdmin())
-        activities.add(Activity.displayRegistering(u));
+        activities.add(new Activity(u));
     }
     for(Conversation c: conversations){
-      activities.add(Activity.displayPublicConversation(c));
+      activities.add(new Activity(c));
     }
     for(Message m: messages){
-      activities.add(Activity.displayPublicMessage(m));
+      activities.add(new Activity(m));
     }
 
     // Sorts the activities in order to  display them chronologically.
@@ -91,7 +91,7 @@ public class ActivityFeedServlet extends HttpServlet{
 
     request.setAttribute("activities", activities);
 
-    request.getRequestDispatcher("/WEB-INF/view/activityfeed.jsp").forward(request, response);
+    request.getRequestDispatcher("/WEB-INF/view/activity.jsp").forward(request, response);
   }
 
   /**
