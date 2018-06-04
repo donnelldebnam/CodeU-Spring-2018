@@ -119,6 +119,12 @@ public class UserStoreTest {
     Assert.assertEquals(userStore.getAdmins().get(0).getName(), "Admin01");
   }
 
+  @Test
+  public void testGetAllUsers() {
+    List<User> users = userStore.getAllUsers();
+    Assert.assertEquals(4, users.size());
+  }
+
   private void assertEquals(User expectedUser, User actualUser) {
     Assert.assertEquals(expectedUser.getId(), actualUser.getId());
     Assert.assertEquals(expectedUser.getName(), actualUser.getName());

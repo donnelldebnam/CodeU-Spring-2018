@@ -70,13 +70,13 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
                 <% } %>
                 <% if(type.equals("CreatingPublicConversation")) {
                      name = UserStore.getInstance().getUser(idOwnerId).getName();
-                     Conversation conv = ConversationStore.getInstance().getConversationWithID(id);%>
+                     Conversation conv = ConversationStore.getInstance().getConversationWithId(id);%>
                      <li><b><%= time %>:</b> <%= name %> created a new conversation: <a href="/chat/<%= conv.getTitle() %>"> <%= conv.getTitle() %></a>.</li>
                 <% } %>
                 <% if(type.equals("CreatingPublicMessage")) {
                      name = UserStore.getInstance().getUser(idOwnerId).getName();
-                     Message mess = MessageStore.getInstance().getMessageWithID(id);
-                     Conversation conv = ConversationStore.getInstance().getConversationWithID(mess.getConversationId());%>
+                     Message mess = MessageStore.getInstance().getMessageWithId(id);
+                     Conversation conv = ConversationStore.getInstance().getConversationWithId(mess.getConversationId());%>
                      <li><b><%= time %>:</b> <%= name %> sent a message in <a href="/chat/<%= conv.getTitle() %>"> <%= conv.getTitle() %> </a>: "<%= mess.getContent() %>".</li>
                 <% } %>
             <% } %>

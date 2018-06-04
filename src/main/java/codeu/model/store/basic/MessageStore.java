@@ -87,7 +87,7 @@ public class MessageStore {
   }
 
   /** Find and return the meesage with the given id. */
-  public Message getMessageWithID(UUID id) {
+  public Message getMessageWithId(UUID id) {
     for (Message message : messages) {
       if (message.getId().equals(id)) {
         return message;
