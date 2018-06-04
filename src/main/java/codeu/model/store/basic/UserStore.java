@@ -68,21 +68,18 @@ public class UserStore {
     users = new ArrayList<>();
 
     // hard-coded initial Admin:
-    this.addUser("Admin01", "AdminPass01", /*admin=*/ true);
+    this.addUser("Admin01", "AdminPass01", true, false);
   }
 
   /**
    * Add a new user to the current set of users known to the application. This should only be called
    * to add a new user, not to update an existing user.
    */
-  public void addUser(String username, String password, boolean admin) {
+  public void addUser(String username, String password, boolean admin, boolean testing) {
     String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
     User user = new User(UUID.randomUUID(), username, hashedPassword, Instant.now());
     user.setAdmin(admin);
-    this.users.add(user);
-    if(!admin)
-      ActivityStore.getInstance().addActivity(new Activity(user));
-    persistentStorageAgent.writeThrough(user);
+    this.addUser(user, testing);
   }
 
   /**
@@ -118,9 +115,9 @@ public class UserStore {
    * Add a new user to the current set of users known to the application. This should only be called
    * * to add a new user, not to update an existing user.
    */
-  public void addUser(User user) {
+  public void addUser(User user, boolean testing) {
     users.add(user);
-    if(!user.isAdmin())
+    if(!user.isAdmin() && !testing)
       ActivityStore.getInstance().addActivity(new Activity(user));
     persistentStorageAgent.writeThrough(user);
   }

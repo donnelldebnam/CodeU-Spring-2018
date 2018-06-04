@@ -68,10 +68,9 @@ public class MessageStore {
   }
 
   /** Add a new message to the current set of messages known to the application. */
-  public void addMessage(Message message) {
+  public void addMessage(Message message, Boolean testing) {
     messages.add(message);
-    ActivityStore.getInstance().addActivity(new Activity(message));
-
+    if(!testing)ActivityStore.getInstance().addActivity(new Activity(message));
     persistentStorageAgent.writeThrough(message);
   }
 

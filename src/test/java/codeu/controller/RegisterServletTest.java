@@ -56,7 +56,7 @@ public class RegisterServletTest {
     registerServlet.setUserStore(mockUserStore);
 
     registerServlet.doPost(mockRequest, mockResponse);
-    Mockito.verify(mockUserStore).addUser("test username", "test password", false);
+    Mockito.verify(mockUserStore).addUser("test username", "test password", false, false);
     Mockito.verify(mockResponse).sendRedirect("/login");
   }
 
@@ -70,7 +70,7 @@ public class RegisterServletTest {
 
     registerServlet.doPost(mockRequest, mockResponse);
 
-    Mockito.verify(mockUserStore, Mockito.never()).addUser(Mockito.any(User.class));
+    Mockito.verify(mockUserStore, Mockito.never()).addUser(Mockito.any(User.class), (Mockito.any(Boolean.class)));
     Mockito.verify(mockRequest).setAttribute("error", "That username is already taken.");
     Mockito.verify(mockRequestDispatcher).forward(mockRequest, mockResponse);
   }

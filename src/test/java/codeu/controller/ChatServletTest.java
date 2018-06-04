@@ -115,7 +115,7 @@ public class ChatServletTest {
 
     chatServlet.doPost(mockRequest, mockResponse);
 
-    Mockito.verify(mockMessageStore, Mockito.never()).addMessage(Mockito.any(Message.class));
+    Mockito.verify(mockMessageStore, Mockito.never()).addMessage(Mockito.any(Message.class), Mockito.any(Boolean.class));
     Mockito.verify(mockResponse).sendRedirect("/login");
   }
 
@@ -126,7 +126,7 @@ public class ChatServletTest {
 
     chatServlet.doPost(mockRequest, mockResponse);
 
-    Mockito.verify(mockMessageStore, Mockito.never()).addMessage(Mockito.any(Message.class));
+    Mockito.verify(mockMessageStore, Mockito.never()).addMessage(Mockito.any(Message.class), Mockito.any(Boolean.class));
     Mockito.verify(mockResponse).sendRedirect("/login");
   }
 
@@ -148,7 +148,7 @@ public class ChatServletTest {
 
     chatServlet.doPost(mockRequest, mockResponse);
 
-    Mockito.verify(mockMessageStore, Mockito.never()).addMessage(Mockito.any(Message.class));
+    Mockito.verify(mockMessageStore, Mockito.never()).addMessage(Mockito.any(Message.class), Mockito.any(Boolean.class));
     Mockito.verify(mockResponse).sendRedirect("/conversations");
   }
 
@@ -175,7 +175,7 @@ public class ChatServletTest {
     chatServlet.doPost(mockRequest, mockResponse);
 
     ArgumentCaptor<Message> messageArgumentCaptor = ArgumentCaptor.forClass(Message.class);
-    Mockito.verify(mockMessageStore).addMessage(messageArgumentCaptor.capture());
+    Mockito.verify(mockMessageStore).addMessage(messageArgumentCaptor.capture(), Mockito.any(Boolean.class));
     Assert.assertEquals("Test message.", messageArgumentCaptor.getValue().getContent());
 
     Mockito.verify(mockResponse).sendRedirect("/chat/test_conversation");
@@ -205,7 +205,7 @@ public class ChatServletTest {
     chatServlet.doPost(mockRequest, mockResponse);
 
     ArgumentCaptor<Message> messageArgumentCaptor = ArgumentCaptor.forClass(Message.class);
-    Mockito.verify(mockMessageStore).addMessage(messageArgumentCaptor.capture());
+    Mockito.verify(mockMessageStore).addMessage(messageArgumentCaptor.capture(), Mockito.any(Boolean.class));
     Assert.assertEquals(
         "Contains html and  content.", messageArgumentCaptor.getValue().getContent());
 

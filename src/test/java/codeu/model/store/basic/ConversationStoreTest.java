@@ -64,7 +64,7 @@ public class ConversationStoreTest {
     Conversation inputConversation =
         new Conversation(UUID.randomUUID(), UUID.randomUUID(), "test_conversation", Instant.now());
 
-    conversationStore.addConversation(inputConversation);
+    conversationStore.addConversation(inputConversation, true);
     Conversation resultConversation =
         conversationStore.getConversationWithTitle("test_conversation");
 
@@ -91,8 +91,8 @@ public class ConversationStoreTest {
                     Instant.now());
 
 
-    conversationStore.addConversation(conv_one);
-    conversationStore.addConversation(conv_two);
+    conversationStore.addConversation(conv_one, true);
+    conversationStore.addConversation(conv_two, true);
 
     Conversation resultConv = conversationStore.getConversationWithId(conversation2);
 

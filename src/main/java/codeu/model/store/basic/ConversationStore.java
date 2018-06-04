@@ -72,9 +72,9 @@ public class ConversationStore {
   }
 
   /** Add a new conversation to the current set of conversations known to the application. */
-  public void addConversation(Conversation conversation) {
+  public void addConversation(Conversation conversation, boolean testing) {
     conversations.add(conversation);
-    ActivityStore.getInstance().addActivity(new Activity(conversation));
+    if(!testing) ActivityStore.getInstance().addActivity(new Activity(conversation));
     persistentStorageAgent.writeThrough(conversation);
   }
 

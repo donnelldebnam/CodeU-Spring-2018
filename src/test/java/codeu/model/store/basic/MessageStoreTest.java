@@ -72,7 +72,7 @@ public class MessageStoreTest {
             "test message",
             Instant.now());
 
-    messageStore.addMessage(inputMessage);
+    messageStore.addMessage(inputMessage, true);
     Message resultMessage = messageStore.getMessagesInConversation(inputConversationId).get(0);
 
     assertEquals(inputMessage, resultMessage);
@@ -99,8 +99,8 @@ public class MessageStoreTest {
                     "Message two",
                     Instant.now());
 
-    messageStore.addMessage(message_one);
-    messageStore.addMessage(message_two);
+    messageStore.addMessage(message_one, true);
+    messageStore.addMessage(message_two, true);
 
     Message resultMessage = messageStore.getMessageWithId(message2);
 

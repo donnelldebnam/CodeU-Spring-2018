@@ -76,7 +76,7 @@ public class UserStoreTest {
 
   @Test
   public void testAddUserByName() {
-    userStore.addUser("test username1", "Password1", false);
+    userStore.addUser("test username1", "Password1", false, true);
     User resultUser = userStore.getUser("test username1");
 
     Assert.assertEquals(resultUser.getName(), "test username1");
@@ -95,7 +95,7 @@ public class UserStoreTest {
             "$2a$10$eDhncK/4cNH2KE.Y51AWpeL8/5znNBQLuAFlyJpSYNODR/SJQ/Fg6",
             Instant.now());
 
-    userStore.addUser(inputUser);
+    userStore.addUser(inputUser, true);
     User resultUser = userStore.getUser("test_username");
 
     assertEquals(inputUser, resultUser);
