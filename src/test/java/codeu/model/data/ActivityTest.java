@@ -1,6 +1,6 @@
 package codeu.model.data;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import java.time.Instant;
 import java.time.ZoneOffset;
@@ -17,13 +17,13 @@ public class ActivityTest {
     User u = new User(id, "User1", "123", creation);
     Activity activity = new Activity(u);
 
-    Assert.assertEquals(id, activity.getId());
+    assertEquals(id, activity.getId());
     // By default, the user is his own owner
-    Assert.assertEquals(id, activity.getOwnerId());
-    Assert.assertEquals("RegisteringUser", activity.getAction().getContent());
-    Assert.assertEquals(creation, activity.getCreationTime());
+    assertEquals(id, activity.getOwnerId());
+    assertEquals("RegisteringUser", activity.getAction().getContent());
+    assertEquals(creation, activity.getCreationTime());
     String time = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(u.getCreationTime());
-    Assert.assertEquals( time + ": User1 joined CodeByters!", activity.getThumbnail());
+    assertEquals( time + ": User1 joined CodeByters!", activity.getThumbnail());
   }
 
   @Test
@@ -36,12 +36,12 @@ public class ActivityTest {
 
     Activity activity = new Activity(c);
 
-    Assert.assertEquals(id, activity.getId());
-    Assert.assertEquals(owner, activity.getOwnerId());
-    Assert.assertEquals("CreatingConversation", activity.getAction().getContent());
-    Assert.assertEquals(creation, activity.getCreationTime());
+    assertEquals(id, activity.getId());
+    assertEquals(owner, activity.getOwnerId());
+    assertEquals("CreatingConversation", activity.getAction().getContent());
+    assertEquals(creation, activity.getCreationTime());
     String time = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(c.getCreationTime());
-    Assert.assertEquals( time + ": " + "[USER] created a new public conversation = \"Title1\".", activity.getThumbnail());
+    assertEquals( time + ": " + "[USER] created a new public conversation = \"Title1\".", activity.getThumbnail());
   }
 
   @Test
@@ -57,11 +57,11 @@ public class ActivityTest {
 
     Activity activity = new Activity(m);
 
-    Assert.assertEquals(id, activity.getId());
-    Assert.assertEquals(author, activity.getOwnerId());
-    Assert.assertEquals("SendingMessage", activity.getAction().getContent());
-    Assert.assertEquals(creation, activity.getCreationTime());
+    assertEquals(id, activity.getId());
+    assertEquals(author, activity.getOwnerId());
+    assertEquals("SendingMessage", activity.getAction().getContent());
+    assertEquals(creation, activity.getCreationTime());
     String time = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(c.getCreationTime());
-    Assert.assertEquals( time + ": [USER] sent a message in [Conversation]: hello.", activity.getThumbnail());
+    assertEquals( time + ": [USER] sent a message in [Conversation]: hello.", activity.getThumbnail());
   }
 }

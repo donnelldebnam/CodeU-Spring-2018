@@ -1,6 +1,6 @@
 package codeu.model.data;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import java.time.Instant;
@@ -13,11 +13,11 @@ public class ActionTest {
     Activity activity2 = new Activity(UUID.randomUUID(), UUID.randomUUID(), Action.CREATE, Instant.now(), "creating");
     Activity activity3 = new Activity(UUID.randomUUID(), UUID.randomUUID(), Action.SEND, Instant.now(), "sending");
 
-    Assert.assertEquals(activity1.getAction().getAccess(), /*public*/ true);
-    Assert.assertEquals("RegisteringUser", activity1.getAction().getContent());
-    Assert.assertEquals(activity2.getAction().getAccess(), /*public*/ true);
-    Assert.assertEquals("CreatingConversation", activity2.getAction().getContent());
-    Assert.assertEquals(activity3.getAction().getAccess(), /*public*/ true);
-    Assert.assertEquals("SendingMessage", activity3.getAction().getContent());
+    assertEquals(activity1.getAction().getAccess(), /*public*/ true);
+    assertEquals("RegisteringUser", activity1.getAction().getContent());
+    assertEquals(activity2.getAction().getAccess(), /*public*/ true);
+    assertEquals("CreatingConversation", activity2.getAction().getContent());
+    assertEquals(activity3.getAction().getAccess(), /*public*/ true);
+    assertEquals("SendingMessage", activity3.getAction().getContent());
   }
 }
