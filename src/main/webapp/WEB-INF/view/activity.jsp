@@ -3,6 +3,7 @@
 <%@ page import="codeu.model.data.Activity" %>
 <%@ page import="codeu.model.data.Conversation" %>
 <%@ page import="codeu.model.data.Message" %>
+<%@ page import="codeu.model.data.Action" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
 <%@ page import="codeu.model.store.basic.ConversationStore" %>
 <%@ page import="codeu.model.store.basic.MessageStore" %>
@@ -59,7 +60,7 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
           <ul>
             <%
               for (Activity activity : activities) {
-                String type = activity.getType();
+                String type = activity.getAction().getContent();
                 UUID id = activity.getId();
                 UUID idOwnerId = activity.getOwnerId();
                 String time = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(activity.getCreationTime());
@@ -68,12 +69,12 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
                     name = UserStore.getInstance().getUser(id).getName();%>
                     <li><b><%= time %>:</b> <%= name %> joined CodeByters!</li>
                 <% } %>
-                <% if(type.equals("CreatingPublicConversation")) {
+                <% if(type.equals("CreatingConversation")) {
                      name = UserStore.getInstance().getUser(idOwnerId).getName();
                      Conversation conv = ConversationStore.getInstance().getConversationWithId(id);%>
                      <li><b><%= time %>:</b> <%= name %> created a new conversation: <a href="/chat/<%= conv.getTitle() %>"> <%= conv.getTitle() %></a>.</li>
                 <% } %>
-                <% if(type.equals("CreatingPublicMessage")) {
+                <% if(type.equals("SendingMessage")) {
                      name = UserStore.getInstance().getUser(idOwnerId).getName();
                      Message mess = MessageStore.getInstance().getMessageWithId(id);
                      Conversation conv = ConversationStore.getInstance().getConversationWithId(mess.getConversationId());%>

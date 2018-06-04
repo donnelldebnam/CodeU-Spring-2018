@@ -20,7 +20,7 @@ public class ActivityTest {
     Assert.assertEquals(id, activity.getId());
     // By default, the user is his own owner
     Assert.assertEquals(id, activity.getOwnerId());
-    Assert.assertEquals("RegisteringUser", activity.getType());
+    Assert.assertEquals("RegisteringUser", activity.getAction().getContent());
     Assert.assertEquals(creation, activity.getCreationTime());
     String time = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(u.getCreationTime());
     Assert.assertEquals( time + ": User1 joined CodeByters!", activity.getThumbnail());
@@ -38,7 +38,7 @@ public class ActivityTest {
 
     Assert.assertEquals(id, activity.getId());
     Assert.assertEquals(owner, activity.getOwnerId());
-    Assert.assertEquals("CreatingPublicConversation", activity.getType());
+    Assert.assertEquals("CreatingConversation", activity.getAction().getContent());
     Assert.assertEquals(creation, activity.getCreationTime());
     String time = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(c.getCreationTime());
     Assert.assertEquals( time + ": " + "[USER] created a new public conversation = \"Title1\".", activity.getThumbnail());
@@ -59,7 +59,7 @@ public class ActivityTest {
 
     Assert.assertEquals(id, activity.getId());
     Assert.assertEquals(author, activity.getOwnerId());
-    Assert.assertEquals("CreatingPublicMessage", activity.getType());
+    Assert.assertEquals("SendingMessage", activity.getAction().getContent());
     Assert.assertEquals(creation, activity.getCreationTime());
     String time = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(c.getCreationTime());
     Assert.assertEquals( time + ": [USER] sent a message in [Conversation]: hello.", activity.getThumbnail());
