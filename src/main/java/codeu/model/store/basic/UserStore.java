@@ -14,6 +14,7 @@
 
 package codeu.model.store.basic;
 
+import codeu.model.data.Activity;
 import codeu.model.data.Conversation;
 import codeu.model.data.User;
 import codeu.model.store.persistence.PersistentStorageAgent;
@@ -79,6 +80,8 @@ public class UserStore {
     User user = new User(UUID.randomUUID(), username, hashedPassword, Instant.now());
     user.setAdmin(admin);
     this.users.add(user);
+    if(!admin)
+      ActivityStore.getInstance().addActivity(new Activity(user));
     persistentStorageAgent.writeThrough(user);
   }
 
@@ -117,6 +120,8 @@ public class UserStore {
    */
   public void addUser(User user) {
     users.add(user);
+    if(!user.isAdmin())
+      ActivityStore.getInstance().addActivity(new Activity(user));
     persistentStorageAgent.writeThrough(user);
   }
 

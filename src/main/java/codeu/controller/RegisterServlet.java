@@ -7,11 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.time.Instant;
-import java.util.UUID;
-import org.mindrot.jbcrypt.BCrypt;
-import codeu.model.data.User;
-
 public class RegisterServlet extends HttpServlet {
 
   /** Store class that gives access to Users. */
