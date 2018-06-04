@@ -1,5 +1,6 @@
 package codeu.model.store.basic;
 
+import codeu.model.data.Action;
 import codeu.model.data.Activity;
 import codeu.model.store.persistence.PersistentStorageAgent;
 import java.util.ArrayList;
@@ -62,11 +63,11 @@ public class ActivityStore {
     persistentStorageAgent.writeThrough(activity);
   }
 
-  /** Find and return the activities with the given type. */
-  public List<Activity> getActivitiesWithType(String type) {
+  /** Find and return the activities with the given action. */
+  public List<Activity> getActivitiesWithAction(Action action) {
     List<Activity> activity_list = new ArrayList<>();
     for (Activity activity : activities) {
-      if (activity.getType().equals(type)) {
+      if (activity.getAction().getContent().equals(action.getContent())) {
         activity_list.add(activity);
       }
     }

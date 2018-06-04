@@ -1,5 +1,6 @@
 package codeu.controller;
 
+import codeu.model.data.Action;
 import codeu.model.data.Activity;
 import codeu.model.store.basic.ActivityStore;
 import org.junit.Before;
@@ -46,7 +47,7 @@ public class ActivityServletTest {
   public void testDoGet() throws IOException, ServletException {
     List<Activity> fakeActivityList = new ArrayList<>();
     fakeActivityList.add(
-            new Activity(UUID.randomUUID(), UUID.randomUUID(), "RegisteringUser", Instant.now(), null));
+            new Activity(UUID.randomUUID(), UUID.randomUUID(), Action.JOIN, Instant.now(), null));
     Mockito.when(mockActivityStore.getAllActivities()).thenReturn(fakeActivityList);
 
     activityServlet.doGet(mockRequest, mockResponse);

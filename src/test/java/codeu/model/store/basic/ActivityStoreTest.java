@@ -1,5 +1,6 @@
 package codeu.model.store.basic;
 
+import codeu.model.data.Action;
 import codeu.model.data.Activity;
 import codeu.model.store.persistence.PersistentStorageAgent;
 import java.time.Instant;
@@ -16,9 +17,9 @@ public class ActivityStoreTest {
   private ActivityStore activityStore;
   private PersistentStorageAgent mockPersistentStorageAgent;
 
-  private final Activity ACTIVITY_ONE = new Activity(UUID.randomUUID(), UUID.randomUUID(), "RegisteringUser", Instant.ofEpochMilli(1000), null);
-  private final Activity ACTIVITY_TWO = new Activity(UUID.randomUUID(), UUID.randomUUID(), "SendingPublicMessage", Instant.ofEpochMilli(1000), null);
-  private final Activity ACTIVITY_THREE = new Activity(UUID.randomUUID(), UUID.randomUUID(), "SendingPublicMessage", Instant.ofEpochMilli(1000), null);
+  private final Activity ACTIVITY_ONE = new Activity(UUID.randomUUID(), UUID.randomUUID(), Action.JOIN, Instant.ofEpochMilli(1000), null);
+  private final Activity ACTIVITY_TWO = new Activity(UUID.randomUUID(), UUID.randomUUID(), Action.SEND, Instant.ofEpochMilli(1000), null);
+  private final Activity ACTIVITY_THREE = new Activity(UUID.randomUUID(), UUID.randomUUID(), Action.SEND, Instant.ofEpochMilli(1000), null);
 
   @Before
   public void setup() {
@@ -42,7 +43,7 @@ public class ActivityStoreTest {
   public void testAddActivity() {
     UUID newAct = UUID.randomUUID();
     Activity inputActivity =
-            new Activity(newAct, UUID.randomUUID(), "RegisteringUser", Instant.now(), null);
+            new Activity(newAct, UUID.randomUUID(), Action.JOIN, Instant.now(), null);
 
     activityStore.addActivity(inputActivity);
     Activity resultActivity =
@@ -54,13 +55,13 @@ public class ActivityStoreTest {
 
   @Test
   public void testGetActivitiesWithType() {
-    List<Activity> resultActivity= activityStore.getActivitiesWithType("SendingPublicMessage");
+    List<Activity> resultActivity= activityStore.getActivitiesWithAction(Action.SEND);
     Assert.assertEquals(2, resultActivity.size());
   }
 
   @Test
   public void testGetActivitiesWithType_notFound() {
-    List<Activity> resultActivity= activityStore.getActivitiesWithType("Saving");
+    List<Activity> resultActivity= activityStore.getActivitiesWithAction(Action.CREATE);
     Assert.assertNull(resultActivity);
   }
 
@@ -71,7 +72,7 @@ public class ActivityStoreTest {
             new Activity(
                     activity1,
                     UUID.randomUUID(),
-                    "SendingPublicMessage",
+                    Action.SEND,
                     Instant.now(), null);
 
     UUID activity2 = UUID.randomUUID();
@@ -79,7 +80,7 @@ public class ActivityStoreTest {
             new Activity(
                     activity2,
                     UUID.randomUUID(),
-                    "RegisteringUser",
+                    Action.JOIN,
                     Instant.now(), null);
 
 
@@ -89,12 +90,12 @@ public class ActivityStoreTest {
     Activity resultAct = activityStore.getActivityWithId(activity2);
 
     assertEquals(resultAct, activity_two);
-    Assert.assertEquals("RegisteringUser", resultAct.getType());
+    Assert.assertEquals("RegisteringUser", resultAct.getAction().getContent());
   }
   private void assertEquals(Activity expectedActivity, Activity actualActivity) {
     Assert.assertEquals(expectedActivity.getId(), actualActivity.getId());
     Assert.assertEquals(expectedActivity.getOwnerId(), actualActivity.getOwnerId());
-    Assert.assertEquals(expectedActivity.getType(), actualActivity.getType());
+    Assert.assertEquals(expectedActivity.getAction().getContent(), actualActivity.getAction().getContent());
     Assert.assertEquals(expectedActivity.getThumbnail(), actualActivity.getThumbnail());
     Assert.assertEquals(
             expectedActivity.getCreationTime(), expectedActivity.getCreationTime());

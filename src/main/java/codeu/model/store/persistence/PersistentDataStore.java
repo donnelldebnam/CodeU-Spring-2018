@@ -14,10 +14,7 @@
 
 package codeu.model.store.persistence;
 
-import codeu.model.data.Activity;
-import codeu.model.data.Conversation;
-import codeu.model.data.Message;
-import codeu.model.data.User;
+import codeu.model.data.*;
 import codeu.model.store.persistence.PersistentDataStoreException;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -168,10 +165,10 @@ public class PersistentDataStore {
       try {
         UUID uuid = UUID.fromString((String) entity.getProperty("uuid"));
         UUID uuid_owner = UUID.fromString((String) entity.getProperty("owner_uuid"));
-        String type = (String) entity.getProperty("type");
+        Action action = (Action) entity.getProperty("action");
         Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
         String thumbnail = (String) entity.getProperty("thumbnail");
-        Activity activity = new Activity(uuid, uuid_owner, type, creationTime, thumbnail);
+        Activity activity = new Activity(uuid, uuid_owner, action, creationTime, thumbnail);
         activities.add(activity);
       } catch (Exception e) {
         // In a production environment, errors should be very rare. Errors which may
@@ -221,7 +218,7 @@ public class PersistentDataStore {
     Entity activityEntity = new Entity("chat-activities", activity.getId().toString());
     activityEntity.setProperty("uuid", activity.getId().toString());
     activityEntity.setProperty("owner_uuid", activity.getOwnerId().toString());
-    activityEntity.setProperty("type", activity.getType().toString());
+    activityEntity.setProperty("action", activity.getAction().getContent().toString());
     activityEntity.setProperty("creation_time", activity.getCreationTime().toString());
     activityEntity.setProperty("thumbnail", activity.getThumbnail().toString());
     datastore.put(activityEntity);
