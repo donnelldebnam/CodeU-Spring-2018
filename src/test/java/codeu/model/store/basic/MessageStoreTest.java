@@ -52,7 +52,7 @@ public class MessageStoreTest {
     assertMessageEquals(message1, resultMessagesSet.get(message1.getId()));
     assertMessageEquals(message3, resultMessagesSet.get(message3.getId()));
   }
-
+  
   @Test
   public void testGetMessagesInConversation_noMessagesFound() {
     Message message1 = new TestMessageBuilder().build();
