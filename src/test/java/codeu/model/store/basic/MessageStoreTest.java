@@ -4,6 +4,9 @@ import static codeu.model.data.ModelDataTestHelpers.assertMessageEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import codeu.model.data.Message;
+import codeu.model.data.ModelDataTestHelpers.TestMessageBuilder;
+import codeu.model.store.persistence.PersistentStorageAgent;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,15 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import codeu.model.data.Message;
-import codeu.model.data.ModelDataTestHelpers.TestMessageBuilder;
-import codeu.model.store.persistence.PersistentStorageAgent;
 
 public class MessageStoreTest {
 
@@ -70,21 +68,11 @@ public class MessageStoreTest {
   public void testgetMessageWithId() {
     UUID message1 = UUID.randomUUID();
     Message message_one =
-            new Message(
-                    message1,
-                    UUID.randomUUID(),
-                    UUID.randomUUID(),
-                    "test message",
-                    Instant.now());
+        new Message(message1, UUID.randomUUID(), UUID.randomUUID(), "test message", Instant.now());
 
     UUID message2 = UUID.randomUUID();
     Message message_two =
-            new Message(
-                    message2,
-                    UUID.randomUUID(),
-                    UUID.randomUUID(),
-                    "Message two",
-                    Instant.now());
+        new Message(message2, UUID.randomUUID(), UUID.randomUUID(), "Message two", Instant.now());
 
     messageStore.addMessage(message_one);
     messageStore.addMessage(message_two);
@@ -93,7 +81,6 @@ public class MessageStoreTest {
 
     assertEquals(resultMessage.getId(), message2);
     assertEquals("Message two", resultMessage.getContent());
-
   }
 
   @Test

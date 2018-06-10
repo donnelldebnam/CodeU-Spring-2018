@@ -14,7 +14,6 @@
 
 package codeu.model.store.basic;
 
-import codeu.model.data.Conversation;
 import codeu.model.data.User;
 import codeu.model.store.persistence.PersistentStorageAgent;
 import java.time.Instant;
@@ -160,5 +159,4 @@ public class UserStore {
   public List<User> getAllUsers() {
     return users;
   }
-
 }

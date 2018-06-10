@@ -76,20 +76,11 @@ public class ConversationStoreTest {
   public void testgetConversationWithId() {
     UUID conversation1 = UUID.randomUUID();
     Conversation conv_one =
-            new Conversation(
-                    conversation1,
-                    UUID.randomUUID(),
-                    "test message",
-                    Instant.now());
+        new Conversation(conversation1, UUID.randomUUID(), "test message", Instant.now());
 
     UUID conversation2 = UUID.randomUUID();
     Conversation conv_two =
-            new Conversation(
-                    conversation2,
-                    UUID.randomUUID(),
-                    "Conversation two",
-                    Instant.now());
-
+        new Conversation(conversation2, UUID.randomUUID(), "Conversation two", Instant.now());
 
     conversationStore.addConversation(conv_one);
     conversationStore.addConversation(conv_two);
@@ -99,6 +90,7 @@ public class ConversationStoreTest {
     Assert.assertEquals(resultConv.getId(), conversation2);
     Assert.assertEquals("Conversation two", resultConv.getTitle());
   }
+
   private void assertEquals(Conversation expectedConversation, Conversation actualConversation) {
     Assert.assertEquals(expectedConversation.getId(), actualConversation.getId());
     Assert.assertEquals(expectedConversation.getOwnerId(), actualConversation.getOwnerId());

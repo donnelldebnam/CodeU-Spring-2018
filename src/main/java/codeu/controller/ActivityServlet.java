@@ -7,7 +7,6 @@ import codeu.model.data.User;
 import codeu.model.store.basic.ConversationStore;
 import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.UserStore;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Servlet responsible for the activity feed page. */
-public class ActivityServlet extends HttpServlet{
+public class ActivityServlet extends HttpServlet {
 
   /** Store class that gives access to Conversations. */
   private ConversationStore conversationStore;
@@ -62,27 +61,25 @@ public class ActivityServlet extends HttpServlet{
   }
 
   /**
-   * This function fires when a user navigates to the activityFeed page. It fetches all the data from the
-   * database and displays it in order of the newest to oldest based on timestamp.
+   * This function fires when a user navigates to the activityFeed page. It fetches all the data
+   * from the database and displays it in order of the newest to oldest based on timestamp.
    */
-
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
-          throws IOException, ServletException {
+      throws IOException, ServletException {
     List<Activity> activities = new ArrayList<>();
 
     List<Conversation> conversations = conversationStore.getAllConversations();
     List<User> users = userStore.getAllUsers();
     List<Message> messages = messageStore.getAllMessages();
 
-    for(User u: users){
-      if(!u.isAdmin())
-        activities.add(new Activity(u));
+    for (User u : users) {
+      if (!u.isAdmin()) activities.add(new Activity(u));
     }
-    for(Conversation c: conversations){
+    for (Conversation c : conversations) {
       activities.add(new Activity(c));
     }
-    for(Message m: messages){
+    for (Message m : messages) {
       activities.add(new Activity(m));
     }
 
@@ -90,5 +87,4 @@ public class ActivityServlet extends HttpServlet{
 
     request.getRequestDispatcher("/WEB-INF/view/activity.jsp").forward(request, response);
   }
-
 }

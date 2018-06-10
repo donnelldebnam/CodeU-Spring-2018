@@ -1,11 +1,12 @@
 package codeu.model.data;
 
 import static org.junit.Assert.assertEquals;
-import org.junit.Test;
+
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
+import org.junit.Test;
 
 public class ActivityTest {
 
@@ -22,8 +23,9 @@ public class ActivityTest {
     assertEquals(id, activity.getOwnerId());
     assertEquals("RegisteringUser", activity.getAction().getContent());
     assertEquals(creation, activity.getCreationTime());
-    String time = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(u.getCreationTime());
-    assertEquals( time + ": User1 joined CodeByters!", activity.getThumbnail());
+    String time =
+        DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(u.getCreationTime());
+    assertEquals(time + ": User1 joined CodeByters!", activity.getThumbnail());
   }
 
   @Test
@@ -40,8 +42,11 @@ public class ActivityTest {
     assertEquals(owner, activity.getOwnerId());
     assertEquals("CreatingConversation", activity.getAction().getContent());
     assertEquals(creation, activity.getCreationTime());
-    String time = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(c.getCreationTime());
-    assertEquals( time + ": " + "[USER] created a new public conversation = \"Title1\".", activity.getThumbnail());
+    String time =
+        DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(c.getCreationTime());
+    assertEquals(
+        time + ": " + "[USER] created a new public conversation = \"Title1\".",
+        activity.getThumbnail());
   }
 
   @Test
@@ -61,7 +66,9 @@ public class ActivityTest {
     assertEquals(author, activity.getOwnerId());
     assertEquals("SendingMessage", activity.getAction().getContent());
     assertEquals(creation, activity.getCreationTime());
-    String time = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(c.getCreationTime());
-    assertEquals( time + ": [USER] sent a message in [Conversation]: hello.", activity.getThumbnail());
+    String time =
+        DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(c.getCreationTime());
+    assertEquals(
+        time + ": [USER] sent a message in [Conversation]: hello.", activity.getThumbnail());
   }
 }
