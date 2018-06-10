@@ -27,6 +27,7 @@
 <%@ page import="java.time.ZoneOffset" %>
 <%
 User user = (User) request.getAttribute("user");
+String profile_owner = (String) request.getAttribute("profile_owner");
 List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByUser");
 %>
 
@@ -54,46 +55,36 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
   </script>
 </head>
 <body>
-
-  <nav>
-    <a id="navTitle" href="/">CodeByter's Chat App</a>
-    <a href="/conversations">Conversations</a>
-    <% if(request.getSession().getAttribute("user") != null){ %>
-      <a>Hello <%=request.getSession().getAttribute("user")%>!</a>
-      <a href="/users/<%=request.getSession().getAttribute("user")%>">My Profile</a>
-      <a href="/logout.jsp">Logout</a>
-    <% } else { %>
-      <a href="/login">Login</a>
-    <% } %>
-    <a href="/activity">ActivityFeed</a>
-    <a href="/about.jsp">About</a>
-  </nav>
+  <%@ include file = "/navigations.jsp" %>
 
   <div id="container">
-
     <% if (request.getAttribute("error") != null) { %>
       <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
 
     <% if (request.getSession().getAttribute("user") != null) { %>
-      <h1><%=request.getSession().getAttribute("user")%>'s Profile Page</h1>
+
+      <h1><%=profile_owner%>'s Profile Page</h1>
       <hr/>
-      <strong>About <%=request.getSession().getAttribute("user")%></strong><br>
+      <strong>About <%=profile_owner%></strong><br>
       <p><%=StyleText.style(user.getAboutMe())%></p>
-      <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
 
-        <div class="form-group">
-          <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
-          <textarea rows="5" cols="120" name="About Me"></textarea>
-        </div>
+      <!--
+          Only show the editable fields if the logged in user is the
+          owner of this profile.
+      -->
+      <% if (request.getSession().getAttribute("user").equals(profile_owner)) { %>
+        <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
+          <div class="form-group">
+            <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
+            <textarea rows="5" cols="120" name="About Me"></textarea>
+          </div>
+          <button type="submit">submit</button>
+        </form>
+        <hr/>
+      <% } %>
 
-        <button type="submit">submit</button>
-      </form>
-
-      <hr/>
-
-      <h1><%=request.getSession().getAttribute("user")%>'s Sent Messages</h1>
-
+      <h1><%=profile_owner%>'s Sent Messages</h1>
       <div id="chat">
         <ul>
           <% for (Message message : messagesByUser) {
@@ -104,7 +95,6 @@ List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByU
           <% } %>
         </ul>
       </div>
-
       <hr/>
     <% } %>
   </div>

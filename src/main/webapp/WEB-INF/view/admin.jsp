@@ -13,6 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 --%>
+<%@ page import="codeu.controller.AdminServlet" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,20 +21,7 @@
   <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-
-  <nav>
-    <a id="navTitle" href="/">CodeByter's Chat App</a>
-    <a href="/conversations">Conversations</a>
-    <% if(request.getSession().getAttribute("user") != null){ %>
-      <a>Hello <%= request.getSession().getAttribute("user") %>!</a>
-      <a href="/users/<%= request.getSession().getAttribute("user")%>">My Profile</a>
-      <a href="/logout.jsp">Logout</a>
-    <% } else{ %>
-      <a href="/login">Login</a>
-    <% } %>
-    <a href="/activity">ActivityFeed</a>
-    <a href="/about.jsp">About</a>
-  </nav>
+  <%@ include file = "/navigations.jsp" %>
 
   <div id="container">
     <div
@@ -41,17 +29,17 @@
 
       <h1>Administration</h1>
       <p>
-        This is the administration page of the CodeU Chat App. Only the administrators of the site can view stats. 
+        This is the administration page of the CodeU Chat App. Only the administrators of the site can view stats. (Enjoy the authority!) 
       </p>
 
       <h2><strong>Site Statistics</strong></h2>
       <ul>
-        <li><strong>Total Users:</strong></li>
-        <li><strong>Total Conversations:</strong></li>
-        <li><strong>Total Messages:</strong></li>
-        <li><strong>Most Active User:</strong></li>
-        <li><strong>Newest User:</strong></li>
-        <li><strong>Wordiest User:</strong></li>
+        <li><strong>Total Users: </strong><%= request.getAttribute("totalUsers")%></li>
+        <li><strong>Total Conversations: </strong><%= request.getAttribute("totalConversations")%></li>
+        <li><strong>Total Messages: </strong><%= request.getAttribute("totalMessages")%></li>
+        <li><strong>Most Active User:</strong><%= request.getAttribute("mostActive")%></li>
+        <li><strong>Newest User:</strong><%= request.getAttribute("newestUser")%></li>
+        <li><strong>Wordiest User:</strong><%= request.getAttribute("wordiestUser")%></li>
       </ul>
       
     </div>

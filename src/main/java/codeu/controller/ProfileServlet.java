@@ -69,16 +69,16 @@ public class ProfileServlet extends HttpServlet {
       throws IOException, ServletException {
 
     String requestUrl = request.getRequestURI();
-    String username = requestUrl.substring("/users/".length());
+    String profile_owner = requestUrl.substring("/users/".length());
 
-    User user = userStore.getUser(username);
+    User user = userStore.getUser(profile_owner);
     if (user == null) {
       // user is not logged in, redirect to login page
       response.sendRedirect("/login");
       return;
     }
 
-    UUID userID = UserStore.getInstance().getUser(username).getId();
+    UUID userID = user.getId();
     if (userID == null) {
       // there is no user id, redirect to login page
       response.sendRedirect("/login");
@@ -88,6 +88,7 @@ public class ProfileServlet extends HttpServlet {
     List<Message> messagesByUser = messageStore.getMessagesByUser(userID);
 
     request.setAttribute("messagesByUser", messagesByUser);
+    request.setAttribute("profile_owner", profile_owner);
     request.setAttribute("user", user);
     request.getRequestDispatcher("/WEB-INF/view/profile.jsp").forward(request, response);
   }
@@ -115,11 +116,9 @@ public class ProfileServlet extends HttpServlet {
       return;
     }
 
-    // this removes any HTML from the content
-    String messageContent = request.getParameter("messagesByUser");
-    // String cleanedMessageContent = Jsoup.clean(messageContent, Whitelist.none());
-
     String aboutMeContent = request.getParameter("About Me");
+
+    // this removes any HTML from the content
     String cleanedAboutMeContent = Jsoup.clean(aboutMeContent, Whitelist.none());
 
     user.setAboutMe(cleanedAboutMeContent);
