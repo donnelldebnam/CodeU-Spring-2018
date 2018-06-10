@@ -159,9 +159,4 @@ public class UserStore {
     }
     return admins;
   }
-
-  /** Access the current set of users known to the application. */
-  public List<User> getAllUsers() {
-    return users;
-  }
 }

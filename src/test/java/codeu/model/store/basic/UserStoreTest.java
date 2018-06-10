@@ -166,7 +166,7 @@ public class UserStoreTest {
     final User user2 = new TestUserBuilder().withName("username_two").build();
     final User user3 = new TestUserBuilder().build();
     userStore.setUsers(Arrays.asList(user1, user2, user3));
-    List<User> users = userStore.getAllUsers();
+    List<User> users = userStore.getUsers();
     Assert.assertEquals(4, users.size());
   }
 

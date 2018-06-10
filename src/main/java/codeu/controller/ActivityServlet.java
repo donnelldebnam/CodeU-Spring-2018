@@ -70,7 +70,7 @@ public class ActivityServlet extends HttpServlet {
     List<Activity> activities = new ArrayList<>();
 
     List<Conversation> conversations = conversationStore.getAllConversations();
-    List<User> users = userStore.getAllUsers();
+    List<User> users = userStore.getUsers();
     List<Message> messages = messageStore.getAllMessages();
 
     for (User u : users) {
