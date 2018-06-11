@@ -1,5 +1,6 @@
 package codeu.model.store.basic;
 
+import codeu.model.data.Activity;
 import codeu.model.data.Conversation;
 import codeu.model.store.persistence.PersistentStorageAgent;
 import java.time.Instant;
@@ -15,6 +16,7 @@ public class ConversationStoreTest {
 
   private ConversationStore conversationStore;
   private PersistentStorageAgent mockPersistentStorageAgent;
+  private ActivityStore activityStore;
 
   private final Conversation CONVERSATION_ONE =
       new Conversation(
@@ -24,6 +26,8 @@ public class ConversationStoreTest {
   public void setup() {
     mockPersistentStorageAgent = Mockito.mock(PersistentStorageAgent.class);
     conversationStore = ConversationStore.getTestInstance(mockPersistentStorageAgent);
+    activityStore = ActivityStore.getTestInstance(mockPersistentStorageAgent);
+    conversationStore.setActivityStore(activityStore);
 
     final List<Conversation> conversationList = new ArrayList<>();
     conversationList.add(CONVERSATION_ONE);
@@ -64,41 +68,35 @@ public class ConversationStoreTest {
     Conversation inputConversation =
         new Conversation(UUID.randomUUID(), UUID.randomUUID(), "test_conversation", Instant.now());
 
-    conversationStore.addConversation(inputConversation, true);
+    conversationStore.addConversation(inputConversation);
     Conversation resultConversation =
         conversationStore.getConversationWithTitle("test_conversation");
 
     assertEquals(inputConversation, resultConversation);
     Mockito.verify(mockPersistentStorageAgent).writeThrough(inputConversation);
+    Activity activity1 = activityStore.getActivityWithId(inputConversation.getId());
+    Mockito.verify(mockPersistentStorageAgent).writeThrough(activity1);
   }
 
   @Test
   public void testgetConversationWithId() {
     UUID conversation1 = UUID.randomUUID();
     Conversation conv_one =
-            new Conversation(
-                    conversation1,
-                    UUID.randomUUID(),
-                    "test message",
-                    Instant.now());
+        new Conversation(conversation1, UUID.randomUUID(), "test message", Instant.now());
 
     UUID conversation2 = UUID.randomUUID();
     Conversation conv_two =
-            new Conversation(
-                    conversation2,
-                    UUID.randomUUID(),
-                    "Conversation two",
-                    Instant.now());
+        new Conversation(conversation2, UUID.randomUUID(), "Conversation two", Instant.now());
 
-
-    conversationStore.addConversation(conv_one, true);
-    conversationStore.addConversation(conv_two, true);
+    conversationStore.addConversation(conv_one);
+    conversationStore.addConversation(conv_two);
 
     Conversation resultConv = conversationStore.getConversationWithId(conversation2);
 
     Assert.assertEquals(resultConv.getId(), conversation2);
     Assert.assertEquals("Conversation two", resultConv.getTitle());
   }
+
   private void assertEquals(Conversation expectedConversation, Conversation actualConversation) {
     Assert.assertEquals(expectedConversation.getId(), actualConversation.getId());
     Assert.assertEquals(expectedConversation.getOwnerId(), actualConversation.getOwnerId());

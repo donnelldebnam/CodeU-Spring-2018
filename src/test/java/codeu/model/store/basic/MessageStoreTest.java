@@ -4,6 +4,10 @@ import static codeu.model.data.ModelDataTestHelpers.assertMessageEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import codeu.model.data.Activity;
+import codeu.model.data.Message;
+import codeu.model.data.ModelDataTestHelpers.TestMessageBuilder;
+import codeu.model.store.persistence.PersistentStorageAgent;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,20 +15,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import codeu.model.data.Message;
-import codeu.model.data.ModelDataTestHelpers.TestMessageBuilder;
-import codeu.model.store.persistence.PersistentStorageAgent;
-
 public class MessageStoreTest {
 
   private MessageStore messageStore;
   private PersistentStorageAgent mockPersistentStorageAgent;
+  private ActivityStore activityStore;
 
   private final UUID CONVERSATION_ID_ONE = UUID.randomUUID();
   private final UUID USER_ONE = UUID.randomUUID();
@@ -33,6 +33,8 @@ public class MessageStoreTest {
   public void setup() {
     mockPersistentStorageAgent = Mockito.mock(PersistentStorageAgent.class);
     messageStore = MessageStore.getTestInstance(mockPersistentStorageAgent);
+    activityStore = ActivityStore.getTestInstance(mockPersistentStorageAgent);
+    messageStore.setActivityStore(activityStore);
   }
 
   @Test
@@ -52,7 +54,7 @@ public class MessageStoreTest {
     assertMessageEquals(message1, resultMessagesSet.get(message1.getId()));
     assertMessageEquals(message3, resultMessagesSet.get(message3.getId()));
   }
-  
+
   @Test
   public void testGetMessagesInConversation_noMessagesFound() {
     Message message1 = new TestMessageBuilder().build();
@@ -70,24 +72,14 @@ public class MessageStoreTest {
   public void testgetMessageWithId() {
     UUID message1 = UUID.randomUUID();
     Message message_one =
-            new Message(
-                    message1,
-                    UUID.randomUUID(),
-                    UUID.randomUUID(),
-                    "test message",
-                    Instant.now());
+        new Message(message1, UUID.randomUUID(), UUID.randomUUID(), "test message", Instant.now());
 
     UUID message2 = UUID.randomUUID();
     Message message_two =
-            new Message(
-                    message2,
-                    UUID.randomUUID(),
-                    UUID.randomUUID(),
-                    "Message two",
-                    Instant.now());
+        new Message(message2, UUID.randomUUID(), UUID.randomUUID(), "Message two", Instant.now());
 
-    messageStore.addMessage(message_one, true);
-    messageStore.addMessage(message_two, true);
+    messageStore.addMessage(message_one);
+    messageStore.addMessage(message_two);
 
     Message resultMessage = messageStore.getMessageWithId(message2);
 
@@ -130,7 +122,7 @@ public class MessageStoreTest {
     messageStore.setMessages(messageList);
 
     Message message3 = new TestMessageBuilder().withConversationId(CONVERSATION_ID_ONE).build();
-    messageStore.addMessage(message3, true);
+    messageStore.addMessage(message3);
 
     List<Message> resultMessages = messageStore.getMessagesInConversation(CONVERSATION_ID_ONE);
     assertEquals(1, resultMessages.size());
@@ -140,5 +132,7 @@ public class MessageStoreTest {
     }
     assertMessageEquals(message3, resultMessagesSet.get(message3.getId()));
     Mockito.verify(mockPersistentStorageAgent).writeThrough(message3);
+    Activity activity1 = activityStore.getActivityWithId(message3.getId());
+    Mockito.verify(mockPersistentStorageAgent).writeThrough(activity1);
   }
 }

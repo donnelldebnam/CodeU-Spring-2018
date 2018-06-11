@@ -55,7 +55,7 @@ public class RegisterServlet extends HttpServlet {
     }
 
     String password = request.getParameter("password");
-    userStore.addUser(username, password, /*admin=*/false, /*testing=*/false);
+    userStore.addUser(username, password, /*admin=*/ false);
     response.sendRedirect("/login");
   }
 }

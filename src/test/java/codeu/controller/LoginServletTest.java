@@ -19,7 +19,6 @@ import codeu.model.store.basic.UserStore;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.UUID;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -91,7 +90,8 @@ public class LoginServletTest {
 
     loginServlet.doPost(mockRequest, mockResponse);
 
-    Mockito.verify(mockUserStore, Mockito.never()).addUser(Mockito.any(String.class), Mockito.any(String.class), Mockito.any(Boolean.class), Mockito.any(Boolean.class));
+    Mockito.verify(mockUserStore, Mockito.never())
+        .addUser(Mockito.any(String.class), Mockito.any(String.class), Mockito.any(Boolean.class));
     Mockito.verify(mockSession).setAttribute("user", "test username");
     Mockito.verify(mockResponse).sendRedirect("/conversations");
   }

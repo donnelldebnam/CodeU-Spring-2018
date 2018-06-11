@@ -1,5 +1,6 @@
 package codeu.model.store.basic;
 
+import codeu.model.data.Activity;
 import codeu.model.data.User;
 import codeu.model.store.persistence.PersistentStorageAgent;
 import java.time.Instant;
@@ -14,6 +15,7 @@ import org.mockito.Mockito;
 public class UserStoreTest {
   private UserStore userStore;
   private PersistentStorageAgent mockPersistentStorageAgent;
+  private ActivityStore activityStore;
 
   private final User USER_ONE =
       new User(
@@ -38,6 +40,8 @@ public class UserStoreTest {
   public void setup() {
     mockPersistentStorageAgent = Mockito.mock(PersistentStorageAgent.class);
     userStore = UserStore.getTestInstance(mockPersistentStorageAgent);
+    activityStore = ActivityStore.getTestInstance(mockPersistentStorageAgent);
+    userStore.setActivityStore(activityStore);
 
     final List<User> userList = new ArrayList<>();
     userList.add(USER_ONE);
@@ -76,7 +80,7 @@ public class UserStoreTest {
 
   @Test
   public void testAddUserByName() {
-    userStore.addUser("test username1", "Password1", false, true);
+    userStore.addUser("test username1", "Password1", false);
     User resultUser = userStore.getUser("test username1");
 
     Assert.assertEquals(resultUser.getName(), "test username1");
@@ -84,6 +88,8 @@ public class UserStoreTest {
     Assert.assertFalse(resultUser.isAdmin());
 
     Mockito.verify(mockPersistentStorageAgent).writeThrough(resultUser);
+    Activity activity1 = activityStore.getActivityWithId(resultUser.getId());
+    Mockito.verify(mockPersistentStorageAgent).writeThrough(activity1);
   }
 
   @Test
@@ -95,11 +101,13 @@ public class UserStoreTest {
             "$2a$10$eDhncK/4cNH2KE.Y51AWpeL8/5znNBQLuAFlyJpSYNODR/SJQ/Fg6",
             Instant.now());
 
-    userStore.addUser(inputUser, true);
+    userStore.addUser(inputUser);
     User resultUser = userStore.getUser("test_username");
 
     assertEquals(inputUser, resultUser);
     Mockito.verify(mockPersistentStorageAgent).writeThrough(inputUser);
+    Activity activity1 = activityStore.getActivityWithId(resultUser.getId());
+    Mockito.verify(mockPersistentStorageAgent).writeThrough(activity1);
   }
 
   @Test

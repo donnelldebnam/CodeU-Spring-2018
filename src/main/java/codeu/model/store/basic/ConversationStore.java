@@ -31,6 +31,11 @@ public class ConversationStore {
   /** Singleton instance of ConversationStore. */
   private static ConversationStore instance;
 
+  private ActivityStore activityStore;
+
+  public void setActivityStore(ActivityStore activityStore) {
+    this.activityStore = activityStore;
+  }
   /**
    * Returns the singleton instance of ConversationStore that should be shared between all servlet
    * classes. Do not call this function from a test; use getTestInstance() instead.
@@ -38,6 +43,7 @@ public class ConversationStore {
   public static ConversationStore getInstance() {
     if (instance == null) {
       instance = new ConversationStore(PersistentStorageAgent.getInstance());
+      instance.setActivityStore(ActivityStore.getInstance());
     }
     return instance;
   }
@@ -66,15 +72,15 @@ public class ConversationStore {
     conversations = new ArrayList<>();
   }
 
-/** Access the current set of conversations known to the application. */
+  /** Access the current set of conversations known to the application. */
   public List<Conversation> getAllConversations() {
     return conversations;
   }
 
   /** Add a new conversation to the current set of conversations known to the application. */
-  public void addConversation(Conversation conversation, boolean testing) {
+  public void addConversation(Conversation conversation) {
     conversations.add(conversation);
-    if(!testing) ActivityStore.getInstance().addActivity(new Activity(conversation));
+    activityStore.addActivity(new Activity(conversation));
     persistentStorageAgent.writeThrough(conversation);
   }
 

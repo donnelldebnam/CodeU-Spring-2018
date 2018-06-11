@@ -15,7 +15,6 @@
 package codeu.model.store.basic;
 
 import codeu.model.data.Activity;
-import codeu.model.data.Conversation;
 import codeu.model.data.Message;
 import codeu.model.store.persistence.PersistentStorageAgent;
 import java.util.ArrayList;
@@ -32,6 +31,12 @@ public class MessageStore {
   /** Singleton instance of MessageStore. */
   private static MessageStore instance;
 
+  private ActivityStore activityStore;
+
+  public void setActivityStore(ActivityStore activityStore) {
+    this.activityStore = activityStore;
+  }
+
   /**
    * Returns the singleton instance of MessageStore that should be shared between all servlet
    * classes. Do not call this function from a test; use getTestInstance() instead.
@@ -39,6 +44,7 @@ public class MessageStore {
   public static MessageStore getInstance() {
     if (instance == null) {
       instance = new MessageStore(PersistentStorageAgent.getInstance());
+      instance.setActivityStore(ActivityStore.getInstance());
     }
     return instance;
   }
@@ -68,9 +74,9 @@ public class MessageStore {
   }
 
   /** Add a new message to the current set of messages known to the application. */
-  public void addMessage(Message message, Boolean testing) {
+  public void addMessage(Message message) {
     messages.add(message);
-    if(!testing)ActivityStore.getInstance().addActivity(new Activity(message));
+    activityStore.addActivity(new Activity(message));
     persistentStorageAgent.writeThrough(message);
   }
 

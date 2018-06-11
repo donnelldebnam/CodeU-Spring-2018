@@ -3,20 +3,19 @@ package codeu.controller;
 import codeu.model.data.Action;
 import codeu.model.data.Activity;
 import codeu.model.store.basic.ActivityStore;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
 
 public class ActivityServletTest {
   private ActivityServlet activityServlet;
@@ -37,7 +36,7 @@ public class ActivityServletTest {
     mockResponse = Mockito.mock(HttpServletResponse.class);
     mockRequestDispatcher = Mockito.mock(RequestDispatcher.class);
     Mockito.when(mockRequest.getRequestDispatcher("/WEB-INF/view/activity.jsp"))
-            .thenReturn(mockRequestDispatcher);
+        .thenReturn(mockRequestDispatcher);
 
     mockActivityStore = Mockito.mock(ActivityStore.class);
     activityServlet.setActivityStore(mockActivityStore);
@@ -47,7 +46,7 @@ public class ActivityServletTest {
   public void testDoGet() throws IOException, ServletException {
     List<Activity> fakeActivityList = new ArrayList<>();
     fakeActivityList.add(
-            new Activity(UUID.randomUUID(), UUID.randomUUID(), Action.JOIN, Instant.now(), null));
+        new Activity(UUID.randomUUID(), UUID.randomUUID(), Action.JOIN, Instant.now(), null));
     Mockito.when(mockActivityStore.getAllActivities()).thenReturn(fakeActivityList);
 
     activityServlet.doGet(mockRequest, mockResponse);
@@ -55,5 +54,4 @@ public class ActivityServletTest {
     Mockito.verify(mockRequest).setAttribute("activities", fakeActivityList);
     Mockito.verify(mockRequestDispatcher).forward(mockRequest, mockResponse);
   }
-
 }

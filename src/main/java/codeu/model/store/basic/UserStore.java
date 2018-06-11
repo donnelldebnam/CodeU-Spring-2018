@@ -15,7 +15,6 @@
 package codeu.model.store.basic;
 
 import codeu.model.data.Activity;
-import codeu.model.data.Conversation;
 import codeu.model.data.User;
 import codeu.model.store.persistence.PersistentStorageAgent;
 import java.time.Instant;
@@ -34,6 +33,12 @@ public class UserStore {
   /** Singleton instance of UserStore. */
   private static UserStore instance;
 
+  private ActivityStore activityStore;
+
+  public void setActivityStore(ActivityStore activityStore) {
+    this.activityStore = activityStore;
+  }
+
   /**
    * Returns the singleton instance of UserStore that should be shared between all servlet classes.
    * Do not call this function from a test; use getTestInstance() instead.
@@ -41,6 +46,7 @@ public class UserStore {
   public static UserStore getInstance() {
     if (instance == null) {
       instance = new UserStore(PersistentStorageAgent.getInstance());
+      instance.setActivityStore(ActivityStore.getInstance());
     }
     return instance;
   }
@@ -68,18 +74,18 @@ public class UserStore {
     users = new ArrayList<>();
 
     // hard-coded initial Admin:
-    this.addUser("Admin01", "AdminPass01", true, false);
+    this.addUser("Admin01", "AdminPass01", true);
   }
 
   /**
    * Add a new user to the current set of users known to the application. This should only be called
    * to add a new user, not to update an existing user.
    */
-  public void addUser(String username, String password, boolean admin, boolean testing) {
+  public void addUser(String username, String password, boolean admin) {
     String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
     User user = new User(UUID.randomUUID(), username, hashedPassword, Instant.now());
     user.setAdmin(admin);
-    this.addUser(user, testing);
+    this.addUser(user);
   }
 
   /**
@@ -115,10 +121,9 @@ public class UserStore {
    * Add a new user to the current set of users known to the application. This should only be called
    * * to add a new user, not to update an existing user.
    */
-  public void addUser(User user, boolean testing) {
+  public void addUser(User user) {
     users.add(user);
-    if(!user.isAdmin() && !testing)
-      ActivityStore.getInstance().addActivity(new Activity(user));
+    if (!user.isAdmin()) activityStore.addActivity(new Activity(user));
     persistentStorageAgent.writeThrough(user);
   }
 
@@ -162,5 +167,4 @@ public class UserStore {
   public List<User> getAllUsers() {
     return users;
   }
-
 }

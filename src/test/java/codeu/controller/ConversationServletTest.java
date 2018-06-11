@@ -84,7 +84,7 @@ public class ConversationServletTest {
     conversationServlet.doPost(mockRequest, mockResponse);
 
     Mockito.verify(mockConversationStore, Mockito.never())
-        .addConversation(Mockito.any(Conversation.class), Mockito.any(Boolean.class));
+        .addConversation(Mockito.any(Conversation.class));
     Mockito.verify(mockResponse).sendRedirect("/conversations");
   }
 
@@ -96,7 +96,7 @@ public class ConversationServletTest {
     conversationServlet.doPost(mockRequest, mockResponse);
 
     Mockito.verify(mockConversationStore, Mockito.never())
-        .addConversation(Mockito.any(Conversation.class), Mockito.any(Boolean.class));
+        .addConversation(Mockito.any(Conversation.class));
     Mockito.verify(mockResponse).sendRedirect("/conversations");
   }
 
@@ -116,7 +116,7 @@ public class ConversationServletTest {
     conversationServlet.doPost(mockRequest, mockResponse);
 
     Mockito.verify(mockConversationStore, Mockito.never())
-        .addConversation(Mockito.any(Conversation.class), Mockito.any(Boolean.class));
+        .addConversation(Mockito.any(Conversation.class));
     Mockito.verify(mockRequest).setAttribute("error", "Please enter only letters and numbers.");
     Mockito.verify(mockRequestDispatcher).forward(mockRequest, mockResponse);
   }
@@ -139,7 +139,7 @@ public class ConversationServletTest {
     conversationServlet.doPost(mockRequest, mockResponse);
 
     Mockito.verify(mockConversationStore, Mockito.never())
-        .addConversation(Mockito.any(Conversation.class), Mockito.any(Boolean.class));
+        .addConversation(Mockito.any(Conversation.class));
     Mockito.verify(mockResponse).sendRedirect("/chat/test_conversation");
   }
 
@@ -162,7 +162,7 @@ public class ConversationServletTest {
 
     ArgumentCaptor<Conversation> conversationArgumentCaptor =
         ArgumentCaptor.forClass(Conversation.class);
-    Mockito.verify(mockConversationStore).addConversation(conversationArgumentCaptor.capture(), Mockito.any(Boolean.class));
+    Mockito.verify(mockConversationStore).addConversation(conversationArgumentCaptor.capture());
     Assert.assertEquals(conversationArgumentCaptor.getValue().getTitle(), "test_conversation");
 
     Mockito.verify(mockResponse).sendRedirect("/chat/test_conversation");

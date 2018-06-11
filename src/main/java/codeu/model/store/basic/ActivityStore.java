@@ -38,8 +38,8 @@ public class ActivityStore {
   }
 
   /**
-   * The PersistentStorageAgent responsible for loading Activities from and saving Activities
-   * to Datastore.
+   * The PersistentStorageAgent responsible for loading Activities from and saving Activities to
+   * Datastore.
    */
   private PersistentStorageAgent persistentStorageAgent;
 
@@ -71,7 +71,7 @@ public class ActivityStore {
         activity_list.add(activity);
       }
     }
-    if(activity_list.size() == 0) {
+    if (activity_list.size() == 0) {
       return null;
     }
     return activity_list;
