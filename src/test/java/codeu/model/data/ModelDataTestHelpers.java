@@ -19,6 +19,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.time.Instant;
+import java.util.Random;
 import java.util.UUID;
 
 public class ModelDataTestHelpers {
@@ -60,6 +61,8 @@ public class ModelDataTestHelpers {
       assertEquals(expected.getName(), actual.getName());
       assertEquals(expected.getPasswordHash(), actual.getPasswordHash());
       assertEquals(expected.getCreationTime(), actual.getCreationTime());
+      assertEquals(expected.isAdmin(), actual.isAdmin());
+      assertEquals(expected.getAboutMe(), actual.getAboutMe());
     }
   }
 
@@ -175,7 +178,7 @@ public class ModelDataTestHelpers {
    *
    * <pre>{@code
    * String fakeName = "Alex Smith";
-   * User fakeUser = new TestUserBuilder().name(fakeName).build();
+   * User fakeUser = new TestUserBuilder().withName(fakeName).build();
    * }</pre>
    */
   public static class TestUserBuilder {
@@ -183,12 +186,18 @@ public class ModelDataTestHelpers {
     private String name;
     private String passwordHash;
     private Instant creationTime;
+    private boolean admin;
+    private String aboutMe;
+
+    private Random random = new Random();
 
     public TestUserBuilder() {
       this.id = UUID.randomUUID();
       this.name = UUID.randomUUID().toString();
       this.passwordHash = UUID.randomUUID().toString();
       this.creationTime = Instant.now();
+      this.admin = random.nextBoolean();
+      this.aboutMe = UUID.randomUUID().toString();
     }
 
     public TestUserBuilder withId(UUID id) {
@@ -211,8 +220,21 @@ public class ModelDataTestHelpers {
       return this;
     }
 
+    public TestUserBuilder withAdmin(boolean admin) {
+      this.admin = admin;
+      return this;
+    }
+
+    public TestUserBuilder withAboutMe(String aboutMe) {
+      this.aboutMe = aboutMe;
+      return this;
+    }
+
     public User build() {
-      return new User(id, name, passwordHash, creationTime);
+      User user = new User(id, name, passwordHash, creationTime);
+      user.setAdmin(admin);
+      user.setAboutMe(aboutMe);
+      return user;
     }
   }
 }

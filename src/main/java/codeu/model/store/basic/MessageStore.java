@@ -123,4 +123,9 @@ public class MessageStore {
   public void setMessages(List<Message> messages) {
     this.messages = messages;
   }
+
+  /** Gets the total number of Messages stored by this MessageStore. */
+  public int getTotalMessages() {
+    return this.messages.size();
+  }
 }

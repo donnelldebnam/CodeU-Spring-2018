@@ -15,14 +15,14 @@
 package codeu.controller;
 
 import codeu.model.data.Conversation;
+import codeu.model.data.ModelDataTestHelpers.TestConversationBuilder;
+import codeu.model.data.ModelDataTestHelpers.TestUserBuilder;
 import codeu.model.data.User;
 import codeu.model.store.basic.ConversationStore;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -67,8 +67,7 @@ public class ConversationServletTest {
   @Test
   public void testDoGet() throws IOException, ServletException {
     List<Conversation> fakeConversationList = new ArrayList<>();
-    fakeConversationList.add(
-        new Conversation(UUID.randomUUID(), UUID.randomUUID(), "test_conversation", Instant.now()));
+    fakeConversationList.add(new TestConversationBuilder().withTitle("test_conversation").build());
     Mockito.when(mockConversationStore.getAllConversations()).thenReturn(fakeConversationList);
 
     conversationServlet.doGet(mockRequest, mockResponse);
@@ -105,12 +104,7 @@ public class ConversationServletTest {
     Mockito.when(mockRequest.getParameter("conversationTitle")).thenReturn("bad !@#$% name");
     Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
 
-    User fakeUser =
-        new User(
-            UUID.randomUUID(),
-            "test_username",
-            "$2a$10$eDhncK/4cNH2KE.Y51AWpeL8/5znNBQLuAFlyJpSYNODR/SJQ/Fg6",
-            Instant.now());
+    User fakeUser = new TestUserBuilder().withName("test_username").build();
     Mockito.when(mockUserStore.getUser("test_username")).thenReturn(fakeUser);
 
     conversationServlet.doPost(mockRequest, mockResponse);
@@ -126,12 +120,7 @@ public class ConversationServletTest {
     Mockito.when(mockRequest.getParameter("conversationTitle")).thenReturn("test_conversation");
     Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
 
-    User fakeUser =
-        new User(
-            UUID.randomUUID(),
-            "test_username",
-            "$2a$10$eDhncK/4cNH2KE.Y51AWpeL8/5znNBQLuAFlyJpSYNODR/SJQ/Fg6",
-            Instant.now());
+    User fakeUser = new TestUserBuilder().withName("test_username").build();
     Mockito.when(mockUserStore.getUser("test_username")).thenReturn(fakeUser);
 
     Mockito.when(mockConversationStore.isTitleTaken("test_conversation")).thenReturn(true);
@@ -148,12 +137,7 @@ public class ConversationServletTest {
     Mockito.when(mockRequest.getParameter("conversationTitle")).thenReturn("test_conversation");
     Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
 
-    User fakeUser =
-        new User(
-            UUID.randomUUID(),
-            "test_username",
-            "$2a$10$eDhncK/4cNH2KE.Y51AWpeL8/5znNBQLuAFlyJpSYNODR/SJQ/Fg6",
-            Instant.now());
+    User fakeUser = new TestUserBuilder().withName("test_username").build();
     Mockito.when(mockUserStore.getUser("test_username")).thenReturn(fakeUser);
 
     Mockito.when(mockConversationStore.isTitleTaken("test_conversation")).thenReturn(false);

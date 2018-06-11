@@ -119,7 +119,7 @@ public class UserStore {
 
   /**
    * Add a new user to the current set of users known to the application. This should only be called
-   * * to add a new user, not to update an existing user.
+   * to add a new user, not to update an existing user.
    */
   public void addUser(User user) {
     users.add(user);
@@ -152,6 +152,11 @@ public class UserStore {
     }
   }
 
+  /** Gets a List of Users from this UserStore. */
+  public List<User> getUsers() {
+    return users;
+  }
+
   /** Gets a List of Admins filtered from the List of Users. */
   public ArrayList<User> getAdmins() {
     ArrayList<User> admins = new ArrayList<>();
@@ -161,10 +166,5 @@ public class UserStore {
       }
     }
     return admins;
-  }
-
-  /** Access the current set of users known to the application. */
-  public List<User> getAllUsers() {
-    return users;
   }
 }
