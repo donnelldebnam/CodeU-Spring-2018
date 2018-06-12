@@ -9,18 +9,18 @@ public enum Action {
   /** More info about the action taken */
   private String content;
   /** Is the action public or private ? */
-  private Boolean access;
+  private Boolean isPublic;
 
-  private Action(String content, Boolean access) {
+  private Action(String content, Boolean isPublic) {
     this.content = content;
-    this.access = access;
+    this.isPublic = isPublic;
   }
 
   public String getContent() {
     return content;
   }
 
-  public Boolean getAccess() {
-    return access;
+  public Boolean isPublic() {
+    return isPublic;
   }
 }

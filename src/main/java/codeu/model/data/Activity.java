@@ -89,11 +89,7 @@ public class Activity {
     return creation;
   }
 
-  /**
-   * Returns a small summary of the activity
-   *
-   * @return
-   */
+  /** Returns a small summary of the activity */
   public String getThumbnail() {
     return thumbnail;
   }
