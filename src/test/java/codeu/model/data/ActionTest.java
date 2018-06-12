@@ -18,11 +18,11 @@ public class ActionTest {
     Activity activity3 =
         new Activity(UUID.randomUUID(), UUID.randomUUID(), Action.SEND, Instant.now(), "sending");
 
-    assertEquals(activity1.getAction().getAccess(), /*public*/ true);
+    assertEquals(activity1.getAction().isPublic(), /*public*/ true);
     assertEquals("RegisteringUser", activity1.getAction().getContent());
-    assertEquals(activity2.getAction().getAccess(), /*public*/ true);
+    assertEquals(activity2.getAction().isPublic(), /*public*/ true);
     assertEquals("CreatingConversation", activity2.getAction().getContent());
-    assertEquals(activity3.getAction().getAccess(), /*public*/ true);
+    assertEquals(activity3.getAction().isPublic(), /*public*/ true);
     assertEquals("SendingMessage", activity3.getAction().getContent());
   }
 }
