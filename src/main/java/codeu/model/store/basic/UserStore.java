@@ -74,7 +74,7 @@ public class UserStore {
     users = new ArrayList<>();
 
     // hard-coded initial Admin:
-    this.addUser("Admin01", "AdminPass01", true);
+    this.addUser("Admin01", "AdminPass01",  /*admin=*/ true);
   }
 
   /**
