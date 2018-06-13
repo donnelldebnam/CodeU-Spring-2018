@@ -2,6 +2,7 @@ package codeu.model.store.basic;
 
 import codeu.model.data.Action;
 import codeu.model.data.Activity;
+import codeu.model.data.ModelDataTestHelpers.TestActivityBuilder;
 import codeu.model.store.persistence.PersistentStorageAgent;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -18,14 +19,11 @@ public class ActivityStoreTest {
   private PersistentStorageAgent mockPersistentStorageAgent;
 
   private final Activity ACTIVITY_ONE =
-      new Activity(
-          UUID.randomUUID(), UUID.randomUUID(), Action.JOIN, Instant.ofEpochMilli(1000), null);
+      new TestActivityBuilder().withAction("RegisteringUser").build();
   private final Activity ACTIVITY_TWO =
-      new Activity(
-          UUID.randomUUID(), UUID.randomUUID(), Action.SEND, Instant.ofEpochMilli(1000), null);
+      new TestActivityBuilder().withAction(Action.JOIN.getContent()).build();
   private final Activity ACTIVITY_THREE =
-      new Activity(
-          UUID.randomUUID(), UUID.randomUUID(), Action.SEND, Instant.ofEpochMilli(1000), null);
+      new TestActivityBuilder().withAction(Action.SEND.getContent()).build();
 
   @Before
   public void setup() {
@@ -49,7 +47,11 @@ public class ActivityStoreTest {
   public void testAddActivity() {
     UUID newAct = UUID.randomUUID();
     Activity inputActivity =
-        new Activity(newAct, UUID.randomUUID(), Action.JOIN, Instant.now(), null);
+        new TestActivityBuilder()
+            .withId(newAct)
+            .withAction("RegisteringUser")
+            .withIsPublic(true)
+            .build();
 
     activityStore.addActivity(inputActivity);
     Activity resultActivity = activityStore.getActivityWithId(newAct);
@@ -60,13 +62,14 @@ public class ActivityStoreTest {
 
   @Test
   public void testGetActivitiesWithType() {
-    List<Activity> resultActivity = activityStore.getActivitiesWithAction(Action.SEND);
+    List<Activity> resultActivity = activityStore.getActivitiesWithAction(Action.JOIN.getContent());
     Assert.assertEquals(2, resultActivity.size());
   }
 
   @Test
   public void testGetActivitiesWithType_notFound() {
-    List<Activity> resultActivity = activityStore.getActivitiesWithAction(Action.CREATE);
+    List<Activity> resultActivity =
+        activityStore.getActivitiesWithAction(Action.CREATE.getContent());
     Assert.assertNull(resultActivity);
   }
 
@@ -74,11 +77,20 @@ public class ActivityStoreTest {
   public void testgetActivityWithId() {
     UUID activity1 = UUID.randomUUID();
     Activity activity_one =
-        new Activity(activity1, UUID.randomUUID(), Action.SEND, Instant.now(), null);
+        new TestActivityBuilder()
+            .withId(activity1)
+            .withAction(Action.SEND.getContent())
+            .withIsPublic(true)
+            .build();
+    new Activity(activity1, UUID.randomUUID(), Action.SEND.getContent(), true, Instant.now(), null);
 
     UUID activity2 = UUID.randomUUID();
     Activity activity_two =
-        new Activity(activity2, UUID.randomUUID(), Action.JOIN, Instant.now(), null);
+        new TestActivityBuilder()
+            .withId(activity2)
+            .withAction(Action.JOIN.getContent())
+            .withIsPublic(true)
+            .build();
 
     activityStore.addActivity(activity_one);
     activityStore.addActivity(activity_two);
@@ -86,14 +98,13 @@ public class ActivityStoreTest {
     Activity resultAct = activityStore.getActivityWithId(activity2);
 
     assertEquals(resultAct, activity_two);
-    Assert.assertEquals("RegisteringUser", resultAct.getAction().getContent());
+    Assert.assertEquals("RegisteringUser", resultAct.getAction());
   }
 
   private void assertEquals(Activity expectedActivity, Activity actualActivity) {
     Assert.assertEquals(expectedActivity.getId(), actualActivity.getId());
     Assert.assertEquals(expectedActivity.getOwnerId(), actualActivity.getOwnerId());
-    Assert.assertEquals(
-        expectedActivity.getAction().getContent(), actualActivity.getAction().getContent());
+    Assert.assertEquals(expectedActivity.getAction(), actualActivity.getAction());
     Assert.assertEquals(expectedActivity.getThumbnail(), actualActivity.getThumbnail());
     Assert.assertEquals(expectedActivity.getCreationTime(), expectedActivity.getCreationTime());
   }

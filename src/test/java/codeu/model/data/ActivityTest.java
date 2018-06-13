@@ -21,7 +21,7 @@ public class ActivityTest {
     assertEquals(id, activity.getId());
     // By default, the user is his own owner
     assertEquals(id, activity.getOwnerId());
-    assertEquals("RegisteringUser", activity.getAction().getContent());
+    assertEquals("RegisteringUser", activity.getAction());
     assertEquals(creation, activity.getCreationTime());
     String time =
         DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(u.getCreationTime());
@@ -40,7 +40,7 @@ public class ActivityTest {
 
     assertEquals(id, activity.getId());
     assertEquals(owner, activity.getOwnerId());
-    assertEquals("CreatingConversation", activity.getAction().getContent());
+    assertEquals("CreatingConversation", activity.getAction());
     assertEquals(creation, activity.getCreationTime());
     String time =
         DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(c.getCreationTime());
@@ -64,7 +64,7 @@ public class ActivityTest {
 
     assertEquals(id, activity.getId());
     assertEquals(author, activity.getOwnerId());
-    assertEquals("SendingMessage", activity.getAction().getContent());
+    assertEquals("SendingMessage", activity.getAction());
     assertEquals(creation, activity.getCreationTime());
     String time =
         DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(c.getCreationTime());

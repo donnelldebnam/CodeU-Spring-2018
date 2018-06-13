@@ -76,8 +76,12 @@ public class MessageStore {
   /** Add a new message to the current set of messages known to the application. */
   public void addMessage(Message message) {
     messages.add(message);
-    activityStore.addActivity(new Activity(message));
-    persistentStorageAgent.writeThrough(message);
+    Activity activity1 = new Activity(message);
+    activity1.setIsPublic(true);
+    if (activityStore != null) {
+      activityStore.addActivity(activity1);
+      persistentStorageAgent.writeThrough(message);
+    }
   }
 
   /** Access the current set of Messages within the given Conversation. */

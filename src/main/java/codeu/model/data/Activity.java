@@ -12,9 +12,10 @@ import java.util.UUID;
 public class Activity {
   public final UUID id;
   public final UUID owner;
-  public final Action action;
+  public final String action;
   public final Instant creation;
   public final String thumbnail;
+  public boolean isPublic;
 
   /**
    * Constructs a new activity.
@@ -24,11 +25,14 @@ public class Activity {
    * @param action the action of the activity (join, send, create)
    * @param creation the creation time of this Conversation
    * @param thumbnail a short summary about the activity
+   * @param isPublic a short summary about the activity
    */
-  public Activity(UUID id, UUID owner, Action action, Instant creation, String thumbnail) {
+  public Activity(
+      UUID id, UUID owner, String action, boolean isPublic, Instant creation, String thumbnail) {
     this.id = id;
     this.action = action;
     this.owner = owner;
+    this.isPublic = isPublic;
     this.creation = creation;
     this.thumbnail = thumbnail;
   }
@@ -36,8 +40,10 @@ public class Activity {
   public Activity(User u) {
     this(
         u.getId(),
+            // the owner's ID and activity's ID are the same!
         u.getId(),
-        Action.JOIN,
+        Action.JOIN.getContent(),
+        true,
         u.getCreationTime(),
         DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(u.getCreationTime())
             + ": "
@@ -49,7 +55,8 @@ public class Activity {
     this(
         c.getId(),
         c.getOwnerId(),
-        Action.CREATE,
+        Action.CREATE.getContent(),
+        true,
         c.getCreationTime(),
         DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(c.getCreationTime())
             + ": [USER] created a new public conversation = \""
@@ -61,7 +68,8 @@ public class Activity {
     this(
         m.getId(),
         m.getAuthorId(),
-        Action.SEND,
+        Action.SEND.getContent(),
+        true,
         m.getCreationTime(),
         DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(m.getCreationTime())
             + ": [USER] sent a message in [Conversation]: "
@@ -80,7 +88,7 @@ public class Activity {
   }
 
   /** Returns the action of this activity. */
-  public Action getAction() {
+  public String getAction() {
     return action;
   }
 
@@ -92,5 +100,15 @@ public class Activity {
   /** Returns a small summary of the activity */
   public String getThumbnail() {
     return thumbnail;
+  }
+
+  /** Returns true if this a Public activity */
+  public boolean isPublic() {
+    return isPublic;
+  }
+
+  /** Sets the accessibility of the activity. */
+  public void setIsPublic(boolean isPublic) {
+    this.isPublic = isPublic;
   }
 }

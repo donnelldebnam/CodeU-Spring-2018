@@ -237,4 +237,70 @@ public class ModelDataTestHelpers {
       return user;
     }
   }
+
+  /**
+   * Use this to create a fake Activity to use in a unit test. When created it contains random data
+   * in every field, and the individual methods can be used to set the test conditions. For example,
+   * if the test needs specific name, then you could do:
+   *
+   * <pre>{@code
+   * UUID fakeOwner = UUID.randomUUID();
+   * boolean isPublic = true;
+   * Activity fakeActivity = new TestActivityBuilder().withOwnerId(fakeOwner).withIsPublic(isPublic).build();
+   * }</pre>
+   */
+  public static class TestActivityBuilder {
+    private UUID id;
+    private UUID ownerId;
+    private boolean isPublic;
+    private Instant creationTime;
+    private String action;
+    private String thumbnail;
+
+    private Random random = new Random();
+
+    public TestActivityBuilder() {
+      this.id = UUID.randomUUID();
+      this.ownerId = UUID.randomUUID();
+      this.isPublic = random.nextBoolean();
+      this.creationTime = Instant.now();
+      this.action = UUID.randomUUID().toString();
+      this.thumbnail = UUID.randomUUID().toString();
+    }
+
+    public TestActivityBuilder withId(UUID id) {
+      this.id = id;
+      return this;
+    }
+
+    public TestActivityBuilder withOwner(UUID ownerId) {
+      this.ownerId = ownerId;
+      return this;
+    }
+
+    public TestActivityBuilder withIsPublic(boolean isPublic) {
+      this.isPublic = isPublic;
+      return this;
+    }
+
+    public TestActivityBuilder withCreationTime(Instant creationTime) {
+      this.creationTime = creationTime;
+      return this;
+    }
+
+    public TestActivityBuilder withAction(String action) {
+      this.action = action;
+      return this;
+    }
+
+    public TestActivityBuilder withThumbnail(String thumbnail) {
+      this.thumbnail = thumbnail;
+      return this;
+    }
+
+    public Activity build() {
+      Activity activity = new Activity(id, ownerId, action, isPublic, creationTime, thumbnail);
+      return activity;
+    }
+  }
 }

@@ -80,8 +80,12 @@ public class ConversationStore {
   /** Add a new conversation to the current set of conversations known to the application. */
   public void addConversation(Conversation conversation) {
     conversations.add(conversation);
-    activityStore.addActivity(new Activity(conversation));
-    persistentStorageAgent.writeThrough(conversation);
+    Activity activity1 = new Activity(conversation);
+    activity1.setIsPublic(true);
+    if (activityStore != null) {
+      activityStore.addActivity(activity1);
+      persistentStorageAgent.writeThrough(conversation);
+    }
   }
 
   /** Check whether a Conversation title is already known to the application. */

@@ -123,8 +123,13 @@ public class UserStore {
    */
   public void addUser(User user) {
     users.add(user);
-    if (!user.isAdmin()) activityStore.addActivity(new Activity(user));
-    persistentStorageAgent.writeThrough(user);
+    Activity activity1 = new Activity(user);
+    activity1.setIsPublic(true);
+    if (user.isAdmin()) activity1.setIsPublic(false);
+    if (activityStore != null) {
+      activityStore.addActivity(activity1);
+      persistentStorageAgent.writeThrough(user);
+    }
   }
 
   /** Update an existing User. */

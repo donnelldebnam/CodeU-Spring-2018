@@ -164,10 +164,12 @@ public class PersistentDataStore {
       try {
         UUID uuid = UUID.fromString((String) entity.getProperty("uuid"));
         UUID uuid_owner = UUID.fromString((String) entity.getProperty("owner_uuid"));
-        Action action = (Action) entity.getProperty("action");
+        String action = (String) entity.getProperty("action");
+        Boolean isPublic = Boolean.getBoolean((String) entity.getProperty("isPublic"));
         Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
         String thumbnail = (String) entity.getProperty("thumbnail");
-        Activity activity = new Activity(uuid, uuid_owner, action, creationTime, thumbnail);
+        Activity activity =
+            new Activity(uuid, uuid_owner, action, isPublic, creationTime, thumbnail);
         activities.add(activity);
       } catch (Exception e) {
         // In a production environment, errors should be very rare. Errors which may
@@ -217,7 +219,8 @@ public class PersistentDataStore {
     Entity activityEntity = new Entity("chat-activities", activity.getId().toString());
     activityEntity.setProperty("uuid", activity.getId().toString());
     activityEntity.setProperty("owner_uuid", activity.getOwnerId().toString());
-    activityEntity.setProperty("action", activity.getAction().getContent().toString());
+    activityEntity.setProperty("action", activity.getAction().toString());
+    activityEntity.setProperty("isPublic", Boolean.toString(activity.isPublic()));
     activityEntity.setProperty("creation_time", activity.getCreationTime().toString());
     activityEntity.setProperty("thumbnail", activity.getThumbnail().toString());
     datastore.put(activityEntity);
