@@ -60,27 +60,29 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
           <ul>
             <%
               for (Activity activity : activities) {
-                String type = activity.getAction().getContent();
-                UUID id = activity.getId();
-                UUID idOwnerId = activity.getOwnerId();
-                String time = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(activity.getCreationTime());
-                String name = "";
-                if(type.equals("RegisteringUser")){
-                    name = UserStore.getInstance().getUser(id).getName();%>
-                    <li><b><%= time %>:</b> <%= name %> joined CodeByters!</li>
-                <% } %>
-                <% if(type.equals("CreatingConversation")) {
-                     name = UserStore.getInstance().getUser(idOwnerId).getName();
-                     Conversation conv = ConversationStore.getInstance().getConversationWithId(id);%>
-                     <li><b><%= time %>:</b> <%= name %> created a new conversation:
-                     <a href="/chat/<%= conv.getTitle() %>"> <%= conv.getTitle() %></a>.</li>
-                <% } %>
-                <% if(type.equals("SendingMessage")) {
-                     name = UserStore.getInstance().getUser(idOwnerId).getName();
-                     Message mess = MessageStore.getInstance().getMessageWithId(id);
-                     Conversation conv = ConversationStore.getInstance().getConversationWithId(mess.getConversationId());%>
-                     <li><b><%= time %>:</b> <%= name %> sent a message in
-                     <a href="/chat/<%= conv.getTitle() %>"> <%= conv.getTitle() %> </a>: "<%= mess.getContent() %>".</li>
+                if(activity.isPublic()) {
+                  String type = activity.getAction();
+                  UUID id = activity.getId();
+                  UUID idOwnerId = activity.getOwnerId();
+                  String time = DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(activity.getCreationTime());
+                  String name = "";
+                  if(type.equals("RegisteringUser")){
+                      name = UserStore.getInstance().getUser(id).getName();%>
+                      <li><b><%= time %>:</b> <%= name %> joined CodeByters!</li>
+                  <% } %>
+                  <% if(type.equals("CreatingConversation")) {
+                       name = UserStore.getInstance().getUser(idOwnerId).getName();
+                       Conversation conv = ConversationStore.getInstance().getConversationWithId(id);%>
+                       <li><b><%= time %>:</b> <%= name %> created a new conversation:
+                       <a href="/chat/<%= conv.getTitle() %>"> <%= conv.getTitle() %></a>.</li>
+                  <% } %>
+                  <% if(type.equals("SendingMessage")) {
+                       name = UserStore.getInstance().getUser(idOwnerId).getName();
+                       Message mess = MessageStore.getInstance().getMessageWithId(id);
+                       Conversation conv = ConversationStore.getInstance().getConversationWithId(mess.getConversationId());%>
+                       <li><b><%= time %>:</b> <%= name %> sent a message in
+                       <a href="/chat/<%= conv.getTitle() %>"> <%= conv.getTitle() %> </a>: "<%= mess.getContent() %>".</li>
+                  <% } %>
                 <% } %>
             <% } %>
           </ul>

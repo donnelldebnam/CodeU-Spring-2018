@@ -4,6 +4,7 @@ import static codeu.model.data.ModelDataTestHelpers.assertMessageEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import codeu.model.data.Activity;
 import codeu.model.data.Message;
 import codeu.model.data.ModelDataTestHelpers.TestMessageBuilder;
 import codeu.model.store.persistence.PersistentStorageAgent;
@@ -23,6 +24,7 @@ public class MessageStoreTest {
 
   private MessageStore messageStore;
   private PersistentStorageAgent mockPersistentStorageAgent;
+  private ActivityStore activityStore;
 
   private final UUID CONVERSATION_ID_ONE = UUID.randomUUID();
   private final UUID USER_ONE = UUID.randomUUID();
@@ -31,6 +33,8 @@ public class MessageStoreTest {
   public void setup() {
     mockPersistentStorageAgent = Mockito.mock(PersistentStorageAgent.class);
     messageStore = MessageStore.getTestInstance(mockPersistentStorageAgent);
+    activityStore = ActivityStore.getTestInstance(mockPersistentStorageAgent);
+    messageStore.setActivityStore(activityStore);
   }
 
   @Test
@@ -128,5 +132,7 @@ public class MessageStoreTest {
     }
     assertMessageEquals(message3, resultMessagesSet.get(message3.getId()));
     Mockito.verify(mockPersistentStorageAgent).writeThrough(message3);
+    Activity activity1 = activityStore.getActivityWithId(message3.getId());
+    Mockito.verify(mockPersistentStorageAgent).writeThrough(activity1);
   }
 }

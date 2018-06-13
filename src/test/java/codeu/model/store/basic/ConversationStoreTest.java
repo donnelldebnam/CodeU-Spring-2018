@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import codeu.model.data.Activity;
 import codeu.model.data.Conversation;
 import codeu.model.data.ModelDataTestHelpers.TestConversationBuilder;
 import codeu.model.store.persistence.PersistentStorageAgent;
@@ -22,11 +23,14 @@ public class ConversationStoreTest {
 
   private ConversationStore conversationStore;
   private PersistentStorageAgent mockPersistentStorageAgent;
+  private ActivityStore activityStore;
 
   @Before
   public void setup() {
     mockPersistentStorageAgent = Mockito.mock(PersistentStorageAgent.class);
     conversationStore = ConversationStore.getTestInstance(mockPersistentStorageAgent);
+    activityStore = ActivityStore.getTestInstance(mockPersistentStorageAgent);
+    conversationStore.setActivityStore(activityStore);
   }
 
   @Test
@@ -92,6 +96,8 @@ public class ConversationStoreTest {
         conversationStore.getConversationWithTitle("test_conversation");
     assertConversationEquals(inputConversation, resultConversation);
     Mockito.verify(mockPersistentStorageAgent).writeThrough(inputConversation);
+    Activity activity1 = activityStore.getActivityWithId(inputConversation.getId());
+    Mockito.verify(mockPersistentStorageAgent).writeThrough(activity1);
   }
 
   @Test

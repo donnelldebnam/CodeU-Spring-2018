@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import codeu.model.data.Activity;
 import codeu.model.data.ModelDataTestHelpers.TestUserBuilder;
 import codeu.model.data.User;
 import codeu.model.store.persistence.PersistentStorageAgent;
@@ -23,11 +24,14 @@ public class UserStoreTest {
 
   private UserStore userStore;
   private PersistentStorageAgent mockPersistentStorageAgent;
+  private ActivityStore activityStore;
 
   @Before
   public void setup() {
     mockPersistentStorageAgent = Mockito.mock(PersistentStorageAgent.class);
     userStore = UserStore.getTestInstance(mockPersistentStorageAgent);
+    activityStore = ActivityStore.getTestInstance(mockPersistentStorageAgent);
+    userStore.setActivityStore(activityStore);
   }
 
   @Test
@@ -81,23 +85,36 @@ public class UserStoreTest {
 
   @Test
   public void testAddUserByName() {
-    userStore.addUser("test username1", "Password1", /*admin=*/ false);
+    User admin =
+        new TestUserBuilder()
+            .withName("test username1")
+            .withPasswordHash("Password1")
+            .withAdmin(false)
+            .build();
+    userStore.addUser(admin);
     User resultUser = userStore.getUser("test username1");
     Assert.assertEquals(resultUser.getName(), "test username1");
-    Assert.assertEquals(resultUser.getPasswordHash().length(), 60);
+    Assert.assertEquals(9, resultUser.getPasswordHash().length());
     assertFalse(resultUser.isAdmin());
     Mockito.verify(mockPersistentStorageAgent).writeThrough(resultUser);
   }
 
   @Test
   public void testAddUserByName_admin() {
-    userStore.addUser("test username1", "Password1", true);
-
+    User admin =
+        new TestUserBuilder()
+            .withName("test username1")
+            .withPasswordHash("Password1")
+            .withAdmin(true)
+            .build();
+    userStore.addUser(admin);
     User resultUser = userStore.getUser("test username1");
+    assertEquals(admin, resultUser);
     Assert.assertEquals(resultUser.getName(), "test username1");
-    Assert.assertEquals(resultUser.getPasswordHash().length(), 60);
+    Assert.assertEquals(9, resultUser.getPasswordHash().length());
     assertTrue(resultUser.isAdmin());
-    Mockito.verify(mockPersistentStorageAgent).writeThrough(resultUser);
+
+    Mockito.verify(mockPersistentStorageAgent).writeThrough(admin);
   }
 
   @Test
@@ -107,12 +124,14 @@ public class UserStoreTest {
     userList.add(new TestUserBuilder().build());
     userStore.setUsers(userList);
 
-    final User inputUser = new TestUserBuilder().withName("test_username").build();
+    User inputUser = new TestUserBuilder().withName("test_username").withAdmin(false).build();
     userStore.addUser(inputUser);
 
     User resultUser = userStore.getUser("test_username");
     assertEquals(inputUser, resultUser);
     Mockito.verify(mockPersistentStorageAgent).writeThrough(inputUser);
+    Activity activity1 = activityStore.getActivityWithId(inputUser.getId());
+    Mockito.verify(mockPersistentStorageAgent).writeThrough(activity1);
   }
 
   @Test

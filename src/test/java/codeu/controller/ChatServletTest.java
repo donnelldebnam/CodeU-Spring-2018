@@ -165,6 +165,7 @@ public class ChatServletTest {
     chatServlet.doPost(mockRequest, mockResponse);
 
     ArgumentCaptor<Message> messageArgumentCaptor = ArgumentCaptor.forClass(Message.class);
+
     Mockito.verify(mockMessageStore).addMessage(messageArgumentCaptor.capture());
     assertEquals("Test message.", messageArgumentCaptor.getValue().getContent());
 
@@ -190,6 +191,7 @@ public class ChatServletTest {
     chatServlet.doPost(mockRequest, mockResponse);
 
     ArgumentCaptor<Message> messageArgumentCaptor = ArgumentCaptor.forClass(Message.class);
+
     Mockito.verify(mockMessageStore).addMessage(messageArgumentCaptor.capture());
     assertEquals("Contains html and  content.", messageArgumentCaptor.getValue().getContent());
 
