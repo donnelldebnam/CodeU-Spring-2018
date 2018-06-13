@@ -188,7 +188,7 @@ public class ModelDataTestHelpers {
     private Instant creationTime;
     private boolean admin;
     private String aboutMe;
-    
+
     private Random random = new Random();
 
     public TestUserBuilder() {
@@ -221,14 +221,14 @@ public class ModelDataTestHelpers {
     }
 
     public TestUserBuilder withAdmin(boolean admin) {
-        this.admin = admin;
-        return this;
-      }
+      this.admin = admin;
+      return this;
+    }
 
     public TestUserBuilder withAboutMe(String aboutMe) {
-        this.aboutMe = aboutMe;
-        return this;
-      }
+      this.aboutMe = aboutMe;
+      return this;
+    }
 
     public User build() {
       User user = new User(id, name, passwordHash, creationTime);

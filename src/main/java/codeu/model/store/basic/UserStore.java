@@ -145,7 +145,7 @@ public class UserStore {
   }
 
   /** Gets a List of Users from this UserStore. */
-  public List<User> getUsers(){
+  public List<User> getUsers() {
     return users;
   }
 

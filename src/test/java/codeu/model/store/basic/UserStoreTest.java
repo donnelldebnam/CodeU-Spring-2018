@@ -1,27 +1,23 @@
 package codeu.model.store.basic;
 
-import static codeu.model.data.ModelDataTestHelpers.assertMessageEquals;
 import static codeu.model.data.ModelDataTestHelpers.assertUserEquals;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import codeu.model.data.ModelDataTestHelpers.TestUserBuilder;
+import codeu.model.data.User;
+import codeu.model.store.persistence.PersistentStorageAgent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import codeu.model.data.ModelDataTestHelpers.TestUserBuilder;
-import codeu.model.data.Message;
-import codeu.model.data.User;
-import codeu.model.store.persistence.PersistentStorageAgent;
 
 public class UserStoreTest {
 
@@ -85,10 +81,10 @@ public class UserStoreTest {
 
   @Test
   public void testAddUserByName() {
-    userStore.addUser("test username1", "Password1", /*admin=*/false);
+    userStore.addUser("test username1", "Password1", /*admin=*/ false);
     User resultUser = userStore.getUser("test username1");
-    assertEquals(resultUser.getName(), "test username1");
-    assertEquals(resultUser.getPasswordHash().length(), 60);
+    Assert.assertEquals(resultUser.getName(), "test username1");
+    Assert.assertEquals(resultUser.getPasswordHash().length(), 60);
     assertFalse(resultUser.isAdmin());
     Mockito.verify(mockPersistentStorageAgent).writeThrough(resultUser);
   }
@@ -98,8 +94,8 @@ public class UserStoreTest {
     userStore.addUser("test username1", "Password1", true);
 
     User resultUser = userStore.getUser("test username1");
-    assertEquals(resultUser.getName(), "test username1");
-    assertEquals(resultUser.getPasswordHash().length(), 60);
+    Assert.assertEquals(resultUser.getName(), "test username1");
+    Assert.assertEquals(resultUser.getPasswordHash().length(), 60);
     assertTrue(resultUser.isAdmin());
     Mockito.verify(mockPersistentStorageAgent).writeThrough(resultUser);
   }
@@ -145,22 +141,38 @@ public class UserStoreTest {
     final User user2 = new TestUserBuilder().withAdmin(false).build();
     final User user3 = new TestUserBuilder().withAdmin(true).build();
     userStore.setUsers(Arrays.asList(user1, user2, user3));
-    
+
     List<User> resultUsers = userStore.getAdmins();
-    
+
     boolean foundInitialAdmin = false;
-    assertEquals(3, resultUsers.size());
+    Assert.assertEquals(3, resultUsers.size());
     Map<UUID, User> resultUsersSet = new HashMap<>();
     for (User resultUser : resultUsers) {
-    	if (resultUser.getName().equals("Admin01") ) {
-    		assertFalse(foundInitialAdmin);
-    		foundInitialAdmin = true;
-    	} else {
-    	resultUsersSet.put(resultUser.getId(), resultUser);
-    	}
+      if (resultUser.getName().equals("Admin01")) {
+        assertFalse(foundInitialAdmin);
+        foundInitialAdmin = true;
+      } else {
+        resultUsersSet.put(resultUser.getId(), resultUser);
+      }
     }
     assertUserEquals(user1, resultUsersSet.get(user1.getId()));
     assertUserEquals(user3, resultUsersSet.get(user3.getId()));
     assertTrue(foundInitialAdmin);
+  }
+
+  @Test
+  public void testGetAllUsers() {
+    final User user1 = new TestUserBuilder().build();
+    final User user2 = new TestUserBuilder().withName("username_two").build();
+    final User user3 = new TestUserBuilder().build();
+    userStore.setUsers(Arrays.asList(user1, user2, user3));
+    List<User> users = userStore.getUsers();
+    Assert.assertEquals(4, users.size());
+  }
+
+  private void assertEquals(User expectedUser, User actualUser) {
+    Assert.assertEquals(expectedUser.getId(), actualUser.getId());
+    Assert.assertEquals(expectedUser.getName(), actualUser.getName());
+    Assert.assertEquals(expectedUser.getCreationTime(), actualUser.getCreationTime());
   }
 }

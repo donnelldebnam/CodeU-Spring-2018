@@ -5,17 +5,18 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
-
 import codeu.model.data.Conversation;
 import codeu.model.data.ModelDataTestHelpers.TestConversationBuilder;
 import codeu.model.store.persistence.PersistentStorageAgent;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
 
 public class ConversationStoreTest {
 
@@ -91,5 +92,33 @@ public class ConversationStoreTest {
         conversationStore.getConversationWithTitle("test_conversation");
     assertConversationEquals(inputConversation, resultConversation);
     Mockito.verify(mockPersistentStorageAgent).writeThrough(inputConversation);
+  }
+
+  @Test
+  public void testgetConversationWithId() {
+    UUID conversation1 = UUID.randomUUID();
+    Conversation conv_one =
+        new Conversation(conversation1, UUID.randomUUID(), "test message", Instant.now());
+
+    UUID conversation2 = UUID.randomUUID();
+    Conversation conv_two =
+        new Conversation(conversation2, UUID.randomUUID(), "Conversation two", Instant.now());
+
+    conversationStore.addConversation(conv_one);
+    conversationStore.addConversation(conv_two);
+
+    Conversation resultConv = conversationStore.getConversationWithId(conversation2);
+
+    assertEquals(resultConv, conv_two);
+    Assert.assertEquals(resultConv.getId(), conversation2);
+    Assert.assertEquals("Conversation two", resultConv.getTitle());
+  }
+
+  private void assertEquals(Conversation expectedConversation, Conversation actualConversation) {
+    Assert.assertEquals(expectedConversation.getId(), actualConversation.getId());
+    Assert.assertEquals(expectedConversation.getOwnerId(), actualConversation.getOwnerId());
+    Assert.assertEquals(expectedConversation.getTitle(), actualConversation.getTitle());
+    Assert.assertEquals(
+        expectedConversation.getCreationTime(), actualConversation.getCreationTime());
   }
 }
