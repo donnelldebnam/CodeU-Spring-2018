@@ -14,6 +14,9 @@
   limitations under the License.
 --%>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.regex.Pattern" %>
+<%@ page import="java.util.regex.Matcher" %>
 <%@ page import="java.time.Instant" %>
 <%@ page import="codeu.model.data.User" %>
 <%@ page import="codeu.model.data.Message" %>
@@ -30,6 +33,7 @@ User activeUser = (User) request.getAttribute("user");
 String profileOwner = (String) request.getAttribute("profileOwner");
 List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByUser");
 List<User> users = (List<User>) request.getAttribute("users");
+Map<String,Hashtag> tags = (Map<String,Hashtag>) request.getAttribute("hashtags");
 %>
 
 <!DOCTYPE html>
@@ -99,14 +103,25 @@ List<User> users = (List<User>) request.getAttribute("users");
       <hr/>
     <% } %>
 
-    <h1>Profile pages with "hashtag"</h1>
+    <h1>Hashtags in this Profile</h1>
     <ul>
       <% for (User user: users) { %>
-        <% if (user.getAboutMe().toLowerCase().contains("hashtag")) { %>
-            <li><a href="/users/<%= user.getName() %>">
-            <%= user.getName() %>: <%= user.getAboutMe()%></a></li>
-        <% } %>
-      <% } %>
+        <%
+          Pattern pattern = Pattern.compile("#(\\S+)");
+          Matcher mat = pattern.matcher(user.getAboutMe());
+          Hashtag tag = new Hashtag(
+            id
+            content
+            creation
+            addUser
+          );
+          hashtagStore.addHashtag();
+          while (mat.find())
+          { strs.add(mat.group(1)); }
+        %>
+       <% //System.out.println(strs);
+       %>
+    <% } %>
     </ul>
   </div>
 </body>

@@ -111,6 +111,7 @@ public class ProfileServlet extends HttpServlet {
     request.setAttribute("users", users);
     request.setAttribute("messagesByUser", messagesByUser);
     request.setAttribute("profileOwner", profileOwner);
+    request.setAttribute("hashtags", hashtags);
     request.setAttribute("user", user);
     request.getRequestDispatcher("/WEB-INF/view/profile.jsp").forward(request, response);
   }
