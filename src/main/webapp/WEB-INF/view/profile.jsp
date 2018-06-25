@@ -17,9 +17,11 @@
 <%@ page import="java.time.Instant" %>
 <%@ page import="codeu.model.data.User" %>
 <%@ page import="codeu.model.data.Message" %>
+<%@ page import="codeu.model.data.Hashtag" %>
 <%@ page import="codeu.model.data.Conversation" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
 <%@ page import="codeu.model.store.basic.MessageStore" %>
+<%@ page import="codeu.model.store.basic.HashtagStore" %>
 <%@ page import="codeu.model.data.StyleText" %>
 <%@ page import="codeu.model.util.Util" %>
 

@@ -16,11 +16,15 @@ package codeu.controller;
 
 import codeu.model.data.Message;
 import codeu.model.data.User;
+import codeu.model.data.Hashtag;
 import codeu.model.store.basic.MessageStore;
+import codeu.model.store.basic.HashtagStore;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
+import java.util.Map;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,12 +40,16 @@ public class ProfileServlet extends HttpServlet {
   /** Store class that gives access to Messages. */
   private MessageStore messageStore;
 
+  /** Store class that gives access to Hashtags. */
+  private HashtagStore hashtagStore;
+
   /** Set up state for handling user requests. */
   @Override
   public void init() throws ServletException {
     super.init();
     setUserStore(UserStore.getInstance());
     setMessageStore(MessageStore.getInstance());
+    setHashtagStore(HashtagStore.getInstance());
   }
 
   /**
@@ -58,6 +66,14 @@ public class ProfileServlet extends HttpServlet {
    */
   void setMessageStore(MessageStore messageStore) {
     this.messageStore = messageStore;
+  }
+
+  /**
+   * Sets the HashtagStore used by this servlet. This function provides a common setup method for
+   * use by the test framework or the servlet's init() function.
+   */
+  void setHashtagStore(HashtagStore hashtagStore) {
+    this.hashtagStore = hashtagStore;
   }
 
   /**
@@ -87,6 +103,7 @@ public class ProfileServlet extends HttpServlet {
 
     List<Message> messagesByUser = messageStore.getMessagesByUser(userID);
     List<User> users = userStore.getUsers();
+    Map<String, Hashtag> tags = hashtagStore.getAllHashtags();
 
     request.setAttribute("users", users);
     request.setAttribute("messagesByUser", messagesByUser);
