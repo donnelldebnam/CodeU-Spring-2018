@@ -103,10 +103,7 @@ public class ProfileServlet extends HttpServlet {
 
     List<Message> messagesByUser = messageStore.getMessagesByUser(userID);
     List<User> users = userStore.getUsers();
-
-    if (this.hashtagStore != null) {
-      Map<String, Hashtag> tags = hashtagStore.getAllHashtags();
-    }
+    Map<String,Hashtag> tags = hashtagStore.getAllHashtags();
 
     request.setAttribute("users", users);
     request.setAttribute("messagesByUser", messagesByUser);
