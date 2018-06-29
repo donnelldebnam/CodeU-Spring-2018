@@ -63,6 +63,12 @@ public class ActivityStore {
     persistentStorageAgent.writeThrough(activity);
   }
 
+  /** Delete an existing activity from the current set of activities known to the application. */
+  public void deleteActivity(Activity activity) {
+    activities.remove(activity);
+    persistentStorageAgent.deleteFrom(activity);
+  }
+
   /** Find and return the activities with the given action. */
   public List<Activity> getActivitiesWithAction(Action action) {
     List<Activity> activityList = new ArrayList<>();
