@@ -46,9 +46,10 @@ public class UserStore {
   public static UserStore getInstance() {
     if (instance == null) {
       instance = new UserStore(PersistentStorageAgent.getInstance());
+      instance.setActivityStore(ActivityStore.getInstance());
+
       // hard-coded initial Admin:
       instance.addUser("Admin01", "AdminPass01", /* admin= */ true);
-      instance.setActivityStore(ActivityStore.getInstance());
     }
     return instance;
   }
@@ -61,6 +62,9 @@ public class UserStore {
   public static UserStore getTestInstance(PersistentStorageAgent persistentStorageAgent) {
     instance = new UserStore(persistentStorageAgent);
     instance.setActivityStore(ActivityStore.getTestInstance(persistentStorageAgent));
+
+    // hard-coded initial Admin:
+    instance.addUser("Admin01", "AdminPass01", /* admin= */ true);
     return instance;
   }
 
