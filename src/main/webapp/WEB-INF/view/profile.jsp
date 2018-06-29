@@ -36,6 +36,7 @@ String profileOwner = (String) request.getAttribute("profileOwner");
 List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByUser");
 List<User> users = (List<User>) request.getAttribute("users");
 Map<String,Hashtag> tags = (Map<String,Hashtag>) request.getAttribute("hashtags");
+List<String> hashWords = new ArrayList<String>();
 %>
 
 <!DOCTYPE html>
@@ -109,17 +110,13 @@ Map<String,Hashtag> tags = (Map<String,Hashtag>) request.getAttribute("hashtags"
     <ul>
       <% for (User user: users) { %>
         <%
-
-          String input = "#simplyfortesting I am verifying that #thisdoeswork";
           Pattern pattern = Pattern.compile("#(\\S+)");
-          Matcher mat = pattern.matcher(input);
-          List<String> hashWords = new ArrayList<String>();
-          while (mat.find()) {
+          Matcher mat = pattern.matcher(user.getAboutMe());
+          while (mat.find())
             hashWords.add(mat.group(1));
-          }
-          System.out.println(hashWords);
-       %>
-    <% } %>
+        %>
+        <% } %>
+      <%= hashWords %>
     </ul>
   </div>
 </body>
