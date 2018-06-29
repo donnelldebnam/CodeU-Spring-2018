@@ -15,10 +15,12 @@
 --%>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Map" %>
 <%@ page import="java.util.regex.Pattern" %>
 <%@ page import="java.util.regex.Matcher" %>
 <%@ page import="java.time.Instant" %>
 <%@ page import="codeu.model.data.User" %>
+<%@ page import="java.util.UUID" %>
 <%@ page import="codeu.model.data.Message" %>
 <%@ page import="codeu.model.data.Hashtag" %>
 <%@ page import="codeu.model.data.Conversation" %>
@@ -107,19 +109,15 @@ Map<String,Hashtag> tags = (Map<String,Hashtag>) request.getAttribute("hashtags"
     <ul>
       <% for (User user: users) { %>
         <%
+
+          String input = "#simplyfortesting I am verifying that #thisdoeswork";
           Pattern pattern = Pattern.compile("#(\\S+)");
-          Matcher mat = pattern.matcher(user.getAboutMe());
-          Hashtag tag = new Hashtag(
-            id
-            content
-            creation
-            addUser
-          );
-          hashtagStore.addHashtag();
-          while (mat.find())
-          { strs.add(mat.group(1)); }
-        %>
-       <% //System.out.println(strs);
+          Matcher mat = pattern.matcher(input);
+          List<String> hashWords = new ArrayList<String>();
+          while (mat.find()) {
+            hashWords.add(mat.group(1));
+          }
+          System.out.println(hashWords);
        %>
     <% } %>
     </ul>

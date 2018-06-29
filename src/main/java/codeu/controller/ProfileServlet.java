@@ -17,11 +17,13 @@ package codeu.controller;
 import codeu.model.data.Message;
 import codeu.model.data.User;
 import codeu.model.data.Hashtag;
+import codeu.model.data.HashtagCreator;
 import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.HashtagStore;
 import codeu.model.store.basic.UserStore;
 
 import java.io.IOException;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.Map;
@@ -107,6 +109,18 @@ public class ProfileServlet extends HttpServlet {
     List<Message> messagesByUser = messageStore.getMessagesByUser(userID);
     List<User> users = userStore.getUsers();
     Map<String,Hashtag> tags = hashtagStore.getAllHashtags();
+
+    /**
+    Test tag – I was working on making a test hashtag and adding
+        it to the hashtagStore and then returning all hashtags in the
+        store to make sure everything works how we expected.
+
+    Hashtag myTag = new Hashtag(
+      UUID.randomUUID(),
+      "myTag");
+    HashtagCreator source = HashtagCreator.USER;
+    hashtagStore.addHashtag(myTag, source, UUID.randomUUID());
+    **/
 
     request.setAttribute("users", users);
     request.setAttribute("messagesByUser", messagesByUser);
