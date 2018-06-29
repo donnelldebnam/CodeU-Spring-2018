@@ -219,5 +219,10 @@ public class PersistentDataStoreTest {
 
     Activity resultActivityTwo = resultActivities.get(1);
     assertActivityEquals(inputActivityTwo, resultActivityTwo);
+
+    // confirm that we deleted all the messages
+    persistentDataStore.deleteFrom(inputActivityOne);
+    persistentDataStore.deleteFrom(inputActivityTwo);
+    Assert.assertTrue(persistentDataStore.loadActivities().isEmpty());
   }
 }

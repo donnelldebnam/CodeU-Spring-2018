@@ -140,4 +140,9 @@ public class PersistentStorageAgent {
   public void deleteFrom(Message message) {
     persistentDataStore.deleteFrom(message);
   }
+
+  /** Delete an Activity object from the Datastore service. */
+  public void deleteFrom(Activity activity) {
+    persistentDataStore.deleteFrom(activity);
+  }
 }

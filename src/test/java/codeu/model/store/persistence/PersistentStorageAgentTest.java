@@ -120,4 +120,18 @@ public class PersistentStorageAgentTest {
     persistentStorageAgent.deleteFrom(message);
     Mockito.verify(mockPersistentDataStore).deleteFrom(message);
   }
+
+  @Test
+  public void testDeleteFromActivity() {
+    Activity activity =
+        new Activity(
+            UUID.randomUUID(),
+            UUID.randomUUID(),
+            Action.REGISTER_USER,
+            true,
+            Instant.now(),
+            "Joined CodeByter's ");
+    persistentStorageAgent.deleteFrom(activity);
+    Mockito.verify(mockPersistentDataStore).deleteFrom(activity);
+  }
 }

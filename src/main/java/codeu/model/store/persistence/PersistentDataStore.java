@@ -156,7 +156,7 @@ public class PersistentDataStore {
    * Loads all Activity objects from the Datastore service and returns them in a List.
    *
    * @throws codeu.model.store.persistence.PersistentDataStoreException if an error was detected
-   *         during the load from the Datastore service
+   *     during the load from the Datastore service
    */
   public List<Activity> loadActivities() throws PersistentDataStoreException {
 
@@ -283,6 +283,19 @@ public class PersistentDataStore {
     for (Entity entity : results.asIterable()) {
       String id = (String) entity.getProperty("uuid");
       if (id.equals(message.getId().toString())) {
+        datastore.delete(entity.getKey());
+      }
+    }
+  }
+
+  /** Delete an Activity object from the Datastore service. */
+  public void deleteFrom(Activity activity) {
+    // Retrieve all activities from the datastore.
+    Query query = new Query("chat-activities").addSort("creation_time", SortDirection.ASCENDING);
+    PreparedQuery results = datastore.prepare(query);
+    for (Entity entity : results.asIterable()) {
+      String id = (String) entity.getProperty("uuid");
+      if (id.equals(activity.getId().toString())) {
         datastore.delete(entity.getKey());
       }
     }

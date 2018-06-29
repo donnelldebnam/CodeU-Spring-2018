@@ -1,6 +1,7 @@
 package codeu.model.store.basic;
 
 import static codeu.model.data.ModelDataTestHelpers.assertActivityEquals;
+import static org.junit.Assert.assertTrue;
 
 import codeu.model.data.Action;
 import codeu.model.data.Activity;
@@ -59,6 +60,23 @@ public class ActivityStoreTest {
 
     assertActivityEquals(inputActivity, resultActivity);
     Mockito.verify(mockPersistentStorageAgent).writeThrough(inputActivity);
+  }
+
+  @Test
+  public void testDeleteActivity() {
+    final List<Activity> activityList = new ArrayList<>();
+    activityList.add(
+        new TestActivityBuilder()
+            .withId(UUID.fromString("10000000-2222-3333-4444-555555555555"))
+            .build());
+    activityStore.setActivities(activityList);
+
+    Activity activityToDelete =
+        activityStore.getActivityWithId(UUID.fromString("10000000-2222-3333-4444-555555555555"));
+    activityStore.deleteActivity(activityToDelete);
+
+    assertTrue(activityList.isEmpty());
+    Mockito.verify(mockPersistentStorageAgent).deleteFrom(activityToDelete);
   }
 
   @Test
