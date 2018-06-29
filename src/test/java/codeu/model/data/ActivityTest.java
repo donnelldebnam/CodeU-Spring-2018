@@ -1,18 +1,18 @@
 package codeu.model.data;
 
-import codeu.model.util.Util;
-import org.junit.Test;
-
-import java.time.Instant;
-import java.util.UUID;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import codeu.model.util.Util;
+import java.time.Instant;
+import java.util.UUID;
+import org.junit.Test;
 
 public class ActivityTest {
   @Test
   public void testCreate1() {
     UUID id = UUID.randomUUID();
-    UUID ownerId =id;
+    UUID ownerId = id;
     Action action = Action.REGISTER_USER;
     Boolean isPublic = true;
     Instant creation = Instant.now();
@@ -44,10 +44,10 @@ public class ActivityTest {
     assertEquals("CREATE_CONV", activity.getAction().name());
     assertTrue(!activity.isPublic());
     String time =
-            Util.FormatDateTime(c.getCreationTime())
-                    + ": [USER] created a new public conversation = \""
-                    + c.getTitle()
-                    + "\".";
+        Util.FormatDateTime(c.getCreationTime())
+            + ": [USER] created a new public conversation = \""
+            + c.getTitle()
+            + "\".";
     assertEquals(time, activity.getThumbnail());
   }
 }

@@ -1,7 +1,6 @@
 package codeu.model.data;
 
 import codeu.model.util.Util;
-
 import java.time.Instant;
 import java.util.UUID;
 
@@ -27,7 +26,8 @@ public class Activity {
    * @param creation the creation time of this Conversation
    * @param thumbnail a short summary about the activity
    */
-  public Activity(UUID id, UUID ownerId, Action action, boolean isPublic, Instant creation, String thumbnail) {
+  public Activity(
+      UUID id, UUID ownerId, Action action, boolean isPublic, Instant creation, String thumbnail) {
     this.id = id;
     this.action = action;
     this.ownerId = ownerId;
@@ -38,41 +38,39 @@ public class Activity {
 
   public Activity(User u) {
     this(
-            u.getId(),
-            // Owner and activity have the same ID.
-            u.getId(),
-            Action.REGISTER_USER,
-            true,
-            u.getCreationTime(),
-            Util.FormatDateTime(u.getCreationTime())+ ": "
-                    + u.getName()
-                    + " joined CodeByters!");
+        u.getId(),
+        // Owner and activity have the same ID.
+        u.getId(),
+        Action.REGISTER_USER,
+        true,
+        u.getCreationTime(),
+        Util.FormatDateTime(u.getCreationTime()) + ": " + u.getName() + " joined CodeByters!");
   }
 
   public Activity(Conversation c) {
     this(
-            c.getId(),
-            c.getOwnerId(),
-            Action.CREATE_CONV,
-            true,
-            c.getCreationTime(),
-            Util.FormatDateTime(c.getCreationTime())
-                    + ": [USER] created a new public conversation = \""
-                    + c.getTitle()
-                    + "\".");
+        c.getId(),
+        c.getOwnerId(),
+        Action.CREATE_CONV,
+        true,
+        c.getCreationTime(),
+        Util.FormatDateTime(c.getCreationTime())
+            + ": [USER] created a new public conversation = \""
+            + c.getTitle()
+            + "\".");
   }
 
   public Activity(Message m) {
     this(
-            m.getId(),
-            m.getAuthorId(),
-            Action.SEND_MESSAGE,
-            true,
-            m.getCreationTime(),
-            Util.FormatDateTime(m.getCreationTime())
-                    + ": [USER] sent a message in [Conversation]: "
-                    + m.getContent()
-                    + ".");
+        m.getId(),
+        m.getAuthorId(),
+        Action.SEND_MESSAGE,
+        true,
+        m.getCreationTime(),
+        Util.FormatDateTime(m.getCreationTime())
+            + ": [USER] sent a message in [Conversation]: "
+            + m.getContent()
+            + ".");
   }
 
   /** Returns the ID of this activity. */
@@ -107,6 +105,6 @@ public class Activity {
 
   /** Returns true if the activity is public. */
   public void setIsPublic(Boolean isPublic) {
-     this.isPublic = isPublic;
+    this.isPublic = isPublic;
   }
 }
