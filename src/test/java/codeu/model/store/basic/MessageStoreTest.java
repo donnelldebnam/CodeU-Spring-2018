@@ -52,16 +52,18 @@ public class MessageStoreTest {
   @Test
   public void testGetMessageByUd() {
     Message message1 = new TestMessageBuilder().withConversationId(CONVERSATION_ID_ONE).build();
-    Message message2 = new TestMessageBuilder().withId(UUID.fromString("20000000-2222-3333-4444-555555555555")).build();
+    Message message2 =
+        new TestMessageBuilder()
+            .withId(UUID.fromString("20000000-2222-3333-4444-555555555555"))
+            .build();
     Message message3 = new TestMessageBuilder().withConversationId(CONVERSATION_ID_ONE).build();
     messageStore.setMessages(Arrays.asList(message1, message2, message3));
 
-    Message resultMessage = messageStore.getMessageById(UUID.fromString("20000000-2222-3333-4444-555555555555"));
+    Message resultMessage =
+        messageStore.getMessageById(UUID.fromString("20000000-2222-3333-4444-555555555555"));
 
     assertMessageEquals(message2, resultMessage);
-
   }
-
 
   @Test
   public void testGetMessagesInConversation_noMessagesFound() {
@@ -112,5 +114,22 @@ public class MessageStoreTest {
     }
     assertMessageEquals(message3, resultMessagesSet.get(message3.getId()));
     Mockito.verify(mockPersistentStorageAgent).writeThrough(message3);
+  }
+
+  @Test
+  public void testDeleteMessage() {
+    final List<Message> messageList = new ArrayList<>();
+    messageList.add(
+        new TestMessageBuilder()
+            .withId(UUID.fromString("10000000-2222-3333-4444-555555555555"))
+            .build());
+    messageStore.setMessages(messageList);
+
+    Message messageToDelete =
+        messageStore.getMessageById(UUID.fromString("10000000-2222-3333-4444-555555555555"));
+    messageStore.deleteMessage(messageToDelete);
+
+    assertTrue(messageList.isEmpty());
+    Mockito.verify(mockPersistentStorageAgent).deleteFrom(messageToDelete);
   }
 }

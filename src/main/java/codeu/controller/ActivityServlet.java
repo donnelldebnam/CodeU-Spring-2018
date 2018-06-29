@@ -36,7 +36,7 @@ public class ActivityServlet extends HttpServlet {
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
-          throws IOException, ServletException {
+      throws IOException, ServletException {
     List<Activity> activities = activityStore.getAllActivities();
 
     request.setAttribute("activities", activities);

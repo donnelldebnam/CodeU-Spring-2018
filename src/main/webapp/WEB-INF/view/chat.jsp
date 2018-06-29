@@ -68,7 +68,9 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
                   if (author == authorLogin) {
                     if(confirm("Are you sure you want to delete this message")){
                       $(this).fadeOut("slow");
-
+                      $.post("", {
+                            deletedMessageId: ($(this).attr("value"))
+                      });
                     }
                   }
                 }  
@@ -92,7 +94,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
         <% for (Message message : messages) {
           String author = UserStore.getInstance()
               .getUser(message.getAuthorId()).getName(); %>
-            <li class="texts"><strong> <a id="author"><%= author %></a>:</strong> <%= StyleText.style(message.getContent()) %></li>
+            <li class="texts" value="<%=message.getId()%>"><strong><a id="author"><%= author %></a>:</strong> <%= StyleText.style(message.getContent()) %></li>
         <% } %>
       </ul>
     </div>

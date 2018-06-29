@@ -15,12 +15,7 @@
 package codeu.model.store.persistence;
 
 import codeu.model.data.*;
-import codeu.model.store.persistence.PersistentDataStoreException;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -53,7 +48,7 @@ public class PersistentDataStore {
    * Loads all User objects from the Datastore service and returns them in a List.
    *
    * @throws codeu.model.store.persistence.PersistentDataStoreException if an error was detected
-   *         during the load from the Datastore service
+   *     during the load from the Datastore service
    */
   public List<User> loadUsers() throws PersistentDataStoreException {
 
@@ -89,7 +84,7 @@ public class PersistentDataStore {
    * ascending order by creation time.
    *
    * @throws codeu.model.store.persistence.PersistentDataStoreException if an error was detected
-   *         during the load from the Datastore service
+   *     during the load from the Datastore service
    */
   public List<Conversation> loadConversations() throws PersistentDataStoreException {
 
@@ -125,7 +120,7 @@ public class PersistentDataStore {
    * ascending order by creation time.
    *
    * @throws codeu.model.store.persistence.PersistentDataStoreException if an error was detected
-   *         during the load from the Datastore service
+   *     during the load from the Datastore service
    */
   public List<Message> loadMessages() throws PersistentDataStoreException {
 
@@ -161,7 +156,7 @@ public class PersistentDataStore {
    * Loads all Activity objects from the Datastore service and returns them in a List.
    *
    * @throws codeu.model.store.persistence.PersistentDataStoreException if an error was detected
-   *         during the load from the Datastore service
+   *     during the load from the Datastore service
    */
   public List<Activity> loadActivities() throws PersistentDataStoreException {
 
@@ -205,10 +200,12 @@ public class PersistentDataStore {
         String content = (String) entity.getProperty("content");
         UUID uuid = UUID.fromString((String) entity.getProperty("uuid"));
         Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
-        Set<String> userSource = new HashSet<String>(
-            Arrays.asList(((String) (entity.getProperty("user_source"))).split(",")));
-        Set<String> convSource = new HashSet<String>(
-            Arrays.asList(((String) (entity.getProperty("conv_source"))).split(",")));
+        Set<String> userSource =
+            new HashSet<String>(
+                Arrays.asList(((String) (entity.getProperty("user_source"))).split(",")));
+        Set<String> convSource =
+            new HashSet<String>(
+                Arrays.asList(((String) (entity.getProperty("conv_source"))).split(",")));
         Hashtag hashtag = new Hashtag(uuid, content, creationTime, userSource, convSource);
         hashtags.put(content.toLowerCase(), hashtag);
       } catch (Exception e) {
@@ -276,5 +273,31 @@ public class PersistentDataStore {
     activityEntity.setProperty("creation_time", activity.getCreationTime().toString());
     activityEntity.setProperty("thumbnail", activity.getThumbnail().toString());
     datastore.put(activityEntity);
+  }
+
+  /** Delete a Message object from the Datastore service. */
+  public void deleteFrom(Message message) {
+    // Retrieve all messages from the datastore.
+    Query query = new Query("chat-messages").addSort("creation_time", SortDirection.ASCENDING);
+    PreparedQuery results = datastore.prepare(query);
+    for (Entity entity : results.asIterable()) {
+      String id = (String) entity.getProperty("uuid");
+      if (id.equals(message.getId().toString())) {
+        datastore.delete(entity.getKey());
+      }
+    }
+  }
+
+  /** Delete an Activity object from the Datastore service. */
+  public void deleteFrom(Activity activity) {
+    // Retrieve all activities from the datastore.
+    Query query = new Query("chat-activities").addSort("creation_time", SortDirection.ASCENDING);
+    PreparedQuery results = datastore.prepare(query);
+    for (Entity entity : results.asIterable()) {
+      String id = (String) entity.getProperty("uuid");
+      if (id.equals(activity.getId().toString())) {
+        datastore.delete(entity.getKey());
+      }
+    }
   }
 }
