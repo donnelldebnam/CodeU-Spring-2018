@@ -1,4 +1,3 @@
-
 package codeu.controller;
 
 import codeu.model.data.Action;
@@ -37,7 +36,7 @@ public class ActivityServletTest {
     mockResponse = Mockito.mock(HttpServletResponse.class);
     mockRequestDispatcher = Mockito.mock(RequestDispatcher.class);
     Mockito.when(mockRequest.getRequestDispatcher("/WEB-INF/view/activity.jsp"))
-            .thenReturn(mockRequestDispatcher);
+        .thenReturn(mockRequestDispatcher);
 
     mockActivityStore = Mockito.mock(ActivityStore.class);
     activityServlet.setActivityStore(mockActivityStore);
@@ -47,13 +46,8 @@ public class ActivityServletTest {
   public void testDoGet() throws IOException, ServletException {
     List<Activity> fakeActivityList = new ArrayList<>();
     fakeActivityList.add(
-            new Activity(
-                    UUID.randomUUID(),
-                    UUID.randomUUID(),
-                    Action.REGISTER_USER,
-                    true,
-                    Instant.now(),
-                    null));
+        new Activity(
+            UUID.randomUUID(), UUID.randomUUID(), Action.REGISTER_USER, true, Instant.now(), null));
     Mockito.when(mockActivityStore.getAllActivities()).thenReturn(fakeActivityList);
 
     activityServlet.doGet(mockRequest, mockResponse);

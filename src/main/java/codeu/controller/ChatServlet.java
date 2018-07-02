@@ -139,19 +139,25 @@ public class ChatServlet extends HttpServlet {
     }
 
     String messageContent = request.getParameter("message");
+    String deletedMessageId = request.getParameter("deletedMessageId");
 
-    // this removes any HTML from the message content
-    String cleanedMessageContent = Jsoup.clean(messageContent, Whitelist.none());
+    // Adding a new message
+    if (messageContent != null) {
+      // this removes any HTML from the message content
+      messageContent = Jsoup.clean(messageContent, Whitelist.none());
+      Message message =
+          new Message(
+              UUID.randomUUID(), conversation.getId(), user.getId(), messageContent, Instant.now());
+      messageStore.addMessage(message);
+    }
 
-    Message message =
-        new Message(
-            UUID.randomUUID(),
-            conversation.getId(),
-            user.getId(),
-            cleanedMessageContent,
-            Instant.now());
-
-    messageStore.addMessage(message);
+    // Deleting an old message
+    if (deletedMessageId != null) {
+      // this removes any HTML from the deletedMessageId
+      deletedMessageId = Jsoup.clean(deletedMessageId, Whitelist.none());
+      Message messageToDelete = messageStore.getMessageById(UUID.fromString(deletedMessageId));
+      messageStore.deleteMessage(messageToDelete);
+    }
 
     // redirect to a GET request
     response.sendRedirect("/chat/" + conversationTitle);

@@ -110,7 +110,7 @@ public class PersistentDataStoreTest {
   }
 
   @Test
-  public void testSaveAndLoadMessages() throws PersistentDataStoreException {
+  public void testSaveAndLoadAndDeleteMessages() throws PersistentDataStoreException {
     UUID idOne = UUID.fromString("10000000-2222-3333-4444-555555555555");
     UUID conversationOne = UUID.fromString("10000001-2222-3333-4444-555555555555");
     UUID authorOne = UUID.fromString("10000002-2222-3333-4444-555555555555");
@@ -148,6 +148,11 @@ public class PersistentDataStoreTest {
     Assert.assertEquals(authorTwo, resultMessageTwo.getAuthorId());
     Assert.assertEquals(contentTwo, resultMessageTwo.getContent());
     Assert.assertEquals(creationTwo, resultMessageTwo.getCreationTime());
+
+    // confirm that we deleted all the messages
+    persistentDataStore.deleteFrom(inputMessageOne);
+    persistentDataStore.deleteFrom(inputMessageTwo);
+    Assert.assertTrue(persistentDataStore.loadActivities().isEmpty());
   }
 
   @Test
@@ -183,6 +188,7 @@ public class PersistentDataStoreTest {
     Assert.assertEquals(creationTwo, resultHastagtwo.getCreationTime());
   }
 
+  @Test
   public void testSaveAndLoadActivities() throws PersistentDataStoreException {
     UUID idOne = UUID.fromString("10000000-2222-3333-4444-555555555555");
     UUID idOwner = UUID.fromString("10000001-2222-3333-4444-555555555555");
@@ -213,5 +219,10 @@ public class PersistentDataStoreTest {
 
     Activity resultActivityTwo = resultActivities.get(1);
     assertActivityEquals(inputActivityTwo, resultActivityTwo);
+
+    // confirm that we deleted all the messages
+    persistentDataStore.deleteFrom(inputActivityOne);
+    persistentDataStore.deleteFrom(inputActivityTwo);
+    Assert.assertTrue(persistentDataStore.loadActivities().isEmpty());
   }
 }

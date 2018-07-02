@@ -26,6 +26,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <title><%= conversation.getTitle() %></title>
   <link rel="stylesheet" href="/css/main.css" type="text/css">
 
@@ -43,6 +44,39 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
       var chatDiv = document.getElementById('chat');
       chatDiv.scrollTop = chatDiv.scrollHeight;
     };
+
+    <% if (request.getSession().getAttribute("user") != null) { %>  
+       var authorLogin = "<%= request.getSession().getAttribute("user")%>";
+            $(document).ready(function(){
+              $("li.texts").on({
+                mouseenter: function(){
+                  var author = $(this).find('a').text();
+                  if(author == authorLogin) {
+                    $(this).css("color", "red");
+                    $(this).css("text-decoration", "line-through");
+                  }
+                },  
+                mouseleave: function(){
+                  var author = $(this).find('a').text();
+                  if (author == authorLogin) {
+                    $(this).css("color", "#444");
+                    $(this).css("text-decoration", "none");
+                  }
+                }, 
+                click: function(){
+                  var author = $(this).find('a').text();
+                  if (author == authorLogin) {
+                    if(confirm("Are you sure you want to delete this message")){
+                      $(this).fadeOut("slow");
+                      $.post("", {
+                            deletedMessageId: ($(this).attr("value"))
+                      });
+                    }
+                  }
+                }  
+              });
+            });                                                          
+    <% } %>     
   </script>
 </head>
 <body onload="scrollChat()">
@@ -60,7 +94,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
         <% for (Message message : messages) {
           String author = UserStore.getInstance()
               .getUser(message.getAuthorId()).getName(); %>
-          <li><strong><%= author %>:</strong> <%= StyleText.style(message.getContent()) %></li>
+            <li class="texts" value="<%=message.getId()%>"><strong><a id="author"><%= author %></a>:</strong> <%= StyleText.style(message.getContent()) %></li>
         <% } %>
       </ul>
     </div>
