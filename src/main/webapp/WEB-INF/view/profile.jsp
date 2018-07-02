@@ -115,7 +115,7 @@ List<String> hashWords = new ArrayList<String>();
           while (mat.find())
             hashWords.add(mat.group(1));
         %>
-        <% } %>
+      <% } %>
       <%= hashWords %>
     </ul>
   </div>
