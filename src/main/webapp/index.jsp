@@ -21,14 +21,62 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/css/main.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <style>
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+      border: 0;
+    }
+    .navbar-brand {
+    float: left;
+    min-height: 55px;
+    padding: 0 15px 5px;
+    }
+    .navbar-inverse .navbar-nav .active a, .navbar-inverse .navbar-nav .active a:focus,
+      .navbar-inverse .navbar-nav .active a:hover {
+    color: #FFF;
+    }
+    .navbar-inverse .navbat-nav li a {
+      color: #D5D5D5;
+    }
 
+    body {
+      margin: 0;
+      font-family: Futura;
+      line-height: 1.6;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #444;
+      background-color: #eeeeee;
+    }
+    nav a {
+      color: white;
+      display: inline-block;
+      font-size: 24px;
+      margin: 15px;
+      text-decoration: none;
+    }
+    #navTitle {
+      font-size: 36px;
+    }
+    #container {
+      margin-left: auto;
+      margin-right: auto;
+      width: 800px;
+    }
+    h1 {
+      color: #757575;
+    }
+    input {
+      font-size: 18px;
+    }
+    button {
+      font-size: 18px;
+    }
   </style>
-
 
 </head>
 <body>
@@ -47,38 +95,63 @@
 
         </button>
 
-        <%-- Logo can go on this line --%>
-        <a class="navbar-brand" href="#"><img src=""></a>
+        <a class="navbar-brand"><img src="https://i.pinimg.com/originals/1e/00/78/1e0078f8266738d005b5fc7d00f9a66e.png" style="width: 10%;"></a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav navbar right">
-          <%@ include file = "/navigations.jsp" %>
+        <ul class="nav navbar-nav navbar-right">
+          <nav>
+            <a>Home</a>
+            <a>Conversations</a>
+            <a>ActivityFeed</a>
+            <a>Login</a>
+            <a>Logout</a>
+            <a>About Us</a>
+          </nav>
+        </ul>
       </div>
     </div>
 
   </nav>
 
-  <div id="container">
-    <div style="width:75%; margin-left:auto; margin-right:auto; margin-top: 50px;">
-      <h1>CodeByter's Chat App</h1>
-      <h2>Welcome!</h2>
-      <p>
-        Through our site, you will be able to connect with the world through online chat!
-      </p>
-      <ul>
-        <% if (request.getSession().getAttribute("user") != null) { %>
-          <li>Go to the <a href="/users/<%= request.getSession().getAttribute("user") %>">
-              My profile</a> page to view your profile.</li>
-        <% } else { %>
-          <li><a href="/login">Login</a> to get started.</li>
-        <% } %>
-        <li>Go to the <a href="/conversations">conversations</a> page to
-            create or join a conversation.</li>
-        <li>View the <a href="/about.jsp">about</a> page to learn more about the
-            project.</li>
-        <li>If you are an administrator, check out the <a href="/admin">Admin Page</a>.</li>
-      </ul>
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target"#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target"#myCarousel" data-slide-to="1"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+      <div class="item active">
+      <img src="https://fthmb.tqn.com/K7c6vYrioSIVmGUnuHXF6sDybks=/960x0/filters:no_upscale():max_bytes(150000):strip_icc()/how-to-visit-the-googleplex-google-hq-mountain-view-57e2d4515f9b586c3529ba9c.jpg" style="width: 100%;">
+      <div class="carousel-caption">
+        <ul>
+          <% if (request.getSession().getAttribute("user") != null) { %>
+            <li>Go to the <a href="/users/<%= request.getSession().getAttribute("user") %>">
+                My profile</a> page to view your profile.</li>
+          <% } else { %>
+            <li><a href="/login">Login</a> to get started.</li>
+          <% } %>
+          <li>Go to the <a href="/conversations">conversations</a> page to
+              create or join a conversation.</li>
+          <li>View the <a href="/about.jsp">about</a> page to learn more about the
+              project.</li>
+          <li>If you are an administrator, check out the <a href="/admin">Admin Page</a>.</li>
+        </ul>
+        <br>
+        <button type="button" class="btn btn-default">Get Started</button>
+      </div>
+      </div> <!-- End Active-->
+      <div class="item">
+        <img src="http://zeusmedina.com/images/codeu.JPG" style="width:100%;">
+      </div>
     </div>
-  </div>
+    <!-- Start Slider Controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div> <!-- End Slider -->
 </body>
 </html>
