@@ -42,6 +42,27 @@
     .navbar-inverse .navbat-nav li a {
       color: #D5D5D5;
     }
+    .carousel-caption {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .btn {
+      font-size: 18px;
+      color: #FFF;
+      padding: 12px 22px;
+      background: #46b9e2;
+      border: 2px solid #FFF;
+    }
+
+    @media (max-width: 600px) {
+      .carousel-caption {
+        display: none;
+      }
+    }
+
+    ul {
+      list-style-type: none;
+    }
 
     body {
       margin: 0;
@@ -100,7 +121,12 @@
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
           <nav>
-              <%@ include file = "/navigations.jsp" %>
+            <a>Home</a>
+            <a>Conversations</a>
+            <a>ActivityFeed</a>
+            <a>Login</a>
+            <a>Logout</a>
+            <a>About Us</a>
           </nav>
         </ul>
       </div>
@@ -115,27 +141,21 @@
     </ol>
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-      <img src="https://fthmb.tqn.com/K7c6vYrioSIVmGUnuHXF6sDybks=/960x0/filters:no_upscale():max_bytes(150000):strip_icc()/how-to-visit-the-googleplex-google-hq-mountain-view-57e2d4515f9b586c3529ba9c.jpg" style="width: 100%;">
+      <img src="http://zeusmedina.com/images/codeu.JPG" style="width: 100%;">
       <div class="carousel-caption">
         <ul>
-          <% if (request.getSession().getAttribute("user") != null) { %>
-            <li>Go to the <a href="/users/<%= request.getSession().getAttribute("user") %>">
-                My profile</a> page to view your profile.</li>
-          <% } else { %>
-            <li><a href="/login">Login</a> to get started.</li>
-          <% } %>
-          <li>Go to the <a href="/conversations">conversations</a> page to
-              create or join a conversation.</li>
-          <li>View the <a href="/about.jsp">about</a> page to learn more about the
-              project.</li>
-          <li>If you are an administrator, check out the <a href="/admin">Admin Page</a>.</li>
+          <li>Go to the <a>My profile</a> page to view your profile.</li>
+          <li><a>Login</a> to get started.</li>
+          <li>Go to the <a>conversations</a> page to create or join a conversation.</li>
+          <li>View the <a>about</a> page to learn more about the project.</li>
+          <li>If you are an administrator, check out the <a>Admin Page</a>.</li>
         </ul>
         <br>
         <button type="button" class="btn btn-default">Get Started</button>
       </div>
       </div> <!-- End Active-->
       <div class="item">
-        <img src="http://zeusmedina.com/images/codeu.JPG" style="width:100%;">
+        <img src="https://fthmb.tqn.com/K7c6vYrioSIVmGUnuHXF6sDybks=/960x0/filters:no_upscale():max_bytes(150000):strip_icc()/how-to-visit-the-googleplex-google-hq-mountain-view-57e2d4515f9b586c3529ba9c.jpg" style="width:100%;">
       </div>
     </div>
     <!-- Start Slider Controls -->
@@ -148,5 +168,62 @@
       <span class="sr-only">Next</span>
     </a>
   </div> <!-- End Slider -->
+
+  <div class="container">
+
+    <!-- Jaiyi Wang -->
+    <div class"row">
+      <div class="col-md-6">
+        <strong><h3>Jaiyi Wang – Virginia Tech</h3></strong>
+        <p>
+          Jaiyi is a driven, third year, Computer Science student at Virginia Tech in Blacksburg, VA!
+        </p>
+      </div>
+      <div class="col-md-6">
+        <img src="https://www199.lunapic.com/do-not-link-here-use-hosting-instead/153065634829449892?5908631557" style="height:300px;" class="img-responsive">
+      </div>
+    </div>
+
+    <!-- Donnell Debnam -->
+    <div class"row">
+      <div class="col-md-6">
+        <strong><h3>Donnell Debnam Jr – Hampton University</h3></strong>
+        <p>
+          Donnell is a second year, Computer Science/Cybersecurity student currently attending Hampton University.
+          He is a highly motivated and resilient student, experienced in both web and mobile development, and has a keen interest in Arduino Robotics, AI/NLP, and forensics.
+        </p>
+      </div>
+      <div class="col-md-6">
+        <img src="https://www199.lunapic.com/do-not-link-here-use-hosting-instead/153065634829449892?739118368" style="height:300px;" class="img-responsive">
+      </div>
+    </div>
+
+    <!-- Saroj Bhatta-->
+    <div class"row">
+      <div class="col-md-6">
+        <strong><h3>Saroj Bhatta – Claflin University</h3></strong>
+        <p>
+          Saroj is a bright, second year, Computer Science student at Claflin University in Orangeburg, SC.
+        </p>
+      </div>
+      <div class="col-md-6">
+        <img src="https://www199.lunapic.com/do-not-link-here-use-hosting-instead/153065634829449892?1253405516" style="height:300px;" class="img-responsive">
+      </div>
+    </div>
+
+    <!-- Anthony Ngonma-->
+    <div class"row">
+      <div class="col-md-6">
+        <strong><h3>Anthony Ngoma – Cornell University</h3></strong>
+        <p>
+          Anthony is a rising second year Computer Science student currently attending the illustrious Cornell University located in Ithica, NY.
+        </p>
+      </div>
+      <div class="col-md-6">
+        <img src="https://www199.lunapic.com/do-not-link-here-use-hosting-instead/153065634829449892?15354640" style="height:300px;" class="img-responsive">
+      </div>
+    </div>
+
+  </div>
 </body>
 </html>
