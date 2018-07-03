@@ -100,12 +100,7 @@
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
           <nav>
-            <a>Home</a>
-            <a>Conversations</a>
-            <a>ActivityFeed</a>
-            <a>Login</a>
-            <a>Logout</a>
-            <a>About Us</a>
+              <%@ include file = "/navigations.jsp" %>
           </nav>
         </ul>
       </div>
