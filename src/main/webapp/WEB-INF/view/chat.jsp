@@ -28,7 +28,14 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 <head>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <title><%= conversation.getTitle() %></title>
-  <link rel="stylesheet" href="/css/main.css" type="text/css">
+  <title>CodeByter's Chat App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <style>
     #chat {
@@ -45,7 +52,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
       chatDiv.scrollTop = chatDiv.scrollHeight;
     };
 
-    <% if (request.getSession().getAttribute("user") != null) { %>  
+    <% if (request.getSession().getAttribute("user") != null) { %>
        var authorLogin = "<%= request.getSession().getAttribute("user")%>";
             $(document).ready(function(){
               $("li.texts").on({
@@ -55,14 +62,14 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
                     $(this).css("color", "red");
                     $(this).css("text-decoration", "line-through");
                   }
-                },  
+                },
                 mouseleave: function(){
                   var author = $(this).find('a').text();
                   if (author == authorLogin) {
                     $(this).css("color", "#444");
                     $(this).css("text-decoration", "none");
                   }
-                }, 
+                },
                 click: function(){
                   var author = $(this).find('a').text();
                   if (author == authorLogin) {
@@ -73,10 +80,10 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
                       });
                     }
                   }
-                }  
+                }
               });
-            });                                                          
-    <% } %>     
+            });
+    <% } %>
   </script>
 </head>
 <body onload="scrollChat()">

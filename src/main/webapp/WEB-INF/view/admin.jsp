@@ -18,7 +18,14 @@
 <html>
 <head>
   <title>CodeByter's Chat App</title>
+  <title>CodeByter's Chat App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="/css/main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
   <%@ include file = "/navigations.jsp" %>
@@ -29,7 +36,7 @@
 
       <h1>Administration</h1>
       <p>
-        This is the administration page of the CodeU Chat App. Only the administrators of the site can view stats. (Enjoy the authority!) 
+        This is the administration page of the CodeU Chat App. Only the administrators of the site can view stats. (Enjoy the authority!)
       </p>
 
       <h2><strong>Site Statistics</strong></h2>
@@ -41,7 +48,7 @@
         <li><strong>Newest User:</strong><%= request.getAttribute("newestUser")%></li>
         <li><strong>Wordiest User:</strong><%= request.getAttribute("wordiestUser")%></li>
       </ul>
-      
+
     </div>
   </div>
 </body>

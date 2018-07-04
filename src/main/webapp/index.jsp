@@ -21,114 +21,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/css/main.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  <style>
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-      border: 0;
-    }
-    .navbar-brand {
-      float: left;
-      min-height: 55px;
-      padding: 0 15px 5px;
-    }
-    .navbar-inverse .navbar-nav .active a, .navbar-inverse .navbar-nav .active a:focus, .navbar-inverse .navbar-nav .active a:hover {
-      color: #FFF;
-    }
-    .navbar-inverse .navbar-nav li a {
-      color: #D5D5D5;
-    }
-    .carousel-caption {
-      top: 50%;
-      transform: translateY(-50%);
-    }
-    .btn {
-      font-size: 18px;
-      color: #FFF;
-      padding: 12px 22px;
-      background: #46b9e2;
-      border: 2px solid #FFF;
-    }
-
-    @media (max-width: 600px) {
-      .carousel-caption {
-        display: none;
-      }
-    }
-
-    ul {
-      list-style-type: none;
-      font-size: 26px;
-    }
-
-    a {
-      color: #0d4d68;
-    }
-    body {
-      margin: 0;
-      font-family: Futura;
-      line-height: 1.6;
-      font-size: 18px;
-      line-height: 1.6;
-      color: #444;
-      background-color: #eeeeee;
-    }
-    nav a {
-      color: white;
-      display: inline-block;
-      font-size: 24px;
-      margin: 15px;
-      text-decoration: none;
-    }
-    #navTitle {
-      font-size: 36px;
-    }
-    #container {
-      margin-left: auto;
-      margin-right: auto;
-      width: 800px;
-    }
-    h1 {
-      color: #75757;
-    }
-    input {
-      font-size: 18px;
-    }
-    button {
-      font-size: 18px;
-    }
-  </style>
-
 </head>
 <body>
 
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=#myNavbar>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand"><img src="https://i.pinimg.com/originals/1e/00/78/1e0078f8266738d005b5fc7d00f9a66e.png" style="width: 10%;"></a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav navbar-right">
-          <nav>
-            <a>Home</a>
-            <a>Conversations</a>
-            <a>ActivityFeed</a>
-            <a>Login</a>
-            <a>Logout</a>
-            <a>About Us</a>
-          </nav>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <%@ include file = "/navigations.jsp" %>
 
   <!-- Slider Begins -->
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -141,11 +40,17 @@
       <img src="http://zeusmedina.com/images/codeu.JPG" style="width: 100%;">
       <div class="carousel-caption">
         <ul>
-          <li>Go to the <a>My profile</a> page to view your profile.</li>
-          <li><a>Login</a> to get started.</li>
-          <li>Go to the <a>conversations</a> page to create or join a conversation.</li>
-          <li>View the <a>about</a> page to learn more about the project.</li>
-          <li>If you are an administrator, check out the <a>Admin Page</a>.</li>
+          <% if (request.getSession().getAttribute("user") != null) { %>
+            <li>Go to the <a href="/users/<%= request.getSession().getAttribute("user") %>">
+                My profile</a> page to view your profile.</li>
+          <% } else { %>
+            <li><a href="/login">Login</a> to get started.</li>
+          <% } %>
+          <li>Go to the <a href="/conversations">conversations</a> page to
+              create or join a conversation.</li>
+          <li>View the <a href="/about.jsp">about</a> page to learn more about the
+              project.</li>
+          <li>If you are an administrator, check out the <a href="/admin">Admin Page</a>.</li>
         </ul>
         <br>
         <form>
