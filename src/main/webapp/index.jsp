@@ -65,7 +65,7 @@
     }
 
     a {
-      color: hotpink;
+      color: #0d4d68;
     }
     body {
       margin: 0;
@@ -148,7 +148,9 @@
           <li>If you are an administrator, check out the <a>Admin Page</a>.</li>
         </ul>
         <br>
-        <button type="button" class="btn btn-default">Get Started</button>
+        <form>
+          <button type="button" class="btn btn-default"><a href="/login">Get Started</a></button>
+        </form>
       </div>
       </div> <!-- End Active-->
       <div class="item">
