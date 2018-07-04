@@ -59,7 +59,7 @@ List<User> users = (List<User>) request.getAttribute("users");
       chatDiv.scrollTop = chatDiv.scrollHeight;
     };
   </script>
-  
+
   <%@ include file = "/navigations.jsp" %>
 
   <div id="container">
@@ -82,9 +82,9 @@ List<User> users = (List<User>) request.getAttribute("users");
         <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
           <div class="form-group">
             <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
-            <textarea rows="5" cols="120" name="About Me"></textarea>
+            <textarea rows="5" cols="75" name="About Me" placeholder="I'm currently a student at..."></textarea>
           </div>
-          <button type="submit">submit</button>
+          <button type="submit" class="btn">submit</button>
         </form>
         <hr/>
       <% } %>

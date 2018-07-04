@@ -12,12 +12,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
  .navbar {
    margin-bottom: 0;
    border-radius: 0;
    border: 0;
-
  }
  .navbar-brand {
    float: left;
@@ -41,18 +39,15 @@
    background: #46b9e2;
    border: 2px solid #FFF;
  }
-
  @media (max-width: 600px) {
    .carousel-caption {
      display: none;
    }
  }
-
  ul {
    list-style-type: none;
    font-size: 26px;
  }
-
  a {
    color: #207599;
  }
@@ -71,6 +66,9 @@
    font-size: 24px;
    margin: 15px;
    text-decoration: none;
+ }
+ ::-webkit-input-placeholder {
+   font-style: italic;
  }
  #navTitle {
    font-size: 36px;

@@ -90,6 +90,7 @@
       <div class="col-md-6">
         <br>
         <img src="http://i1067.photobucket.com/albums/u437/donnedebnam1/imageedit_12_8988254368_zpssfyxzbsx.gif" style="height:300px;" class="img-responsive">
+          <br>
       </div>
     </div>
 
