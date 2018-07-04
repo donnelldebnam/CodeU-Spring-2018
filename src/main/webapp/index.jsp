@@ -59,7 +59,7 @@
       </div>
       </div> <!-- End Active-->
       <div class="item">
-        <img src="https://swimcreative.com/wp-content/uploads/2016/09/20160825_100619-1.jpg" style="width:100%;">
+        <img src="https://u.imageresize.org/v2/e5a1c204-c371-4bdf-ac5c-8b30a1c9dbce.jpeg" style="width:100%;">
       </div>
     </div>
     <!-- Start Slider Controls -->
