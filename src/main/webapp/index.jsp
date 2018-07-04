@@ -89,8 +89,7 @@
       </div>
       <div class="col-md-6">
         <br>
-        <img src="https://www199.lunapic.com/do-not-link-here-use-hosting-instead/153065634829449892?5908631557" style="height:300px;" class="img-responsive">
-        <br>
+        <img src="http://i1067.photobucket.com/albums/u437/donnedebnam1/imageedit_12_8988254368_zpssfyxzbsx.gif" style="height:300px;" class="img-responsive">
       </div>
     </div>
 
@@ -106,7 +105,7 @@
       </div>
       <div class="col-md-6">
 
-        <img src="https://www199.lunapic.com/do-not-link-here-use-hosting-instead/153065634829449892?739118368" style="height:300px;" class="img-responsive">
+        <img src="http://i1067.photobucket.com/albums/u437/donnedebnam1/mypic1_zps8po8o6ss.gif" style="height:300px;" class="img-responsive">
         <br>
       </div>
     </div>
@@ -121,7 +120,7 @@
         </p>
       </div>
       <div class="col-md-6">
-        <img src="https://www199.lunapic.com/do-not-link-here-use-hosting-instead/153065634829449892?1253405516" style="height:300px;" class="img-responsive">
+        <img src="http://i1067.photobucket.com/albums/u437/donnedebnam1/imageedit_7_2530905731_zpshmm3ddnp.gif" style="height:300px;" class="img-responsive">
         <br>
       </div>
     </div>
@@ -136,7 +135,7 @@
         </p>
       </div>
       <div class="col-md-6">
-        <img src="https://www199.lunapic.com/do-not-link-here-use-hosting-instead/153065634829449892?15354640" style="height:300px;" class="img-responsive">
+        <img src="http://i1067.photobucket.com/albums/u437/donnedebnam1/imageedit_5_4636194873_zpshlrdd0aj.gif" style="height:300px;" class="img-responsive">
         <br>
       </div>
     </div>
