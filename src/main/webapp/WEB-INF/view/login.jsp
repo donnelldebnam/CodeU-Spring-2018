@@ -45,7 +45,7 @@
       <br/>
       <input type="password" name="password" id="password">
       <br/><br/>
-      <button type="submit">Login</button>
+      <button type="submit" class="btn">Login</button>
     </form>
 
     <p>New users can register <a href="/register">here</a>.</p>

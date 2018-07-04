@@ -141,7 +141,30 @@
         <br>
       </div>
     </div>
+  </div>
+
+  <!-- Footer begins here-->
+<footer class="container-fluid text-center">
+  <div class="row">
+    <!-- First column-->
+    <div class="col-sm-4">
+      <h3>Contact Us</h3>
+      <br>
+      <h4>Our addresses and contact info here:<h4>
+    </div>
+    <!-- Second column-->
+    <div class="col-sm-4">
+      <h3>Connect</h3>
+      <a href="https://github.com/donnelldebnam/CodeU-Spring-2018-29" class="fa fa-github" style="scale:100px;"></a>
+    </div>
+    <!-- Third column-->
+    <div class="col-sm-4">
+      <img src="https://i.pinimg.com/originals/1e/00/78/1e0078f8266738d005b5fc7d00f9a66e.png" style="width: 30%;">
+    </div>
 
   </div>
+  </div>
+</footer>
+
 </body>
 </html>

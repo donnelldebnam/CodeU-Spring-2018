@@ -49,7 +49,7 @@ List<Conversation> conversations = (List<Conversation>) request.getAttribute("co
           <input type="text" name="conversationTitle">
         </div>
 
-        <button type="submit">Create</button>
+        <button type="submit" class="btn">Create</button>
       </form>
 
       <hr/>
