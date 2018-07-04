@@ -82,6 +82,7 @@
     <div class"row">
       <div class="col-md-6">
         <br>
+        <br>
         <strong><h3>Jaiyi Wang - Virginia Tech</h3></strong>
         <p>
           Jaiyi is a driven, third year, Computer Science student at Virginia Tech in Blacksburg, VA!
