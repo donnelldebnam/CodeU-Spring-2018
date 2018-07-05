@@ -14,16 +14,20 @@
 
 package codeu.controller;
 
+import codeu.model.data.Message;
+import codeu.model.data.ModelDataTestHelpers.TestMessageBuilder;
+import codeu.model.data.ModelDataTestHelpers.TestUserBuilder;
+import codeu.model.data.User;
+import codeu.model.store.basic.MessageStore;
+import codeu.model.store.basic.UserStore;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -76,8 +80,7 @@ public class ProfileServletTest {
   public void testDoGet() throws IOException, ServletException {
     User fakeUser = new TestUserBuilder().withName("test_user").build();
     Mockito.when(mockRequest.getRequestURI()).thenReturn("/users/test_user");
-    Mockito.when(mockUserStore.getUser("test_user"))
-        .thenReturn(fakeUser);
+    Mockito.when(mockUserStore.getUser("test_user")).thenReturn(fakeUser);
 
     List<Message> fakeMessagesByUser = new ArrayList<>();
     fakeMessagesByUser.add(new TestMessageBuilder().withAuthorId(fakeUser.getId()).build());
@@ -124,8 +127,8 @@ public class ProfileServletTest {
 
     profileServlet.doPost(mockRequest, mockResponse);
 
-    Assert.assertEquals(mockUserStore.getUser("test_user").getAboutMe(),
-        "Contains html and  content.");
+    Assert.assertEquals(
+        mockUserStore.getUser("test_user").getAboutMe(), "Contains html and  content.");
     Mockito.verify(mockResponse).sendRedirect("/users/test_user");
   }
 }

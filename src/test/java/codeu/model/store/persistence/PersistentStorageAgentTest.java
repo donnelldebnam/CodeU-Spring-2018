@@ -49,6 +49,7 @@ public class PersistentStorageAgentTest {
     Mockito.verify(mockPersistentDataStore).loadHashtags();
   }
 
+  @Test
   public void testLoadActivities() throws PersistentDataStoreException {
     persistentStorageAgent.loadActivities();
     Mockito.verify(mockPersistentDataStore).loadActivities();
@@ -96,6 +97,7 @@ public class PersistentStorageAgentTest {
     Mockito.verify(mockPersistentDataStore).writeThrough(hashtag);
   }
 
+  @Test
   public void testWriteThroughActivity() {
     Activity activity =
         new Activity(
@@ -108,5 +110,28 @@ public class PersistentStorageAgentTest {
             null);
     persistentStorageAgent.writeThrough(activity);
     Mockito.verify(mockPersistentDataStore).writeThrough(activity);
+  }
+
+  @Test
+  public void testDeleteFromMessage() {
+    Message message =
+        new Message(
+            UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), "test content", Instant.now());
+    persistentStorageAgent.deleteFrom(message);
+    Mockito.verify(mockPersistentDataStore).deleteFrom(message);
+  }
+
+  @Test
+  public void testDeleteFromActivity() {
+    Activity activity =
+        new Activity(
+            UUID.randomUUID(),
+            UUID.randomUUID(),
+            Action.REGISTER_USER,
+            true,
+            Instant.now(),
+            "Joined CodeByter's ");
+    persistentStorageAgent.deleteFrom(activity);
+    Mockito.verify(mockPersistentDataStore).deleteFrom(activity);
   }
 }

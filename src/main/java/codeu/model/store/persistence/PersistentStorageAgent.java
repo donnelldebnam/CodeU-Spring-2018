@@ -93,14 +93,14 @@ public class PersistentStorageAgent {
 
   /**
    * Retrieve all Hashtag Objects from the Datastore service. The returned HashMap may be empty.
-   * 
+   *
    * @throws PersistentDataStoreException if an error was detected during the load from the
    *     Datastore service
    */
   public HashMap<String, Hashtag> loadHashtags() throws PersistentDataStoreException {
     return persistentDataStore.loadHashtags();
   }
-  
+
   /**
    * Retrieve all Activity objects from the Datastore service. The returned list may be empty.
    *
@@ -130,9 +130,19 @@ public class PersistentStorageAgent {
   public void writeThrough(Hashtag hashtag) {
     persistentDataStore.writeThrough(hashtag);
   }
-  
+
   /** Write a Activity object to the Datastore service. */
   public void writeThrough(Activity activity) {
     persistentDataStore.writeThrough(activity);
+  }
+
+  /** Delete a Message object from the Datastore service. */
+  public void deleteFrom(Message message) {
+    persistentDataStore.deleteFrom(message);
+  }
+
+  /** Delete an Activity object from the Datastore service. */
+  public void deleteFrom(Activity activity) {
+    persistentDataStore.deleteFrom(activity);
   }
 }
