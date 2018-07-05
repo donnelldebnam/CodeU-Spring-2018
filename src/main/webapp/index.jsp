@@ -53,10 +53,12 @@
               project.</li>
           <li>If you are an administrator, check out the <a href="/admin">Admin Page</a>.</li>
         </ul>
-        <br>
-        <form>
-          <button type="button" class="btn btn-default"><a href="/login">Get Started</a></button>
-        </form>
+        <% if (request.getSession().getAttribute("user") == null) { %>
+          <br>
+          <form>
+            <button type="button" class="btn btn-default"><a href="/login">Get Started</a></button>
+          </form>
+        <% } %>
       </div>
       </div> <!-- End Active-->
       <div class="item">
