@@ -15,17 +15,8 @@
 --%>
 <!DOCTYPE html>
 <html>
-<head>
-  <title>CodeByter's Chat App</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="shortcut icon" type="image/png" href="http://i1067.photobucket.com/albums/u437/donnedebnam1/240_F_109566504_1MfKH89SEmbr4V5bO0H604S0UL08g7uY_zpsa1bnyvyl.png"/>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/css/main.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
+<title>CodeByter's Chat App</title>
+<%@ include file = "/header.jsp" %>
 <body>
 <style>
   html {
@@ -135,13 +126,14 @@
       </div>
     </div>
 
-    <!-- Anthony Ngonma-->
+    <!-- Anthony Ngoma-->
     <div class"row">
       <div class="col-md-6">
         <br>
         <strong><h3>Anthony Ngoma - Cornell University</h3></strong>
         <p>
-          Anthony is a second year Computer Science student currently attending the illustrious Cornell University located in Ithica, NY.
+          Anthony is a second year CS/CE student attending the illustrious Cornell University located in Ithaca, NY.
+          In his free time, Anthony enjoys playing soccer(a lot!) and learning new things such as cooking.
         </p>
       </div>
       <div class="col-md-6">
