@@ -11,7 +11,7 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <nav>
-        <a id="navTitle" href="/">Home</a>
+        <a href="/">Home</a>
         <a href="/conversations">Conversations</a>
         <% if (request.getSession().getAttribute("user") != null) { %>
           <a href="/users/<%= request.getSession().getAttribute("user")%>">My Profile</a>
