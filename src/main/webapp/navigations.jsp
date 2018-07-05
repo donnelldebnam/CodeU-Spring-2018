@@ -19,7 +19,7 @@
         <% } else { %>
           <a href="/login">Login</a>
         <% } %>
-        <a href="/activity">ActivityFeed</a>
+        <a href="/activity">Activity Feed</a>
         <a href="/about.jsp">About</a>
         </nav>
       </ul>
