@@ -34,6 +34,12 @@ List<Conversation> conversations = (List<Conversation>) request.getAttribute("co
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+  <style>
+    html {
+      zoom:80%;
+    }
+  </style>
+  
   <%@ include file = "/navigations.jsp" %>
 
   <div id="container">

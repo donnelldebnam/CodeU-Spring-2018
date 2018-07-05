@@ -44,6 +44,9 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
       height: 500px;
       overflow-y: scroll
     }
+    html {
+      zoom:80%;
+    }
   </style>
 
   <script>

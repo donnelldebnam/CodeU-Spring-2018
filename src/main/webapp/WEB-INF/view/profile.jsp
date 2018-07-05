@@ -51,6 +51,9 @@ List<User> users = (List<User>) request.getAttribute("users");
       width: 750px;
       overflow-y: scroll
     }
+    html {
+      zoom:80%;
+    }
   </style>
 
   <script>

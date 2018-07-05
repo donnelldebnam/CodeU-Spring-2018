@@ -33,6 +33,9 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
       height: 500px;
       overflow-y: scroll
     }
+    html {
+      zoom:80%;
+    }
   </style>
 
   <script>
