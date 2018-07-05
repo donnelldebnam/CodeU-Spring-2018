@@ -14,12 +14,19 @@
   limitations under the License.
 --%>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.regex.Pattern" %>
+<%@ page import="java.util.regex.Matcher" %>
 <%@ page import="java.time.Instant" %>
 <%@ page import="codeu.model.data.User" %>
+<%@ page import="java.util.UUID" %>
 <%@ page import="codeu.model.data.Message" %>
+<%@ page import="codeu.model.data.Hashtag" %>
 <%@ page import="codeu.model.data.Conversation" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
 <%@ page import="codeu.model.store.basic.MessageStore" %>
+<%@ page import="codeu.model.store.basic.HashtagStore" %>
 <%@ page import="codeu.model.data.StyleText" %>
 <%@ page import="codeu.model.util.Util" %>
 
@@ -28,6 +35,8 @@ User activeUser = (User) request.getAttribute("user");
 String profileOwner = (String) request.getAttribute("profileOwner");
 List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByUser");
 List<User> users = (List<User>) request.getAttribute("users");
+Map<String,Hashtag> tags = (Map<String,Hashtag>) request.getAttribute("hashtags");
+List<String> hashWords = new ArrayList<String>();
 %>
 
 <!DOCTYPE html>
@@ -107,14 +116,17 @@ List<User> users = (List<User>) request.getAttribute("users");
       <hr/>
     <% } %>
 
-    <h1>Profile pages with "hashtag"</h1>
+    <h1>Hashtags in this Profile</h1>
     <ul>
       <% for (User user: users) { %>
-        <% if (user.getAboutMe().toLowerCase().contains("hashtag")) { %>
-            <li><a href="/users/<%= user.getName() %>">
-            <%= user.getName() %>: <%= user.getAboutMe()%></a></li>
-        <% } %>
+        <%
+          Pattern pattern = Pattern.compile("#(\\S+)");
+          Matcher mat = pattern.matcher(user.getAboutMe());
+          while (mat.find())
+            hashWords.add(mat.group(1));
+        %>
       <% } %>
+      <%= hashWords %>
     </ul>
   </div>
 </body>

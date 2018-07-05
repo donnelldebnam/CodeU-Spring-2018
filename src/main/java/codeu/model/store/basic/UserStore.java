@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//    http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -47,6 +47,9 @@ public class UserStore {
     if (instance == null) {
       instance = new UserStore(PersistentStorageAgent.getInstance());
       instance.setActivityStore(ActivityStore.getInstance());
+
+      // hard-coded initial Admin:
+      instance.addUser("Admin01", "AdminPass01", /* admin= */ true);
     }
     return instance;
   }
@@ -57,7 +60,12 @@ public class UserStore {
    * @param persistentStorageAgent a mock used for testing
    */
   public static UserStore getTestInstance(PersistentStorageAgent persistentStorageAgent) {
-    return instance = new UserStore(persistentStorageAgent);
+    instance = new UserStore(persistentStorageAgent);
+    instance.setActivityStore(ActivityStore.getTestInstance(persistentStorageAgent));
+
+    // hard-coded initial Admin:
+    instance.addUser("Admin01", "AdminPass01", /* admin= */ true);
+    return instance;
   }
 
   /**
@@ -71,12 +79,7 @@ public class UserStore {
   /** This class is a singleton, so its constructor is private. Call getInstance() instead. */
   private UserStore(PersistentStorageAgent persistentStorageAgent) {
     this.persistentStorageAgent = persistentStorageAgent;
-    // Todo: This should be inside getTestInstance() once we fixed line 79
-    this.setActivityStore(ActivityStore.getTestInstance(persistentStorageAgent));
     users = new ArrayList<>();
-    // Todo: We need to find a better way to add the initial admin
-    // hard-coded initial Admin:
-    this.addUser("Admin01", "AdminPass01", /*admin=*/ true);
   }
 
   /**
