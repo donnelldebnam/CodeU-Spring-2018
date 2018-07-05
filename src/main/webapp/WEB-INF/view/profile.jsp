@@ -54,6 +54,9 @@ List<String> hashWords = new ArrayList<String>();
     html {
       zoom:80%;
     }
+    .texts {
+      font-size:20px;
+    }
   </style>
 
   <script>
@@ -100,7 +103,7 @@ List<String> hashWords = new ArrayList<String>();
             Instant time = message.getCreationTime();
             String creation = Util.FormatDateTime(time);
           %>
-            <li><strong><%= creation %>:</strong> <%= StyleText.style(message.getContent()) %></li>
+            <li class="texts"><strong><%= creation %>:</strong> <%= StyleText.style(message.getContent()) %></li>
           <% } %>
         </ul>
       </div>

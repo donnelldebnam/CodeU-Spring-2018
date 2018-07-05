@@ -39,6 +39,9 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
     html {
       zoom:80%;
     }
+    .texts {
+      font-size:20px;
+    }
   </style>
 
   <script>

@@ -28,6 +28,9 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
     html {
       zoom:80%;
     }
+    .texts {
+      font-size:20px;
+    }
   </style>
 
   <script>
@@ -60,13 +63,13 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
 
                   case REGISTER_USER:
                     name = UserStore.getInstance().getUser(id).getName();%>
-                    <li><b><%= time %>:</b> <%= name %> joined CodeByters!</li>
+                    <li class="texts"><b><%= time %>:</b> <%= name %> joined CodeByters!</li>
                     <% break;
 
                   case CREATE_CONV:
                      name = UserStore.getInstance().getUser(idOwnerId).getName();
                      Conversation conv1 = ConversationStore.getInstance().getConversationById(id);%>
-                     <li><b><%= time %>:</b> <%= name %> created a new conversation:
+                     <li class="texts"><b><%= time %>:</b> <%= name %> created a new conversation:
                      <a href="/chat/<%= conv1.getTitle() %>"> <%= conv1.getTitle() %></a>.</li>
                      <% break;
 
@@ -74,7 +77,7 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
                      name = UserStore.getInstance().getUser(idOwnerId).getName();
                      Message mess = MessageStore.getInstance().getMessageById(id);
                      Conversation conv2 = ConversationStore.getInstance().getConversationById(mess.getConversationId());%>
-                     <li><b><%= time %>:</b> <%= name %> sent a message in
+                     <li class=texts><b><%= time %>:</b> <%= name %> sent a message in
                      <a href="/chat/<%= conv2.getTitle() %>"> <%= conv2.getTitle() %> </a>: "<%= mess.getContent() %>".</li>
 
                   <% } %>

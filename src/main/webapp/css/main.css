@@ -39,6 +39,9 @@
    background: #46b9e2;
    border: 2px solid #FFF;
  }
+ .texts {
+   font-size:18px;
+ }
  @media (max-width: 900px) {
    .fa {
     font-size: 20px;
