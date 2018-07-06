@@ -41,16 +41,21 @@ List<String> hashWords = new ArrayList<String>();
 
 <!DOCTYPE html>
 <html>
-<head>
-  <title>My Profile</title>
-  <link rel="stylesheet" href="/css/main.css">
-
+<title>My Profile</title>
+<%@ include file = "/header.jsp" %>
+<body>
   <style>
     #chat {
       background-color: white;
       height: 500px;
       width: 750px;
       overflow-y: scroll
+    }
+    html {
+      zoom:80%;
+    }
+    .texts {
+      font-size:20px;
     }
   </style>
 
@@ -61,8 +66,7 @@ List<String> hashWords = new ArrayList<String>();
       chatDiv.scrollTop = chatDiv.scrollHeight;
     };
   </script>
-</head>
-<body>
+
   <%@ include file = "/navigations.jsp" %>
 
   <div id="container">
@@ -85,9 +89,9 @@ List<String> hashWords = new ArrayList<String>();
         <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
           <div class="form-group">
             <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
-            <textarea rows="5" cols="120" name="About Me"></textarea>
+            <textarea rows="5" cols="75" name="About Me" placeholder="I'm currently a student at..."></textarea>
           </div>
-          <button type="submit">submit</button>
+          <button type="submit" class="btn">submit</button>
         </form>
         <hr/>
       <% } %>
@@ -99,7 +103,7 @@ List<String> hashWords = new ArrayList<String>();
             Instant time = message.getCreationTime();
             String creation = Util.FormatDateTime(time);
           %>
-            <li><strong><%= creation %>:</strong> <%= StyleText.style(message.getContent()) %></li>
+            <li class="texts"><strong><%= creation %>:</strong> <%= StyleText.style(message.getContent()) %></li>
           <% } %>
         </ul>
       </div>

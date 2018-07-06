@@ -15,11 +15,15 @@
 --%>
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Login</title>
-  <link rel="stylesheet" href="/css/main.css">
-</head>
+<title>Login</title>
+<%@ include file = "/header.jsp" %>
 <body>
+  <style>
+    html {
+      zoom:80%;
+    }
+  </style>
+
   <%@ include file = "/navigations.jsp" %>
 
   <div id="container">
@@ -38,7 +42,7 @@
       <br/>
       <input type="password" name="password" id="password">
       <br/><br/>
-      <button type="submit">Login</button>
+      <button type="submit" class="btn">Login</button>
     </form>
 
     <p>New users can register <a href="/register">here</a>.</p>

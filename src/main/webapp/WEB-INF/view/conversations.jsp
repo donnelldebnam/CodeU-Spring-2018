@@ -21,11 +21,15 @@ List<Conversation> conversations = (List<Conversation>) request.getAttribute("co
 
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Conversations</title>
-  <link rel="stylesheet" href="/css/main.css">
-</head>
+<title>Conversations</title>
+<%@ include file = "/header.jsp" %>
 <body>
+  <style>
+    html {
+      zoom:80%;
+    }
+  </style>
+
   <%@ include file = "/navigations.jsp" %>
 
   <div id="container">
@@ -42,7 +46,7 @@ List<Conversation> conversations = (List<Conversation>) request.getAttribute("co
           <input type="text" name="conversationTitle">
         </div>
 
-        <button type="submit">Create</button>
+        <button type="submit" class="btn">Create</button>
       </form>
 
       <hr/>
@@ -61,7 +65,7 @@ List<Conversation> conversations = (List<Conversation>) request.getAttribute("co
       </ul>
     <% } %>
     <hr/>
-    
+
     <h1>Hashtag Conversations</h1>
     <% if (conversations == null || conversations.isEmpty()) { %>
       <p>Create a Hashtag conversation to get started.</p>
@@ -72,12 +76,12 @@ List<Conversation> conversations = (List<Conversation>) request.getAttribute("co
         	<li><a href="/chat/<%= conversation.getTitle() %>">
               <%= conversation.getTitle() %></a></li>
         <% } %>
-          
+
         <% } %>
       </ul>
     <% } %>
-    
-    
+
+
   </div>
 </body>
 </html>

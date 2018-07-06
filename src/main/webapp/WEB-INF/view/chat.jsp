@@ -28,13 +28,19 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 <head>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <title><%= conversation.getTitle() %></title>
-  <link rel="stylesheet" href="/css/main.css" type="text/css">
+  <%@ include file = "/header.jsp" %>
 
   <style>
     #chat {
       background-color: white;
       height: 500px;
       overflow-y: scroll
+    }
+    html {
+      zoom:80%;
+    }
+    .texts {
+      font-size:20px;
     }
   </style>
 
@@ -45,7 +51,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
       chatDiv.scrollTop = chatDiv.scrollHeight;
     };
 
-    <% if (request.getSession().getAttribute("user") != null) { %>  
+    <% if (request.getSession().getAttribute("user") != null) { %>
        var authorLogin = "<%= request.getSession().getAttribute("user")%>";
             $(document).ready(function(){
               $("li.texts").on({
@@ -55,14 +61,14 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
                     $(this).css("color", "red");
                     $(this).css("text-decoration", "line-through");
                   }
-                },  
+                },
                 mouseleave: function(){
                   var author = $(this).find('a').text();
                   if (author == authorLogin) {
                     $(this).css("color", "#444");
                     $(this).css("text-decoration", "none");
                   }
-                }, 
+                },
                 click: function(){
                   var author = $(this).find('a').text();
                   if (author == authorLogin) {
@@ -73,10 +79,10 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
                       });
                     }
                   }
-                }  
+                }
               });
-            });                                                          
-    <% } %>     
+            });
+    <% } %>
   </script>
 </head>
 <body onload="scrollChat()">
@@ -105,7 +111,8 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
       <form action="/chat/<%= conversation.getTitle() %>" method="POST">
         <input type="text" name="message">
         <br/>
-        <button type="submit">Send</button>
+        <br>
+        <button type="submit" class="btn">Send</button>
       </form>
     <% } else { %>
       <p><a href="/login">Login</a> to send a message.</p>

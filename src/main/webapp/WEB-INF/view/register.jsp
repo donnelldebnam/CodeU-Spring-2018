@@ -15,11 +15,14 @@
 --%>
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Register</title>
-  <link rel="stylesheet" href="/css/main.css">
-</head>
+<title>Register</title>
+<%@ include file = "/header.jsp" %>
 <body>
+  <style>
+    html {
+      zoom:80%;
+    }
+  </style>
   <%@ include file = "/navigations.jsp" %>
 
   <div id="container">

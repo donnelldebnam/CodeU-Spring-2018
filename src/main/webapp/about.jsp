@@ -12,11 +12,14 @@
 --%>
 <!DOCTYPE html>
 <html>
-<head>
-  <title>CodeByter's Chat App</title>
-  <link rel="stylesheet" href="/css/main.css">
-</head>
+<title>About</title>
+<%@ include file = "/header.jsp" %>
 <body>
+  <style>
+    html {
+      zoom:80%;
+    }
+  </style>
   <%@ include file = "/navigations.jsp" %>
 
   <div id="container">
