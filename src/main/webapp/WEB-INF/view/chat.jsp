@@ -105,14 +105,13 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
       </ul>
     </div>
 
-    <hr/>
-
     <% if (request.getSession().getAttribute("user") != null) { %>
-      <form action="/chat/<%= conversation.getTitle() %>" method="POST">
-        <input type="text" name="message">
-        <br/>
-        <br>
-        <button type="submit" class="btn">Send</button>
+      <!--adding emoji menu-->
+      <%@ include file = "/emoji.jsp" %>  
+        
+      <form class="form-group" action="/chat/<%= conversation.getTitle() %>" method="POST">
+        <input class="form-control" id="message"type="text" style="font-size:20px" name="message">
+        <button type="submit" class="btn btn-default">Send</button>
       </form>
     <% } else { %>
       <p><a href="/login">Login</a> to send a message.</p>
