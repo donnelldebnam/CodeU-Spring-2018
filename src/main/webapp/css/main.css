@@ -35,6 +35,10 @@ nav a {
   text-decoration: none;
 }
 
+nav styleNav{
+	float: right;
+}
+
 #navTitle {
   font-size: 36px;
 }
