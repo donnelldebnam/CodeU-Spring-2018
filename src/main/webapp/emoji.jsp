@@ -52,6 +52,9 @@
           focusRight("message",(emoji.text()));
           // After 1s, it removes the background-color
           setTimeout(function(){emoji.css("background-color", "transparent");}, 1500);
+      }, 
+       mouseenter: function(){
+        $(this).css("cursor", "default"); 
       }
     });
     $("#emojieMenu").on({
