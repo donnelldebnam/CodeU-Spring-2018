@@ -36,7 +36,7 @@ String profileOwner = (String) request.getAttribute("profileOwner");
 List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByUser");
 List<User> users = (List<User>) request.getAttribute("users");
 Map<String,Hashtag> tags = (Map<String,Hashtag>) request.getAttribute("hashtags");
-List<String> hashWords = new ArrayList<String>();
+List<String> usersWithHashtags = new ArrayList<String>();
 %>
 
 <!DOCTYPE html>
@@ -110,17 +110,17 @@ List<String> hashWords = new ArrayList<String>();
       <hr/>
     <% } %>
 
-    <h1>Hashtags in this Profile</h1>
+    <h1>Profiles with hashtags</h1>
     <ul>
       <% for (User user: users) { %>
         <%
-          Pattern pattern = Pattern.compile("#(\\S+)");
-          Matcher mat = pattern.matcher(user.getAboutMe());
-          while (mat.find())
-            hashWords.add(mat.group(1));
+          if (user.getAboutMe().contains("#")) {
+            usersWithHashtags.add(user.getName());
+          }
         %>
+        <li class="texts"><a href="/users/<%= user.getName() %>">
+        <strong><%= user.getName() %>:</strong> <%= StyleText.style(user.getAboutMe()) %></li>
       <% } %>
-      <%= hashWords %>
     </ul>
   </div>
 </body>
