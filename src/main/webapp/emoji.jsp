@@ -48,11 +48,10 @@
           var emoji= $(this);
           var emojiMenu = $(document.getElementById("emojieMenu"));
           emoji.css("background-color", "#06b1e896");
-          emojiMenu.fadeOut('slow');
           // Properly writes to the textArea
           focusRight("message",(emoji.text()));
           // After 1s, it removes the background-color
-          setTimeout(function(){emoji.css("background-color", "transparent");}, 1000);
+          setTimeout(function(){emoji.css("background-color", "transparent");}, 1500);
       }
     });
     $("#emojieMenu").on({
