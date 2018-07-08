@@ -10,4 +10,10 @@
 <% } %>
 <a href="/activity">ActivityFeed</a>
 <a href="/about.jsp">About</a>
+
+<form action="/hashtag_search.jsp" method="post">
+  <input type="text" name="fname" required>
+  <input type="submit" value="Search">
+</form>
+
 </nav>
