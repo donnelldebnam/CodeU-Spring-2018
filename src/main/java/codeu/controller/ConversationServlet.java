@@ -14,6 +14,7 @@
 
 package codeu.controller;
 
+import codeu.model.util.Util;
 import codeu.model.data.Conversation;
 import codeu.model.data.User;
 import codeu.model.store.basic.ConversationStore;
@@ -64,14 +65,6 @@ public class ConversationServlet extends HttpServlet {
   }
 
   /**
-   *  Tests to make sure conversation titles are not null
-   *  and contain valid content before setting.
-   */
-  public static boolean isNullOrWhiteSpace(String value) {
-    return value == null || value.trim().isEmpty();
-  }
-
-  /**
    * This function fires when a user navigates to the conversations page. It gets all of the
    * conversations from the model and forwards to conversations.jsp for rendering the list.
    */
@@ -108,7 +101,7 @@ public class ConversationServlet extends HttpServlet {
     }
 
     String conversationTitle = request.getParameter("conversationTitle");
-    if (!conversationTitle.matches("[\\w*]*") || isNullOrWhiteSpace(conversationTitle)) {
+    if (!conversationTitle.matches("[\\w*]*") || Util.isNullOrWhiteSpace(conversationTitle)) {
       request.setAttribute("error", "Please enter only letters and numbers.");
       request.getRequestDispatcher("/WEB-INF/view/conversations.jsp").forward(request, response);
       return;
