@@ -39,7 +39,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
     html {
       zoom:80%;
     }
-    .texts {
+    .messageOutput {
       font-size:20px;
     }
   </style>
@@ -54,7 +54,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
     <% if (request.getSession().getAttribute("user") != null) { %>
        var authorLogin = "<%= request.getSession().getAttribute("user")%>";
             $(document).ready(function(){
-              $("li.texts").on({
+              $("li.messageOutput").on({
                 mouseenter: function(){
                   var author = $(this).find('a').text();
                   if(author == authorLogin) {
@@ -100,7 +100,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
         <% for (Message message : messages) {
           String author = UserStore.getInstance()
               .getUser(message.getAuthorId()).getName(); %>
-            <li class="texts" value="<%=message.getId()%>"><strong><a id="author"><%= author %></a>:</strong> <%= StyleText.style(message.getContent()) %></li>
+            <li class="messageOutput" value="<%=message.getId()%>"><strong><a id="author"><%= author %></a>:</strong> <%= StyleText.style(message.getContent()) %></li>
         <% } %>
       </ul>
     </div>
@@ -110,7 +110,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
       <%@ include file = "/emoji.jsp" %>  
         
       <form class="form-group" action="/chat/<%= conversation.getTitle() %>" method="POST">
-        <input class="form-control" id="message"type="text" style="font-size:20px" name="message">
+        <input class="form-control" id="input" type="text" style="font-size:20px" name="messageInput">
         <button type="submit" class="btn btn-default">Send</button>
       </form>
     <% } else { %>

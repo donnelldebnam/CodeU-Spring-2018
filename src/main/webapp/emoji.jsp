@@ -34,9 +34,8 @@
 
 <script>        
   $(document).ready(function(){
-    var message = document.getElementById("message"); 
     // Forces the cursor to stay inside the textArea
-    focusRight("message", ""); 
+    focusRight("input", ""); 
     // scroll the chat div to the bottom
     function scrollEmoji() {
       var emojiDiv = document.getElementsByClassName('dropdown-menu');
@@ -49,7 +48,7 @@
           var emojiMenu = $(document.getElementById("emojieMenu"));
           emoji.css("background-color", "#06b1e896");
           // Properly writes to the textArea
-          focusRight("message",(emoji.text()));
+          focusRight("input",(emoji.text()));
           // After 1s, it removes the background-color
           setTimeout(function(){emoji.css("background-color", "transparent");}, 1500);
       }, 
@@ -61,12 +60,12 @@
       mouseenter: function(){
         var emojiMenu = $(document.getElementById("emojieMenu"));
         // Forces the cursor to stay inside the textArea
-        focusRight("message", '');
+        focusRight("input", '');
       },
       mouseleave: function(){
         var emojiMenu = $(document.getElementById("emojieMenu"));
         // Forces the cursor to stay inside the textArea
-        focusRight("message", '');
+        focusRight("input", '');
         emojiMenu.fadeOut('slow');
       }
     });
