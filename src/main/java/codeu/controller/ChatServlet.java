@@ -138,7 +138,7 @@ public class ChatServlet extends HttpServlet {
       return;
     }
 
-    String messageContent = request.getParameter("message");
+    String messageContent = request.getParameter("messageInput");
     String deletedMessageId = request.getParameter("deletedMessageId");
 
     // Adding a new message
