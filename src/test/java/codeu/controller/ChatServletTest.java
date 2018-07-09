@@ -196,6 +196,23 @@ public class ChatServletTest {
   }
 
   @Test
+  public void testDoPost_badMessageContent() throws IOException, ServletException {
+    Mockito.when(mockRequest.getParameter("messageInput")).thenReturn("bad !@#$% message");
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+
+    User fakeUser = new TestUserBuilder().withName("test_username").build();
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(fakeUser);
+
+    chatServlet.doPost(mockRequest, mockResponse);
+
+    Mockito.verify(mockMessageStore, Mockito.never())
+        .addMessage(Mockito.any(Message.class));
+    Mockito.verify(mockRequest).setAttribute("error", "Please enter only letters and numbers.");
+    Mockito.verify(mockRequestDispatcher).forward(mockRequest, mockResponse);
+
+  }
+
+  @Test
   public void testDoPost_CleansHtmlContent() throws IOException, ServletException {
     Mockito.when(mockRequest.getRequestURI()).thenReturn("/chat/test_conversation");
     Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");

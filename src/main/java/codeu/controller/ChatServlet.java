@@ -14,6 +14,7 @@
 
 package codeu.controller;
 
+import codeu.model.util.Util;
 import codeu.model.data.Conversation;
 import codeu.model.data.Message;
 import codeu.model.data.User;
@@ -139,6 +140,12 @@ public class ChatServlet extends HttpServlet {
     }
 
     String messageContent = request.getParameter("messageInput");
+    if (Util.isWhiteSpace(messageContent)) {
+      request.setAttribute("error", "Please enter only letters and numbers.");
+      request.getRequestDispatcher("/chat/" + conversationTitle).forward(request, response);
+      return;
+    }
+
     String deletedMessageId = request.getParameter("deletedMessageId");
 
     // Adding a new message
