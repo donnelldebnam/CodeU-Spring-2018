@@ -159,7 +159,7 @@ public class ChatServletTest {
     Mockito.when(mockConversationStore.getConversationWithTitle("test_conversation"))
         .thenReturn(fakeConversation);
 
-    Mockito.when(mockRequest.getParameter("message")).thenReturn("Test message.");
+    Mockito.when(mockRequest.getParameter("messageInput")).thenReturn("Test message.");
 
     chatServlet.doPost(mockRequest, mockResponse);
 
@@ -208,7 +208,7 @@ public class ChatServletTest {
     Mockito.when(mockConversationStore.getConversationWithTitle("test_conversation"))
         .thenReturn(fakeConversation);
 
-    Mockito.when(mockRequest.getParameter("message"))
+    Mockito.when(mockRequest.getParameter("messageInput"))
         .thenReturn("Contains <b>html</b> and <script>JavaScript</script> content.");
 
     chatServlet.doPost(mockRequest, mockResponse);

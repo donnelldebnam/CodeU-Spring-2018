@@ -101,7 +101,7 @@
         <strong><h3>Donnell Debnam Jr - Hampton University</h3></strong>
         <p>
           Donnell is a second year, Computer Science/Cybersecurity student currently attending Hampton University.
-          He is a highly motivated and resilient student, experienced in both web and mobile development, and has a keen interest in Arduino Robotics, AI/NLP, and forensics.
+          He loves boxing and fashion, and has a keen interest in Arduino Robotics, AI/NLP, and forensics.
         </p>
       </div>
       <div class="col-md-6">
