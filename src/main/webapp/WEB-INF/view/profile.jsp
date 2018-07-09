@@ -36,7 +36,7 @@ String profileOwner = (String) request.getAttribute("profileOwner");
 List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByUser");
 List<User> users = (List<User>) request.getAttribute("users");
 Map<String,Hashtag> tags = (Map<String,Hashtag>) request.getAttribute("hashtags");
-List<String> usersWithHashtags = new ArrayList<String>();
+List<User> usersWithHashtags = new ArrayList<User>();
 %>
 
 <!DOCTYPE html>
@@ -115,11 +115,13 @@ List<String> usersWithHashtags = new ArrayList<String>();
       <% for (User user: users) { %>
         <%
           if (user.getAboutMe().contains("#")) {
-            usersWithHashtags.add(user.getName());
+            usersWithHashtags.add(user);
           }
         %>
-        <li class="texts"><a href="/users/<%= user.getName() %>">
-        <strong><%= user.getName() %>:</strong> <%= StyleText.style(user.getAboutMe()) %></li>
+      <% } %>
+      <% for (User hashtagUser: usersWithHashtags) { %>
+        <li class="texts"><a href="/users/<%= hashtagUser.getName() %>">
+        <strong><%= hashtagUser.getName() %>:</strong> <%= StyleText.style(hashtagUser.getAboutMe()) %></li>
       <% } %>
     </ul>
   </div>
