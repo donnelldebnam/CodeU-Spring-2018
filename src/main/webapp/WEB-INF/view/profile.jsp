@@ -110,18 +110,20 @@ List<User> usersWithHashtags = new ArrayList<User>();
       <hr/>
     <% } %>
 
-    <h1>Profiles with hashtags</h1>
-    <ul>
-      <% for (User user: users) { %>
-        <%
-          if (user.getAboutMe().contains("#")) {
-            usersWithHashtags.add(user);
-          }
-        %>
-      <% } %>
-      <% for (User hashtagUser: usersWithHashtags) { %>
-        <li class="texts"><a href="/users/<%= hashtagUser.getName() %>">
-        <strong><%= hashtagUser.getName() %>:</strong> <%= StyleText.style(hashtagUser.getAboutMe()) %></li>
+    <% if (request.getSession().getAttribute("user").equals(profileOwner)) { %>
+      <h1>Profiles with hashtags</h1>
+      <ul>
+        <% for (User user: users) { %>
+          <%
+            if (user.getAboutMe().contains("#")) {
+              usersWithHashtags.add(user);
+            }
+          %>
+        <% } %>
+        <% for (User hashtagUser: usersWithHashtags) { %>
+          <li class="texts"><a href="/users/<%= hashtagUser.getName() %>">
+          <strong><%= hashtagUser.getName() %>:</strong> <%= StyleText.style(hashtagUser.getAboutMe()) %></li>
+        <% } %>
       <% } %>
     </ul>
   </div>
