@@ -49,7 +49,7 @@ public class UserStore {
       instance.setActivityStore(ActivityStore.getInstance());
 
       // hard-coded initial Admin:
-      instance.addUser("Admin01", "AdminPass01", /* admin= */ true);
+      instance.addUser("Admin01", "AdminPass203901", /* admin= */ true);
     }
     return instance;
   }
@@ -64,7 +64,7 @@ public class UserStore {
     instance.setActivityStore(ActivityStore.getTestInstance(persistentStorageAgent));
 
     // hard-coded initial Admin:
-    instance.addUser("Admin01", "AdminPass01", /* admin= */ true);
+    instance.addUser("Admin01", "AdminPass203901", /* admin= */ true);
     return instance;
   }
 

@@ -25,7 +25,7 @@
   </style>
   <%@ include file = "/navigations.jsp" %>
 
-  <div id="container">
+  <div class="container">
     <h1>Register</h1>
 
     <% if (request.getAttribute("error") != null) { %>
@@ -33,15 +33,13 @@
     <% } %>
 
     <form action="/register" method="POST">
-      <label for="username">Username: </label>
-      <br/>
-      <input type="text" name="username" id="username">
-      <br/>
-      <label for="password">Password: </label>
-      <br/>
-      <input type="password" name="password" id="password">
-      <br/><br/>
-      <button type="submit">Submit</button>
+      <label class="form-control-label" for="username">Username: </label>
+      <input class="form-control" type="text" name="username" id="username">
+      </br>
+      <label class="form-control-label" for="password">Password: </label>
+      <input class="form-control" type="password" name="password" id="password">
+      </br>
+      <button type="submit" class="btn">Submit</button>
     </form>
   </div>
 </body>
