@@ -27,7 +27,7 @@
 
   <%@ include file = "/navigations.jsp" %>
 
-  <div id="container">
+  <div class="container">
     <div
       style="width:75%; margin-left:auto; margin-right:auto; margin-top: 50px;">
 

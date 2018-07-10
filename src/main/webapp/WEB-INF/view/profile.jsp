@@ -48,7 +48,6 @@ List<String> hashWords = new ArrayList<String>();
     #chat {
       background-color: white;
       height: 500px;
-      width: 750px;
       overflow-y: scroll
     }
     html {
@@ -56,6 +55,12 @@ List<String> hashWords = new ArrayList<String>();
     }
     .texts {
       font-size:20px;
+    }
+    textarea {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
     }
   </style>
 
@@ -69,7 +74,7 @@ List<String> hashWords = new ArrayList<String>();
 
   <%@ include file = "/navigations.jsp" %>
 
-  <div id="container">
+  <div class="container">
     <% if (request.getAttribute("error") != null) { %>
       <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
@@ -88,7 +93,7 @@ List<String> hashWords = new ArrayList<String>();
       <% if (request.getSession().getAttribute("user").equals(profileOwner)) { %>
         <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
           <div class="form-group">
-            <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
+            <label class="form-control-label">Edit Your About Me:</label>
             <textarea rows="5" cols="75" name="About Me" placeholder="I'm currently a student at..."></textarea>
           </div>
           <button type="submit" class="btn">submit</button>
