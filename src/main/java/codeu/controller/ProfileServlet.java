@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//    http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -21,19 +21,16 @@ import codeu.model.data.HashtagCreator;
 import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.HashtagStore;
 import codeu.model.store.basic.UserStore;
-
 import java.io.IOException;
-
+import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 import java.util.Map;
-import java.util.HashMap;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
@@ -108,24 +105,14 @@ public class ProfileServlet extends HttpServlet {
 
     List<Message> messagesByUser = messageStore.getMessagesByUser(userID);
     List<User> users = userStore.getUsers();
-    Map<String,Hashtag> tags = hashtagStore.getAllHashtags();
-
-    /**
-    Test tag – I was working on making a test hashtag and adding
-        it to the hashtagStore and then returning all hashtags in the
-        store to make sure everything works how we expected.
-
-    Hashtag myTag = new Hashtag(
-      UUID.randomUUID(),
-      "myTag");
-    HashtagCreator source = HashtagCreator.USER;
-    hashtagStore.addHashtag(myTag, source, UUID.randomUUID());
-    **/
+    String currentHashtags = user.getHashtagNames();
+    Map<String, Hashtag> hashtagMap = hashtagStore.getAllHashtags();
 
     request.setAttribute("users", users);
     request.setAttribute("messagesByUser", messagesByUser);
     request.setAttribute("profileOwner", profileOwner);
-    request.setAttribute("hashtags", tags);
+    request.setAttribute("hashtagMap", hashtagMap);
+    request.setAttribute("currentHashtags", currentHashtags);
     request.setAttribute("user", user);
     request.getRequestDispatcher("/WEB-INF/view/profile.jsp").forward(request, response);
   }
@@ -155,10 +142,20 @@ public class ProfileServlet extends HttpServlet {
 
     String aboutMeContent = request.getParameter("About Me");
 
+    String newHashtagContent = request.getParameter("hashtag");
+    if (newHashtagContent != null && newHashtagContent.length() > 0) {
+      Hashtag newHashtag = new Hashtag(UUID.randomUUID(), newHashtagContent, Instant.now(),
+          new HashSet<String>(), new HashSet<String>());
+      hashtagStore.addHashtag(newHashtag, HashtagCreator.USER, user.getId());
+      
+      String cleanedHashtag = Jsoup.clean(newHashtagContent, Whitelist.none());
+      user.addHashtag(cleanedHashtag);
+    }
+
     // this removes any HTML from the content
     String cleanedAboutMeContent = Jsoup.clean(aboutMeContent, Whitelist.none());
-
     user.setAboutMe(cleanedAboutMeContent);
+    
     userStore.updateUser(user);
     response.sendRedirect("/users/" + username);
   }

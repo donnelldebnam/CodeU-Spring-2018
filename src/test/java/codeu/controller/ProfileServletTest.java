@@ -33,13 +33,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import codeu.model.data.Message;
-import codeu.model.data.ModelDataTestHelpers.TestMessageBuilder;
-import codeu.model.data.ModelDataTestHelpers.TestUserBuilder;
-import codeu.model.data.User;
-import codeu.model.data.Hashtag;
-import codeu.model.store.basic.MessageStore;
-import codeu.model.store.basic.UserStore;
 import codeu.model.store.basic.HashtagStore;
 
 public class ProfileServletTest {
