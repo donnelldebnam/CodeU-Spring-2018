@@ -12,8 +12,6 @@ import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.UserStore;
 import codeu.model.store.persistence.PersistentDataStoreException;
 import codeu.model.store.persistence.PersistentStorageAgent;
-import org.mindrot.jbcrypt.BCrypt;
-
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletContextEvent;
