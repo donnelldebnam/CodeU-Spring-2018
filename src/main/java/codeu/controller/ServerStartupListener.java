@@ -12,6 +12,8 @@ import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.UserStore;
 import codeu.model.store.persistence.PersistentDataStoreException;
 import codeu.model.store.persistence.PersistentStorageAgent;
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletContextEvent;
@@ -29,6 +31,8 @@ public class ServerStartupListener implements ServletContextListener {
     try {
       List<User> users = PersistentStorageAgent.getInstance().loadUsers();
       UserStore.getInstance().setUsers(users);
+      // Forces the data-store to have only one admin at initialization.
+      if (users.isEmpty()) UserStore.getInstance().addAdmin();
 
       List<Conversation> conversations = PersistentStorageAgent.getInstance().loadConversations();
       ConversationStore.getInstance().setConversations(conversations);
