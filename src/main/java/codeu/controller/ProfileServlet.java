@@ -34,6 +34,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import codeu.model.util.Util;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
@@ -157,8 +158,7 @@ public class ProfileServlet extends HttpServlet {
 
     // this removes any HTML from the content
     String cleanedAboutMeContent = Jsoup.clean(aboutMeContent, Whitelist.none());
-
-    user.setAboutMe(cleanedAboutMeContent);
+    if (!Util.isWhiteSpace(cleanedAboutMeContent)) user.setAboutMe(cleanedAboutMeContent);
     userStore.updateUser(user);
     response.sendRedirect("/users/" + username);
   }

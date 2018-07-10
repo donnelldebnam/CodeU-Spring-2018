@@ -1,5 +1,6 @@
 package codeu.controller;
 
+import codeu.model.util.Util;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -42,7 +43,7 @@ public class RegisterServlet extends HttpServlet {
 
     String username = request.getParameter("username");
 
-    if (!username.matches("[\\w*\\s*]*")) {
+    if (!username.matches("[\\w*\\s*]*") || Util.isNullOrWhiteSpace(username)) {
       request.setAttribute("error", "Please enter only letters, numbers, and spaces.");
       request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
       return;
