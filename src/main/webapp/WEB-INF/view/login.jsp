@@ -26,22 +26,20 @@
 
   <%@ include file = "/navigations.jsp" %>
 
-  <div id="container">
+  <div class="container">
     <h1>Login</h1>
 
     <% if (request.getAttribute("error") != null) { %>
       <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
 
-    <form action="/login" method="POST">
-      <label for="username">Username: </label>
-      <br/>
-      <input type="text" name="username" id="username">
-      <br/>
-      <label for="password">Password: </label>
-      <br/>
-      <input type="password" name="password" id="password">
-      <br/><br/>
+    <form class="form-group" action="/login" method="POST">
+      <label class="form-control-label" for="username">Username: </label>
+      <input class="form-control" type="text" name="username" id="username">
+      </br>
+      <label class="form-control-label" for="password">Password: </label>
+      <input class="form-control" type="password" name="password" id="password">
+      </br>
       <button type="submit" class="btn">Login</button>
     </form>
 
