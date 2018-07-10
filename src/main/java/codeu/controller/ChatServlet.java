@@ -91,7 +91,6 @@ public class ChatServlet extends HttpServlet {
     Conversation conversation = conversationStore.getConversationWithTitle(conversationTitle);
     if (conversation == null) {
       // couldn't find conversation, redirect to conversation list
-      System.out.println("Conversation was null: " + conversationTitle);
       response.sendRedirect("/conversations");
       return;
     }
@@ -140,21 +139,19 @@ public class ChatServlet extends HttpServlet {
     }
 
     String messageContent = request.getParameter("messageInput");
-    if (Util.isWhiteSpace(messageContent)) {
-      request.setAttribute("error", "Please enter only letters and numbers.");
-      request.getRequestDispatcher("/chat/" + conversationTitle).forward(request, response);
-      return;
-    }
-
     String deletedMessageId = request.getParameter("deletedMessageId");
 
     // Adding a new message
     if (messageContent != null) {
+      if (Util.isWhiteSpace(messageContent)) {
+        response.sendRedirect("/chat/" + conversationTitle);
+        return;
+      }
       // this removes any HTML from the message content
       messageContent = Jsoup.clean(messageContent, Whitelist.none());
       Message message =
-          new Message(
-              UUID.randomUUID(), conversation.getId(), user.getId(), messageContent, Instant.now());
+              new Message(
+                      UUID.randomUUID(), conversation.getId(), user.getId(), messageContent, Instant.now());
       messageStore.addMessage(message);
     }
 
