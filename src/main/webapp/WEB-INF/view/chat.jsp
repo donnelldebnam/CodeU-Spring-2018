@@ -110,8 +110,8 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 
     <% if (request.getSession().getAttribute("user") != null) { %>
       <!--adding emoji menu-->
-      <%@ include file = "/emoji.jsp" %>  
-        
+      <%@ include file = "/emoji.jsp" %>
+
       <form class="form-group" action="/chat/<%= conversation.getTitle() %>" method="POST">
         <input class="form-control" id="input" type="text" style="font-size:20px" name="messageInput">
         <button type="submit" class="btn btn-default">Send</button>

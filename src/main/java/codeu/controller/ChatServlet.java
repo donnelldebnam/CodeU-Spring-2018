@@ -14,6 +14,7 @@
 
 package codeu.controller;
 
+import codeu.model.util.Util;
 import codeu.model.data.Conversation;
 import codeu.model.data.Message;
 import codeu.model.data.User;
@@ -90,7 +91,6 @@ public class ChatServlet extends HttpServlet {
     Conversation conversation = conversationStore.getConversationWithTitle(conversationTitle);
     if (conversation == null) {
       // couldn't find conversation, redirect to conversation list
-      System.out.println("Conversation was null: " + conversationTitle);
       response.sendRedirect("/conversations");
       return;
     }
@@ -143,11 +143,15 @@ public class ChatServlet extends HttpServlet {
 
     // Adding a new message
     if (messageContent != null) {
+      if (Util.isWhiteSpace(messageContent)) {
+        response.sendRedirect("/chat/" + conversationTitle);
+        return;
+      }
       // this removes any HTML from the message content
       messageContent = Jsoup.clean(messageContent, Whitelist.none());
       Message message =
-          new Message(
-              UUID.randomUUID(), conversation.getId(), user.getId(), messageContent, Instant.now());
+              new Message(
+                      UUID.randomUUID(), conversation.getId(), user.getId(), messageContent, Instant.now());
       messageStore.addMessage(message);
     }
 
