@@ -48,7 +48,6 @@ List<String> hashWords = new ArrayList<String>();
     #chat {
       background-color: white;
       height: 500px;
-      width: 750px;
       overflow-y: scroll
     }
     html {
@@ -56,6 +55,12 @@ List<String> hashWords = new ArrayList<String>();
     }
     .texts {
       font-size:20px;
+    }
+    textarea {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
     }
   </style>
 
