@@ -14,6 +14,7 @@
 
 package codeu.controller;
 
+import codeu.model.util.Util;
 import codeu.model.data.Conversation;
 import codeu.model.data.User;
 import codeu.model.store.basic.ConversationStore;
@@ -100,7 +101,7 @@ public class ConversationServlet extends HttpServlet {
     }
 
     String conversationTitle = request.getParameter("conversationTitle");
-    if (!conversationTitle.matches("[\\w*]*")) {
+    if (!conversationTitle.matches("[\\w*]*") || Util.isNullOrWhiteSpace(conversationTitle)) {
       request.setAttribute("error", "Please enter only letters and numbers.");
       request.getRequestDispatcher("/WEB-INF/view/conversations.jsp").forward(request, response);
       return;
