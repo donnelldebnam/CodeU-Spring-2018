@@ -32,7 +32,7 @@ List<Conversation> conversations = (List<Conversation>) request.getAttribute("co
 
   <%@ include file = "/navigations.jsp" %>
 
-  <div id="container">
+  <div class="container">
 
     <% if (request.getAttribute("error") != null) { %>
       <h2 style="color:red"><%= request.getAttribute("error") %></h2>
@@ -40,12 +40,10 @@ List<Conversation> conversations = (List<Conversation>) request.getAttribute("co
 
     <% if (request.getSession().getAttribute("user") != null) { %>
       <h1>New Conversation</h1>
-      <form action="/conversations" method="POST">
-        <div class="form-group">
-          <label class="form-control-label">Title:</label>
-          <input type="text" name="conversationTitle">
-        </div>
-
+      <form class="form-group" action="/conversations" method="POST">
+        <label class="form-control-label">Title:</label>
+        <input class="form-control"type="text" name="conversationTitle">
+        </br>
         <button type="submit" class="btn">Create</button>
       </form>
 
