@@ -17,6 +17,8 @@ package codeu.model.store.persistence;
 import codeu.model.data.*;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,6 +67,10 @@ public class PersistentDataStore {
         String passwordHash = (String) entity.getProperty("password_hash");
         Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
         User user = new User(uuid, userName, passwordHash, creationTime);
+        // Forces an admin to have "true" for the admin field
+        if(BCrypt.checkpw("AdminPass203901", user.getPasswordHash().toString())) {
+          user.setAdmin(true);
+        }
         users.add(user);
       } catch (Exception e) {
         // In a production environment, errors should be very rare.
