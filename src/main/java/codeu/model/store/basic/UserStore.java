@@ -47,9 +47,6 @@ public class UserStore {
     if (instance == null) {
       instance = new UserStore(PersistentStorageAgent.getInstance());
       instance.setActivityStore(ActivityStore.getInstance());
-
-      // hard-coded initial Admin:
-      instance.addUser("Admin01", "AdminPass203901", /* admin= */ true);
     }
     return instance;
   }
@@ -64,7 +61,7 @@ public class UserStore {
     instance.setActivityStore(ActivityStore.getTestInstance(persistentStorageAgent));
 
     // hard-coded initial Admin:
-    instance.addUser("Admin01", "AdminPass203901", /* admin= */ true);
+    instance.addAdmin();
     return instance;
   }
 
@@ -173,5 +170,13 @@ public class UserStore {
       }
     }
     return admins;
+  }
+
+  /**
+   * A helper function that adds an admin to the list of users.
+   */
+  public void addAdmin(){
+    // hard-coded initial Admin:
+    instance.addUser("Admin01", "AdminPass203901", /* admin= */ true);
   }
 }
