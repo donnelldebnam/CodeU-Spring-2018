@@ -95,10 +95,6 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 
     <hr/>
 
-    <% if (request.getAttribute("error") != null) { %>
-      <h2 style="color:red"><%= request.getAttribute("error") %></h2>
-    <% } %>
-
     <div id="chat">
       <ul>
         <% for (Message message : messages) {
