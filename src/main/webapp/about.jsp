@@ -106,7 +106,7 @@
                  <img class="img-circle img-fluid m-x-auto m-b" style="width: 112px;"
                       src="http://i1067.photobucket.com/albums/u437/donnedebnam1/imageedit_7_2530905731_zpshmm3ddnp.gif">
                  <h3 class="text-md text-bold">Saroj Bhatta</h3>
-                 <p class="text-xxxs m-b-sm text-uppercase">Claffin University</p>
+                 <p class="text-xxxs m-b-sm text-uppercase">Claflin University</p>
                  <p class="text-xs m-b-sm m-x-auto" style="max-width: 35rem;">
                  Saroj is a bright, second year, Computer Science student at Claflin University in Orangeburg, SC.
                  </p>
