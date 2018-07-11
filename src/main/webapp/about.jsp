@@ -84,17 +84,17 @@
                  <a href="https://www.linkedin.com/in/anthony-ngoma-76314756/" class="fa fa-linkedin-square"> </a>
                  <a href="#" class="fa fa-envelope-square"></a>
                </div>
-                 <!-- Jaiyi Wang-->
+                 <!-- Jiayi Wang-->
                <div class="col-xxs-12 col-sm-6 col-xxl-3 m-b-xxl">
                 <br>
                  <img class="img-circle img-fluid m-x-auto m-b" style="width: 112px;"
                       src="http://i1067.photobucket.com/albums/u437/donnedebnam1/imageedit_12_8988254368_zpssfyxzbsx.gif">
-                 <h3 class="text-md text-bold">Jaiyi Wang</h3>
+                 <h3 class="text-md text-bold">Jiayi Wang</h3>
                  <p class="text-xxxs m-b-sm text-uppercase">Virginia Tech</p>
                  <p class="text-xs m-b-sm m-x-auto" style="max-width: 35rem;">
-                 Jaiyi is a driven, third year, Computer Science student at Virginia Tech in Blacksburg, VA!
+                 Jiayi is a driven, third year, Computer Science student at Virginia Tech in Blacksburg, VA!
                  </p>
-                 <p class="text-xxs text-uppercase text-bold">JAIYI'S FAVORITE APPS:</p>
+                 <p class="text-xxs text-uppercase text-bold">JIAYI'S FAVORITE APPS:</p>
                  <p class="text-xxs"><strong>Spotify, Yahoo Sports, &amp; Uber</strong></p>
                  <a href="https://github.com/jiayiw6" class="fa fa-github"> </a>
                  <a href="#" class="fa fa-linkedin-square"></a>
