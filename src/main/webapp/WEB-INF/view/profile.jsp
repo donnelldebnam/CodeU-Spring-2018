@@ -94,7 +94,7 @@ List<String> hashWords = new ArrayList<String>();
         <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
           <div class="form-group">
             <label class="form-control-label">Edit Your About Me:</label>
-            <textarea class="form-control"rows="5" cols="75" name="About Me" placeholder="I'm currently a student at..."></textarea>
+            <textarea rows="5" cols="75" name="About Me" placeholder="I'm currently a student at..."></textarea>
           </div>
           <button type="submit" class="btn">submit</button>
         </form>
