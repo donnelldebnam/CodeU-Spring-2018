@@ -67,6 +67,8 @@ public class PersistentDataStore {
         String passwordHash = (String) entity.getProperty("password_hash");
         Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
         User user = new User(uuid, userName, passwordHash, creationTime);
+        String aboutMe = (String) entity.getProperty("about_me");
+        user.setAboutMe(aboutMe);
         // Forces an admin to have "true" for the admin field
         if(BCrypt.checkpw("AdminPass203901", user.getPasswordHash().toString())) {
           user.setAdmin(true);
