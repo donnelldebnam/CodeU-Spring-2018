@@ -32,6 +32,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 
   <style>
     #chat {
+      box-shadow: 0 3px #ccc;
       background-color: white;
       height: 500px;
       overflow-y: scroll
@@ -95,17 +96,22 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 
     <h1><%= conversation.getTitle() %>
         <a href="" style="float: right">&#8635;</a></h1>
-
     <hr/>
 
-    <div id="chat">
-      <ul>
-        <% for (Message message : messages) {
-          String author = UserStore.getInstance()
-              .getUser(message.getAuthorId()).getName(); %>
-          <li class="listMessages" value="<%=message.getId()%>"><strong><a id="author" href="/users/<%= author%>"><%= author %></a>:</strong> <span class="messageOutput" ><%= StyleText.style(message.getContent()) %></%></span></li>
-        <% } %>
-      </ul>
+    <div class="chatbox" id="chat">
+      <div class="chatlogs">
+        <div class="chat">
+          <div class="user-photo">
+            <ul class="chat-message">
+              <% for (Message message : messages) {
+                String author = UserStore.getInstance()
+                .getUser(message.getAuthorId()).getName(); %>
+                <li class="listMessages" value="<%=message.getId()%>"><strong><a id="author" href="/users/<%= author%>"><%= author %></a>:</strong> <span class="messageOutput" ><%= StyleText.style(message.getContent()) %></%></span></li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
 
     <% if (request.getSession().getAttribute("user") != null) { %>
