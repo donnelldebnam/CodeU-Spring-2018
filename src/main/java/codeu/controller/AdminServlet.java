@@ -74,7 +74,7 @@ public class AdminServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
-    
+
     String username = (String) request.getSession().getAttribute("user");
     if (username == null) {
       // user is not logged in, can't access page
@@ -88,13 +88,13 @@ public class AdminServlet extends HttpServlet {
       response.sendRedirect("/login");
       return;
     }
-    
-    if(!user.isAdmin()){
+
+    if (!user.isAdmin()) {
       // user is not an Admin, redirect to about page
       response.sendRedirect("/about");
       return;
     }
-    
+
     request.setAttribute("totalUsers", userStore.getUsers().size());
     request.setAttribute("totalConversations", conversationStore.getAllConversations().size());
     request.setAttribute("totalMessages", messageStore.getTotalMessages());
