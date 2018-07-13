@@ -92,8 +92,7 @@ List<String> hashWords = new ArrayList<String>();
       <% if (request.getSession().getAttribute("user") != null && request.getSession().getAttribute("user").equals(profileOwner)) { %>
         <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
           <div class="form-group">
-            <label class="form-control-label">Edit Your About Me:</label>
-            <textarea class="form-control"rows="5" cols="75" name="About Me" placeholder="I'm currently a student at..."></textarea>
+            <textarea class="form-control"rows="5" cols="75" name="About Me" placeholder="Edit Your About Me..."></textarea>
           </div>
           <button type="submit" class="btn">submit</button>
         </form>
