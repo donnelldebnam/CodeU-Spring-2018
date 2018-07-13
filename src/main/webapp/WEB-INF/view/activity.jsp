@@ -45,7 +45,7 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
 <body onload="scrollChat()">
   <%@ include file = "/navigations.jsp" %>
 
-    <div id="container">
+    <div class="container">
       <h2 style="color:blue; text-aligned:left; margin-bottom:25px"> ACTIVITY </h2>
       <h3> Here's everything that's happened on the site so far! </h3>
         <div id="activityfeed">

@@ -48,7 +48,6 @@ String currentHashtags = (String) request.getAttribute("currentHashtags");
     #chat {
       background-color: white;
       height: 500px;
-      width: 750px;
       overflow-y: scroll
     }
     html {
@@ -56,6 +55,12 @@ String currentHashtags = (String) request.getAttribute("currentHashtags");
     }
     .texts {
       font-size:20px;
+    }
+    textarea {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
     }
   </style>
 
@@ -69,7 +74,7 @@ String currentHashtags = (String) request.getAttribute("currentHashtags");
 
   <%@ include file = "/navigations.jsp" %>
 
-  <div id="container">
+  <div class="container">
     <% if (request.getAttribute("error") != null) { %>
       <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
@@ -88,8 +93,8 @@ String currentHashtags = (String) request.getAttribute("currentHashtags");
       <% if (request.getSession().getAttribute("user").equals(profileOwner)) { %>
         <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
           <div class="form-group">
-            <label class="form-control-label">Edit Your About Me (Only you can see this):</label>
-            <textarea rows="5" cols="75" name="About Me" placeholder="I'm currently a student at..."></textarea>
+            <label class="form-control-label">Edit Your About Me:</label>
+            <textarea class="form-control"rows="5" cols="75" name="About Me" placeholder="I'm currently a student at..."></textarea>
           </div>
           <button type="submit" class="btn">submit</button>
         </form>

@@ -196,6 +196,24 @@ public class ChatServletTest {
   }
 
   @Test
+  public void testDoPost_badMessageContent() throws IOException, ServletException {
+    Mockito.when(mockRequest.getRequestURI()).thenReturn("/chat/test_conversation");
+    Mockito.when(mockRequest.getParameter("messageInput")).thenReturn(/* Just white space */(" "));
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+
+    User fakeUser = new TestUserBuilder().withName("test_username").build();
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(fakeUser);
+
+    Conversation fakeConversationTitle = new TestConversationBuilder().withTitle("test_conversation").build();
+    Mockito.when(mockConversationStore.getConversationWithTitle("test_conversation")).thenReturn(fakeConversationTitle);
+    chatServlet.doPost(mockRequest, mockResponse);
+
+    Mockito.verify(mockMessageStore, Mockito.never())
+        .addMessage(Mockito.any(Message.class));
+    Mockito.verify(mockResponse).sendRedirect("/chat/test_conversation");
+  }
+
+  @Test
   public void testDoPost_CleansHtmlContent() throws IOException, ServletException {
     Mockito.when(mockRequest.getRequestURI()).thenReturn("/chat/test_conversation");
     Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");

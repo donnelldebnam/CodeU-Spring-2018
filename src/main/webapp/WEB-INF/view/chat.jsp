@@ -39,7 +39,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
     html {
       zoom:80%;
     }
-    .messageOutput {
+    .listMessages {
       font-size:20px;
     }
   </style>
@@ -54,28 +54,31 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
     <% if (request.getSession().getAttribute("user") != null) { %>
        var authorLogin = "<%= request.getSession().getAttribute("user")%>";
             $(document).ready(function(){
-              $("li.messageOutput").on({
+              $("li.listMessages > span").on({
                 mouseenter: function(){
-                  var author = $(this).find('a').text();
+                  $(this).css("cursor", "default");
+                  var author = $($(this).siblings()).find('a').text();
                   if(author == authorLogin) {
+                    $(this).css("cursor", "not-allowed");
                     $(this).css("color", "red");
                     $(this).css("text-decoration", "line-through");
                   }
                 },
                 mouseleave: function(){
-                  var author = $(this).find('a').text();
+                  var author = $($(this).siblings()).find('a').text();
                   if (author == authorLogin) {
                     $(this).css("color", "#444");
                     $(this).css("text-decoration", "none");
                   }
                 },
                 click: function(){
-                  var author = $(this).find('a').text();
+                  var author = $($(this).siblings()).find('a').text();
                   if (author == authorLogin) {
-                    if(confirm("Are you sure you want to delete this message")){
-                      $(this).fadeOut("slow");
+                    if(confirm("Are you sure you want to delete this message?")){
+                      var listMessage = $(this).parent(".listMessages");
+                      $(listMessage).fadeOut("slow");
                       $.post("", {
-                            deletedMessageId: ($(this).attr("value"))
+                            deletedMessageId: ($(listMessage).attr("value"))
                       });
                     }
                   }
@@ -88,7 +91,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 <body onload="scrollChat()">
   <%@ include file = "/navigations.jsp" %>
 
-  <div id="container">
+  <div class="container">
 
     <h1><%= conversation.getTitle() %>
         <a href="" style="float: right">&#8635;</a></h1>
@@ -100,15 +103,15 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
         <% for (Message message : messages) {
           String author = UserStore.getInstance()
               .getUser(message.getAuthorId()).getName(); %>
-            <li class="messageOutput" value="<%=message.getId()%>"><strong><a id="author"><%= author %></a>:</strong> <%= StyleText.style(message.getContent()) %></li>
+          <li class="listMessages" value="<%=message.getId()%>"><strong><a id="author" href="/users/<%= author%>"><%= author %></a>:</strong> <span class="messageOutput" ><%= StyleText.style(message.getContent()) %></%></span></li>
         <% } %>
       </ul>
     </div>
 
     <% if (request.getSession().getAttribute("user") != null) { %>
       <!--adding emoji menu-->
-      <%@ include file = "/emoji.jsp" %>  
-        
+      <%@ include file = "/emoji.jsp" %>
+
       <form class="form-group" action="/chat/<%= conversation.getTitle() %>" method="POST">
         <input class="form-control" id="input" type="text" style="font-size:20px" name="messageInput">
         <button type="submit" class="btn btn-default">Send</button>
