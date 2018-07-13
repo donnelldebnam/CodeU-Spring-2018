@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//    http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -70,6 +70,10 @@ public class AdminServletTest {
 
   @Test
   public void testDoGet_TotalUser_NoUser() throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<User> fakeUserList = new ArrayList<>();
     Mockito.when(mockUserStore.getUsers()).thenReturn(fakeUserList);
 
@@ -80,6 +84,10 @@ public class AdminServletTest {
 
   @Test
   public void testDoGet_TotalUser_MoreThanOneUser() throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<User> fakeUserList = new ArrayList<>();
     fakeUserList.add(new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now()));
     fakeUserList.add(new User(UUID.randomUUID(), "User01", "FakeHashedPassword02", Instant.now()));
@@ -93,6 +101,10 @@ public class AdminServletTest {
 
   @Test
   public void testDoGet_TotalConversations_NoConversations() throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<Conversation> fakeConversationList = new ArrayList<>();
     Mockito.when(mockConversationStore.getAllConversations()).thenReturn(fakeConversationList);
 
@@ -104,6 +116,10 @@ public class AdminServletTest {
   @Test
   public void testDoGet_TotalConversations_MoreThanOneConversations()
       throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<Conversation> fakeConversationList = new ArrayList<>();
     fakeConversationList.add(
         new Conversation(UUID.randomUUID(), UUID.randomUUID(), "Conversation1", Instant.now()));
@@ -120,6 +136,10 @@ public class AdminServletTest {
 
   @Test
   public void testDoGet_TotalMessages_NoMessages() throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<Message> fakeMessageList = new ArrayList<>();
     Mockito.when(mockMessageStore.getTotalMessages()).thenReturn(fakeMessageList.size());
 
@@ -130,6 +150,10 @@ public class AdminServletTest {
 
   @Test
   public void testDoGet_TotalMessages_MoreThanOneMessages() throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<Message> fakeMessageList = new ArrayList<>();
     fakeMessageList.add(
         new Message(
@@ -149,6 +173,10 @@ public class AdminServletTest {
 
   @Test
   public void testDoGet_MostActive_NoUser() throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<User> fakeUserList = new ArrayList<>();
     Mockito.when(mockUserStore.getUsers()).thenReturn(fakeUserList);
 
@@ -159,6 +187,10 @@ public class AdminServletTest {
 
   @Test
   public void testDoGet_MostActive_OneUser() throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<User> fakeUserList = new ArrayList<>();
     User user1 = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
     fakeUserList.add(user1);
@@ -183,6 +215,10 @@ public class AdminServletTest {
   @Test
   public void testDoGet_MostActive_MoreThanOneUser_DifferentMessageCount()
       throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<User> fakeUserList = new ArrayList<>();
     User user1 = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
     fakeUserList.add(user1);
@@ -229,6 +265,10 @@ public class AdminServletTest {
   @Test
   public void testDoGet_MostActive_MoreThanOneUser_SameMessageCount()
       throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<User> fakeUserList = new ArrayList<>();
     User user1 = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
     fakeUserList.add(user1);
@@ -265,6 +305,10 @@ public class AdminServletTest {
 
   @Test
   public void testDoGet_NewestUser_NoUser() throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<User> fakeUserList = new ArrayList<>();
     Mockito.when(mockUserStore.getUsers()).thenReturn(fakeUserList);
 
@@ -275,6 +319,10 @@ public class AdminServletTest {
 
   @Test
   public void testDoGet_NewestUser_OneUser() throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<User> fakeUserList = new ArrayList<>();
     fakeUserList.add(new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now()));
     Mockito.when(mockUserStore.getUsers()).thenReturn(fakeUserList);
@@ -286,6 +334,10 @@ public class AdminServletTest {
 
   @Test
   public void testDoGet_NewestUser_MoreThanOneUser() throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<User> fakeUserList = new ArrayList<>();
     fakeUserList.add(new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now()));
     fakeUserList.add(new User(UUID.randomUUID(), "Admin02", "FakeHashedPassword02", Instant.now()));
@@ -302,6 +354,10 @@ public class AdminServletTest {
   @Test
   public void testDoGet_WordiestUser_MoreThanOneUser_DifferentCharCount_Test1()
       throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<User> fakeUserList = new ArrayList<>();
     User user1 = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
     fakeUserList.add(user1);
@@ -339,6 +395,10 @@ public class AdminServletTest {
   @Test
   public void testDoGet_WordiestUser_MoreThanOneUser_DifferentCharCount_Test2()
       throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<User> fakeUserList = new ArrayList<>();
     User user1 = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
     fakeUserList.add(user1);
@@ -382,6 +442,10 @@ public class AdminServletTest {
   @Test
   public void testDoGet_WordiestUser_MoreThanOneUser_DifferentCharCount_WithWhiteSpace()
       throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<User> fakeUserList = new ArrayList<>();
     User user1 = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
     fakeUserList.add(user1);
@@ -425,6 +489,10 @@ public class AdminServletTest {
   @Test
   public void testDoGet_WordiestUser_MoreThanOneUser_SameCharCount()
       throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<User> fakeUserList = new ArrayList<>();
     User user1 = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
     fakeUserList.add(user1);
@@ -461,6 +529,10 @@ public class AdminServletTest {
 
   @Test
   public void testDoGet_WordiestUser_NoUser() throws IOException, ServletException {
+    User user = new User(UUID.randomUUID(), "Admin01", "FakeHashedPassword01", Instant.now());
+    user.setAdmin(true);
+    Mockito.when(mockSession.getAttribute("user")).thenReturn("test_username");
+    Mockito.when(mockUserStore.getUser("test_username")).thenReturn(user);
     List<User> fakeUserList = new ArrayList<>();
     Mockito.when(mockUserStore.getUsers()).thenReturn(fakeUserList);
 

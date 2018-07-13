@@ -35,8 +35,8 @@ User activeUser = (User) request.getAttribute("user");
 String profileOwner = (String) request.getAttribute("profileOwner");
 List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByUser");
 List<User> users = (List<User>) request.getAttribute("users");
-Map<String,Hashtag> tags = (Map<String,Hashtag>) request.getAttribute("hashtags");
-List<String> hashWords = new ArrayList<String>();
+Map<String,Hashtag> allHashtags = (Map<String,Hashtag>) request.getAttribute("hashtagMap");
+String currentHashtags = (String) request.getAttribute("currentHashtags");
 %>
 
 <!DOCTYPE html>
@@ -115,18 +115,17 @@ List<String> hashWords = new ArrayList<String>();
       <hr/>
     <% } %>
 
-    <h1>Hashtags in this Profile</h1>
-    <ul>
-      <% for (User user: users) { %>
-        <%
-          Pattern pattern = Pattern.compile("#(\\S+)");
-          Matcher mat = pattern.matcher(user.getAboutMe());
-          while (mat.find())
-            hashWords.add(mat.group(1));
-        %>
-      <% } %>
-      <%= hashWords %>
-    </ul>
+    <h1>Add Hashtags to this Profile!</h1>
+    <p>Your Current Hashtags: </p>
+    <p>
+      <%=currentHashtags%>
+    </p>
+    <div class="form-group">
+    <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
+      <input type="text" name="hashtag"/>
+      <button type="submit" class="btn">submit</button>
+   	</form>
+    </div>
   </div>
 </body>
 </html>

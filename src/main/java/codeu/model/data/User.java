@@ -15,6 +15,8 @@
 package codeu.model.data;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 /** Class representing a registered user. */
@@ -25,6 +27,7 @@ public class User {
   private final Instant creation;
   private boolean admin;
   private String aboutMe;
+  private Set<String> hashtagSet;
 
   /**
    * Constructs a new User.
@@ -41,6 +44,7 @@ public class User {
     this.creation = creation;
     this.admin = false;
     this.aboutMe = "";
+    this.hashtagSet = new HashSet<String>();
   }
 
   /** Returns the ID of this User. */
@@ -81,5 +85,13 @@ public class User {
   /** Sets the about me String of this User. */
   public void setAboutMe(String aboutMe) {
     this.aboutMe = aboutMe;
+  }
+  
+  public void addHashtag(String content){
+    this.hashtagSet.add(content);
+  }
+  
+  public String getHashtagNames(){
+    return String.join(",", this.hashtagSet);
   }
 }
