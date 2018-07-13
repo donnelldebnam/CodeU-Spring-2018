@@ -94,7 +94,7 @@ public class ConversationStore {
   public boolean isTitleTaken(String title) {
     // This approach will be pretty slow if we have many Conversations.
     for (Conversation conversation : conversations) {
-      if (conversation.getTitle().equals(title)) {
+      if (conversation.getTitle().equalsIgnoreCase(title)) {
         return true;
       }
     }
