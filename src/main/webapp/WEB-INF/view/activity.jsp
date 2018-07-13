@@ -33,16 +33,8 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
     }
   </style>
 
-  <script>
-    // scroll the activityfeed div to the bottom
-    function scrollChat() {
-      var chatDiv = document.getElementById('activityfeed');
-      chatDiv.scrollTop = chatDiv.scrollHeight;
-    };
-  </script>
-
 </head>
-<body onload="scrollChat()">
+<body>
   <%@ include file = "/navigations.jsp" %>
 
     <div class="container">
