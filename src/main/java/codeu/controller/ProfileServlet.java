@@ -142,20 +142,31 @@ public class ProfileServlet extends HttpServlet {
     }
 
     String aboutMeContent = request.getParameter("About Me");
-
     String newHashtagContent = request.getParameter("hashtag");
-    if (newHashtagContent != null && newHashtagContent.length() > 0) {
+
+    String cleanednewHashtagContent = Jsoup.clean(newHashtagContent, Whitelist.none());
+    //if (!Util.isWhiteSpace(cleanednewHashtagContent)) {
+      // user.setAboutMe(cleanedAboutMeContent);
       Hashtag newHashtag = new Hashtag(UUID.randomUUID(), newHashtagContent, Instant.now(),
           new HashSet<String>(), new HashSet<String>());
       hashtagStore.addHashtag(newHashtag, HashtagCreator.USER, user.getId());
-      
-      String cleanedHashtag = Jsoup.clean(newHashtagContent, Whitelist.none());
-      user.addHashtag(cleanedHashtag);
-    }
+      user.addHashtag(cleanednewHashtagContent);
+      hashtagStore.updateHashtag(newHashtag);
+   // }
+
+    // if (newHashtagContent != null && newHashtagContent.length() > 0) {
+    // Hashtag newHashtag = new Hashtag(UUID.randomUUID(), newHashtagContent, Instant.now(),
+    // new HashSet<String>(), new HashSet<String>());
+    // hashtagStore.addHashtag(newHashtag, HashtagCreator.USER, user.getId());
+    //
+    // String cleanedHashtag = Jsoup.clean(newHashtagContent, Whitelist.none());
+    // user.addHashtag(cleanedHashtag);
+    // }
 
     // this removes any HTML from the content
     String cleanedAboutMeContent = Jsoup.clean(aboutMeContent, Whitelist.none());
-    if (!Util.isWhiteSpace(cleanedAboutMeContent)) user.setAboutMe(cleanedAboutMeContent);
+    if (!Util.isWhiteSpace(cleanedAboutMeContent))
+      user.setAboutMe(cleanedAboutMeContent);
     userStore.updateUser(user);
     response.sendRedirect("/users/" + username);
   }
