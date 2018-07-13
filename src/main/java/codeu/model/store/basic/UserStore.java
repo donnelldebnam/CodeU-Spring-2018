@@ -142,7 +142,7 @@ public class UserStore {
   /** Return true if the given username is known to the application. */
   public boolean isUserRegistered(String username) {
     for (User user : users) {
-      if (user.getName().equals(username)) {
+      if (user.getName().equalsIgnoreCase(username)) {
         return true;
       }
     }
