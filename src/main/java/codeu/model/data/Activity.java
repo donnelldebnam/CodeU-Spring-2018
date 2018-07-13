@@ -8,7 +8,7 @@ import java.util.UUID;
  * Class representing an activity (creating user, message, or conversation). Any creation done by a
  * user prompts the creation of an activity object.
  */
-public class Activity {
+public class Activity implements Comparable<Activity>{
   private final UUID id;
   private final UUID ownerId;
   private final Action action;
@@ -106,5 +106,11 @@ public class Activity {
   /** Returns true if the activity is public. */
   public void setIsPublic(Boolean isPublic) {
     this.isPublic = isPublic;
+  }
+
+  @Override
+  public int compareTo(Activity o) {
+    Instant secondTime = o.getCreationTime();
+    return (secondTime.compareTo(creation));
   }
 }

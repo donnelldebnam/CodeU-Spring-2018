@@ -130,7 +130,7 @@ public class UserStore {
     users.add(user);
     persistentStorageAgent.writeThrough(user);
     Activity activity1 = new Activity(user);
-    activity1.setIsPublic(true);
+    activity1.setIsPublic((user.isAdmin() ? false:true));
     activityStore.addActivity(activity1);
   }
 
