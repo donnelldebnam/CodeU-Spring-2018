@@ -94,6 +94,12 @@ public class ChatServlet extends HttpServlet {
       response.sendRedirect("/conversations");
       return;
     }
+    // ONLY authorized users!!!
+    if (conversation.isPrivate() && request.getSession().getAttribute("user") == null) {
+      // couldn't find conversation, redirect to conversation list
+      response.sendRedirect("/conversations");
+      return;
+    }
 
     UUID conversationId = conversation.getId();
 

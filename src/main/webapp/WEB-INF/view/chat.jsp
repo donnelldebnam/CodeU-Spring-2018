@@ -44,15 +44,6 @@ List<User> users = (List<User>) request.getAttribute("users");
     .listMessages {
       font-size:20px;
     }
-    #myInput{
-      border-box: box-sizing;
-      background-position: 14px 12px;
-      background-repeat: no-repeat;
-      font-size: 16px;
-      padding: 14px 20px 12px 45px;
-      border: none;
-      border-bottom: 1px solid #ddd;
-    }
   </style>
 
   <script>
