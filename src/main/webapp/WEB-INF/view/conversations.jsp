@@ -62,8 +62,13 @@ List<Conversation> conversations = (List<Conversation>) request.getAttribute("co
     <% } else { %>
       <ul class="mdl-list">
         <% for (Conversation conversation : conversations) { %>
-          <li><a href="/chat/<%= conversation.getTitle() %>">
-              <%= conversation.getTitle() %></a></li>
+            <% if (!conversation.isPrivate()) { %>
+              <li><a href="/chat/<%= conversation.getTitle() %>">
+                  <%= conversation.getTitle() %></a></li>
+           <% } else if(request.getSession().getAttribute("user") != null &&
+                        conversation.check(request.getSession().getAttribute("user").toString())) { %>
+                   <li><a href="/chat/<%= conversation.getTitle() %>">&#x1F512;<%= conversation.getTitle() %></a></li>
+              <% } %>
         <% } %>
       </ul>
     <% } %>

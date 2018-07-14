@@ -14,6 +14,8 @@
 
 package codeu.model.data;
 
+import codeu.model.store.basic.UserStore;
+
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -85,6 +87,19 @@ public class Conversation {
   public Boolean addUser(UUID userID) {
     if(!isPrivate) return false;
     return users.add(userID.toString());
+  }
+
+  /**
+   * Checks if this user in the list based on their name.
+   */
+  public boolean check(String name) {
+    User user = UserStore.getInstance().getUser(name);
+    for (String id: users){
+      if(id.equals(user.getId().toString())){
+        return true;
+      }
+    }
+    return false;
   }
 
   /**

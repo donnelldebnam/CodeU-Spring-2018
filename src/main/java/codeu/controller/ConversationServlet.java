@@ -118,6 +118,12 @@ public class ConversationServlet extends HttpServlet {
     boolean isPrivate = Boolean.valueOf(request.getParameter("isPrivate"));
     Conversation conversation =
         new Conversation(UUID.randomUUID(), user.getId(), conversationTitle, Instant.now(), (isPrivate?true:false));
+    if(isPrivate) {
+      // Add the first user, which is the creator.
+      conversation.addUser(user.getId());
+      // For admin purpose, add the admin too.
+      conversation.addUser(userStore.getUser("Admin01").getId());
+    }
     conversationStore.addConversation(conversation);
     response.sendRedirect("/chat/" + conversationTitle);
   }
