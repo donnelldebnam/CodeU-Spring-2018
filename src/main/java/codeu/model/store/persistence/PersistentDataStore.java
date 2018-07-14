@@ -108,7 +108,14 @@ public class PersistentDataStore {
         UUID ownerUuid = UUID.fromString((String) entity.getProperty("owner_uuid"));
         String title = (String) entity.getProperty("title");
         Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
-        Conversation conversation = new Conversation(uuid, ownerUuid, title, creationTime);
+        Boolean isPrivate = Boolean.valueOf((String) entity.getProperty("isPrivate"));
+        Conversation conversation = new Conversation(uuid, ownerUuid, title, creationTime, isPrivate);
+        if(isPrivate) {
+          Set<String> users =
+                  new HashSet<String>(
+                          Arrays.asList(((String) (entity.getProperty("users"))).split(",")));
+          conversation.setUsers(users);
+        }
         conversations.add(conversation);
       } catch (Exception e) {
         // In a production environment, errors should be very rare.
@@ -257,6 +264,8 @@ public class PersistentDataStore {
     conversationEntity.setProperty("owner_uuid", conversation.getOwnerId().toString());
     conversationEntity.setProperty("title", conversation.getTitle());
     conversationEntity.setProperty("creation_time", conversation.getCreationTime().toString());
+    conversationEntity.setProperty("isPrivate", String.valueOf(conversation.isPrivate()));
+    if(conversation.isPrivate()) conversationEntity.setProperty("users", conversation.getUsers());
     datastore.put(conversationEntity);
   }
 

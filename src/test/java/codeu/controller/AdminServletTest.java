@@ -106,11 +106,12 @@ public class AdminServletTest {
       throws IOException, ServletException {
     List<Conversation> fakeConversationList = new ArrayList<>();
     fakeConversationList.add(
-        new Conversation(UUID.randomUUID(), UUID.randomUUID(), "Conversation1", Instant.now()));
+        new Conversation(UUID.randomUUID(), UUID.randomUUID(), "Conversation1", Instant.now(), false));
     fakeConversationList.add(
-        new Conversation(UUID.randomUUID(), UUID.randomUUID(), "Conversation2", Instant.now()));
+        new Conversation(UUID.randomUUID(), UUID.randomUUID(), "Conversation2", Instant.now(), false));
     fakeConversationList.add(
-        new Conversation(UUID.randomUUID(), UUID.randomUUID(), "Conversation3", Instant.now()));
+        new Conversation(UUID.randomUUID(), UUID.randomUUID(), "Conversation3", Instant.now(),
+                false));
     Mockito.when(mockConversationStore.getAllConversations()).thenReturn(fakeConversationList);
 
     adminServlet.doGet(mockRequest, mockResponse);

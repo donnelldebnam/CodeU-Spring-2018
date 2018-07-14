@@ -103,7 +103,7 @@ public class Activity implements Comparable<Activity>{
     return thumbnail;
   }
 
-  /** Returns true if the activity is public. */
+  /** Sets the accessibility of activity. */
   public void setIsPublic(Boolean isPublic) {
     this.isPublic = isPublic;
   }

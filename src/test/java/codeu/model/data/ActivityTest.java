@@ -34,7 +34,7 @@ public class ActivityTest {
     UUID owner = UUID.randomUUID();
     Instant creation = Instant.now();
 
-    Conversation c = new Conversation(id, owner, "Title1", creation);
+    Conversation c = new Conversation(id, owner, "Title1", creation, false);
 
     Activity activity = new Activity(c);
     activity.setIsPublic(false);

@@ -118,6 +118,7 @@ public class ModelDataTestHelpers {
     private UUID ownerId;
     private String title;
     private Instant creationTime;
+    private boolean isPrivate;
 
     public TestConversationBuilder() {
       this.id = UUID.randomUUID();
@@ -146,8 +147,13 @@ public class ModelDataTestHelpers {
       return this;
     }
 
+    public TestConversationBuilder withIsPrivate(boolean isPrivate) {
+      this.isPrivate = isPrivate;
+      return this;
+    }
+
     public Conversation build() {
-      return new Conversation(id, ownerId, title, creationTime);
+      return new Conversation(id, ownerId, title, creationTime, isPrivate);
     }
   }
 
