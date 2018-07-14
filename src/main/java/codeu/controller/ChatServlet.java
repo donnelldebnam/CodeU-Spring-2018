@@ -147,6 +147,15 @@ public class ChatServlet extends HttpServlet {
 
     String messageContent = request.getParameter("messageInput");
     String deletedMessageId = request.getParameter("deletedMessageId");
+    String userNameToAdd = request.getParameter("nameToBeAdded");
+
+    // ONLY PRIVATE: adding a user
+    if (userNameToAdd != null) {
+      // this removes any HTML from the message content
+      userNameToAdd = Jsoup.clean(userNameToAdd, Whitelist.none());
+      conversation.addUser(userStore.getUser(userNameToAdd).getId());
+      conversationStore.updateConversation(conversation);
+    }
 
     // Adding a new message
     if (messageContent != null) {

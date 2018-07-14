@@ -81,6 +81,11 @@ public class ConversationStore {
     return conversations;
   }
 
+  /** Update an existing Conversation. */
+  public void updateConversation(Conversation conv) {
+    persistentStorageAgent.writeThrough(conv);
+  }
+
   /** Add a new conversation to the current set of conversations known to the application. */
   public void addConversation(Conversation conversation) {
     conversations.add(conversation);
