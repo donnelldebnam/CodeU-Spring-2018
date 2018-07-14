@@ -47,7 +47,7 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
             <ul>
               <%
               for (Activity activity: activities) {
-                if(activity.isPublic()) {
+                if(!activity.isPrivate()) {
                   Action action = activity.getAction();
                   UUID id = activity.getId();
                   UUID idOwnerId = activity.getOwnerId();

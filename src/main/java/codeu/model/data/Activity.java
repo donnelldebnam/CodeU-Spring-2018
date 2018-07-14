@@ -12,7 +12,7 @@ public class Activity implements Comparable<Activity>{
   private final UUID id;
   private final UUID ownerId;
   private final Action action;
-  private boolean isPublic;
+  private boolean isPrivate;
   private final Instant creation;
   private final String thumbnail;
 
@@ -22,16 +22,16 @@ public class Activity implements Comparable<Activity>{
    * @param id the ID of this Activity
    * @param ownerId the ID of the owner of this activity
    * @param action the action of the activity (join, send, create)
-   * @param isPublic how accessible is this activity.
+   * @param isPrivate how accessible is this activity.
    * @param creation the creation time of this Conversation
    * @param thumbnail a short summary about the activity
    */
   public Activity(
-      UUID id, UUID ownerId, Action action, boolean isPublic, Instant creation, String thumbnail) {
+      UUID id, UUID ownerId, Action action, boolean isPrivate, Instant creation, String thumbnail) {
     this.id = id;
     this.action = action;
     this.ownerId = ownerId;
-    this.isPublic = isPublic;
+    this.isPrivate = isPrivate;
     this.creation = creation;
     this.thumbnail = thumbnail;
   }
@@ -89,8 +89,8 @@ public class Activity implements Comparable<Activity>{
   }
 
   /** Returns true if the activity is public. */
-  public boolean isPublic() {
-    return isPublic;
+  public boolean isPrivate() {
+    return isPrivate;
   }
 
   /** Returns the creation time of this activity. */
@@ -103,9 +103,9 @@ public class Activity implements Comparable<Activity>{
     return thumbnail;
   }
 
-  /** Returns true if the activity is public. */
-  public void setIsPublic(Boolean isPublic) {
-    this.isPublic = isPublic;
+  /** Sets the accessibility of activity. */
+  public void setIsPrivate(Boolean isPrivate) {
+    this.isPrivate = isPrivate;
   }
 
   @Override

@@ -4,6 +4,7 @@
     width:45%;
     height: 130px;
     overflow-y: scroll;
+    overflow-x: scroll;
     background-color: #80808040;
   }
   .row{
@@ -36,12 +37,6 @@
   $(document).ready(function(){
     // Forces the cursor to stay inside the textArea
     focusRight("input", ""); 
-    // scroll the chat div to the bottom
-    function scrollEmoji() {
-      var emojiDiv = document.getElementsByClassName('dropdown-menu');
-      emojiDiv.scrollTop = emojiDiv.scrollHeight;
-      emojiDiv.scrollLeft = emojiDiv.scrollLeft;
-    };
     $("div.colEmoji").on({
       click: function(){
           var emoji= $(this);
