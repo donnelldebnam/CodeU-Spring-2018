@@ -43,7 +43,12 @@ List<Conversation> conversations = (List<Conversation>) request.getAttribute("co
       <form class="form-group" action="/conversations" method="POST">
         <label class="form-control-label">Title:</label>
         <input class="form-control"type="text" name="conversationTitle">
-        </br>
+        <div class="form-check">
+          <label class="form-check-label" for="checkF">
+          Private
+          </label>
+          <input class="form-check-input" type="checkbox" value="true" id="checkF" name="isPrivate">
+        </div>
         <button type="submit" class="btn">Create</button>
       </form>
 
