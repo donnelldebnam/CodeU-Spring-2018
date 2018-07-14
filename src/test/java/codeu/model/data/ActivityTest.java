@@ -14,16 +14,16 @@ public class ActivityTest {
     UUID id = UUID.randomUUID();
     UUID ownerId = id;
     Action action = Action.REGISTER_USER;
-    Boolean isPublic = true;
+    Boolean isPrivate = false;
     Instant creation = Instant.now();
     String thumbnail = "A new user joined CodeByters!";
 
-    Activity activity = new Activity(id, ownerId, action, isPublic, creation, thumbnail);
+    Activity activity = new Activity(id, ownerId, action, isPrivate, creation, thumbnail);
 
     assertEquals(id, activity.getId());
     assertEquals(ownerId, activity.getOwnerId());
     assertEquals(action, activity.getAction());
-    assertTrue(isPublic);
+    assertTrue(!isPrivate);
     assertEquals(creation, activity.getCreationTime());
     assertEquals(thumbnail, activity.getThumbnail());
   }
@@ -34,15 +34,15 @@ public class ActivityTest {
     UUID owner = UUID.randomUUID();
     Instant creation = Instant.now();
 
-    Conversation c = new Conversation(id, owner, "Title1", creation, false);
+    Conversation c = new Conversation(id, owner, "Title1", creation, true);
 
     Activity activity = new Activity(c);
-    activity.setIsPublic(false);
+    activity.setIsPrivate(true);
 
     assertEquals(id, activity.getId());
     assertEquals(owner, activity.getOwnerId());
     assertEquals("CREATE_CONV", activity.getAction().name());
-    assertTrue(!activity.isPublic());
+    assertTrue(activity.isPrivate());
     String time =
         Util.FormatDateTime(c.getCreationTime())
             + ": [USER] created a new public conversation = \""

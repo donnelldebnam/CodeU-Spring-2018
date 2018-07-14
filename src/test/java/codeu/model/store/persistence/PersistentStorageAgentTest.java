@@ -104,7 +104,7 @@ public class PersistentStorageAgentTest {
             UUID.randomUUID(),
             UUID.randomUUID(),
             Action.REGISTER_USER,
-            /** isPublic = */
+            /** isPrivate = */
             true,
             Instant.now(),
             null);
