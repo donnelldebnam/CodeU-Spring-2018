@@ -83,7 +83,7 @@
   <!-- Messaging -->
   <br>
   <div>
-    <h1 style="color:#46b9e2; font-size:42px;"align="left">
+    <h1 style="color:#46b9e2; font-size:4vw;"align="left">
       <STRONG>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Unique features:</STRONG>
     </h1>
   </div>
