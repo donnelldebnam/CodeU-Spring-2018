@@ -15,12 +15,14 @@
 --%>
 <%@ page import="java.util.List" %>
 <%@ page import="codeu.model.data.Conversation" %>
+<%@ page import="codeu.model.data.User" %>
 <%@ page import="codeu.model.data.StyleText" %>
 <%@ page import="codeu.model.data.Message" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
 <%
 Conversation conversation = (Conversation) request.getAttribute("conversation");
 List<Message> messages = (List<Message>) request.getAttribute("messages");
+List<User> users = (List<User>) request.getAttribute("users");
 %>
 
 <!DOCTYPE html>
@@ -92,13 +94,15 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
   <%@ include file = "/navigations.jsp" %>
 
   <div class="container">
-
     <h1><%= conversation.getTitle() %>
         <a href="" style="float: right">&#8635;</a></h1>
-
     <hr/>
-
-    <div id="chat">
+    <% if (conversation.isPrivate()) { %>
+      <!--In case this is a private conv, let's add users!-->
+      <%@ include file = "/add.jsp" %>
+    <% } %>
+    <div>
+      <div id="chat">
       <ul>
         <% for (Message message : messages) {
           String author = UserStore.getInstance()
@@ -119,10 +123,8 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
     <% } else { %>
       <p><a href="/login">Login</a> to send a message.</p>
     <% } %>
-
+      </div>
     <hr/>
-
   </div>
-
 </body>
 </html>

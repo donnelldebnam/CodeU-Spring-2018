@@ -33,27 +33,21 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
     }
   </style>
 
-  <script>
-    // scroll the activityfeed div to the bottom
-    function scrollChat() {
-      var chatDiv = document.getElementById('chat');
-      chatDiv.scrollTop = chatDiv.scrollHeight;
-    };
-  </script>
-
 </head>
-<body onload="scrollChat()">
+<body>
   <%@ include file = "/navigations.jsp" %>
 
     <div class="container">
       <h2 style="color:blue; text-aligned:left; margin-bottom:25px"> ACTIVITY </h2>
-      <h3> Here's everything that's happened on the site so far! </h3>
-        <div id="activityfeed">
-          <ul>
-            <%
-              for (int i = activities.size() -1; i>-1; i--) {
-                Activity activity = activities.get(i);
-                if(activity.isPublic()) {
+      <% if (activities == null || activities.size() == 1) { %>
+      <h3> Nothing happened on the site so far! </h3>
+      <% } else { %>
+        <h3> Here's everything that's happened on the site so far! </h3>
+          <div id="activityfeed">
+            <ul>
+              <%
+              for (Activity activity: activities) {
+                if(!activity.isPrivate()) {
                   Action action = activity.getAction();
                   UUID id = activity.getId();
                   UUID idOwnerId = activity.getOwnerId();
@@ -63,13 +57,13 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
 
                   case REGISTER_USER:
                     name = UserStore.getInstance().getUser(id).getName();%>
-                    <li class="texts"><b><%= time %>:</b> <%= name %> joined CodeByters!</li>
+                    <li class="texts"><b><%= time %>:</b> <a href="/users/<%= name%>"><%= name %></a> joined CodeByters!</li>
                     <% break;
 
                   case CREATE_CONV:
                      name = UserStore.getInstance().getUser(idOwnerId).getName();
                      Conversation conv1 = ConversationStore.getInstance().getConversationById(id);%>
-                     <li class="texts"><b><%= time %>:</b> <%= name %> created a new conversation:
+                     <li class="texts"><b><%= time %>:</b> <a href="/users/<%= name%>"><%= name %></a> created a new conversation:
                      <a href="/chat/<%= conv1.getTitle() %>"> <%= conv1.getTitle() %></a>.</li>
                      <% break;
 
@@ -77,14 +71,15 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
                      name = UserStore.getInstance().getUser(idOwnerId).getName();
                      Message mess = MessageStore.getInstance().getMessageById(id);
                      Conversation conv2 = ConversationStore.getInstance().getConversationById(mess.getConversationId());%>
-                     <li class=texts><b><%= time %>:</b> <%= name %> sent a message in
+                     <li class=texts><b><%= time %>:</b> <a href="/users/<%= name%>"><%= name %></a>  sent a message in
                      <a href="/chat/<%= conv2.getTitle() %>"> <%= conv2.getTitle() %> </a>: "<%= mess.getContent() %>".</li>
 
                   <% } %>
                 <% } %>
               <% } %>
-          </ul>
-        </div>
+            </ul>
+          </div>
+          <% } %>
     </div>
 </body>
 </html>

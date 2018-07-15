@@ -79,29 +79,27 @@ String currentHashtags = (String) request.getAttribute("currentHashtags");
       <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
 
-    <% if (request.getSession().getAttribute("user") != null) { %>
-
-      <h1><%=profileOwner%>'s Profile Page</h1>
-      <hr/>
-      <strong>About <%=profileOwner%></strong><br>
-      <p><%=StyleText.style(activeUser.getAboutMe())%></p>
-
+      <h1 style="text-align: right"><%=profileOwner%>'s Profile Page</h1>
+      <% if((!activeUser.getAboutMe().isEmpty()) || request.getSession().getAttribute("user") != null) {%>
+        <hr/>
+        <h3>About <%=profileOwner%></h3>
+        <p><%=StyleText.style(activeUser.getAboutMe())%></p>
+      <% } %>     
       <!--
           Only show the editable fields if the logged in user is the
           owner of this profile.
-      -->
-      <% if (request.getSession().getAttribute("user").equals(profileOwner)) { %>
+      -->            
+      <% if (request.getSession().getAttribute("user") != null && request.getSession().getAttribute("user").equals(profileOwner)) { %>
         <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
           <div class="form-group">
-            <label class="form-control-label">Edit Your About Me:</label>
-            <textarea class="form-control"rows="5" cols="75" name="About Me" placeholder="I'm currently a student at..."></textarea>
+            <textarea class="form-control"rows="5" cols="75" name="About Me" placeholder="Edit Your About Me..."></textarea>
           </div>
           <button type="submit" class="btn">submit</button>
         </form>
         <hr/>
       <% } %>
 
-      <h1><%=profileOwner%>'s Sent Messages</h1>
+      <h3><%=profileOwner%>'s Sent Messages</h3>
       <div id="chat">
         <ul>
           <% for (Message message : messagesByUser) {
