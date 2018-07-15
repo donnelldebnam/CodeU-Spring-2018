@@ -12,6 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+<<<<<<< HEAD
 
 body {
   margin: 0;
@@ -60,3 +61,106 @@ input {
 button {
   font-size: 18px;
 }
+=======
+ .navbar {
+   margin-bottom: 0;
+   border-radius: 0;
+   border: 0;
+ }
+ .navbar-brand {
+   float: left;
+   min-height: 55px;
+   padding: 0 15px 5px;
+ }
+ .navbar-inverse .navbar-nav .active a, .navbar-inverse .navbar-nav .active a:focus, .navbar-inverse .navbar-nav .active a:hover {
+   color: #FFF;
+ }
+ .navbar-inverse .navbar-nav li a {
+   color: #D5D5D5;
+ }
+ .carousel-caption {
+   top: 50%;
+   transform: translateY(-50%);
+ }
+ .btn {
+   font-size: 18px;
+   color: #FFF;
+   padding: 12px 22px;
+   background: #46b9e2;
+   border: 2px solid #FFF;
+ }
+ .texts {
+   font-size:18px;
+ }
+ @media (max-width: 900px) {
+   .fa {
+    font-size: 20px;
+    padding: 10px;
+   }
+ }
+ @media (max-width: 600px) {
+   .carousel-caption {
+     display: none;
+   }
+ }
+ ul {
+   list-style-type: none;
+   font-size: 26px;
+ }
+ a {
+   color: #207599;
+ }
+ a:hover {
+   color: #D5D5D5;
+ }
+ footer {
+   width: 100%;
+   padding: 3%;
+   background-color: #1c1c1c;
+   color: #FFF;
+ }
+ .fa {
+   padding: 20px;
+   font-size: 40px;
+   color: #FFF;
+ }
+ .fa:hover {
+   color: #D5D5D5;
+ }
+ body {
+   margin: 0;
+   font-family: Futura;
+   line-height: 1.6;
+   font-size: 18px;
+   line-height: 1.6;
+   color: #444;
+   background-color: #eeeeee;
+ }
+ nav a {
+   color: white;
+   display: inline-block;
+   font-size: 24px;
+   margin: 15px;
+   text-decoration: none;
+ }
+ ::-webkit-input-placeholder {
+   font-style: italic;
+ }
+ #navTitle {
+   font-size: 36px;
+ }
+ #container {
+   margin-left: auto;
+   margin-right: auto;
+   width: 800px;
+ }
+ h1 {
+   color: #75757;
+ }
+ input {
+   font-size: 18px;
+ }
+ button {
+   font-size: 18px;
+ }
+>>>>>>> 8698f5544ca7e9e596db6d0d505b2215bebf4179

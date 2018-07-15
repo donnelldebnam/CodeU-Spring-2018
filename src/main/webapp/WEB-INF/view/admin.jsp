@@ -16,11 +16,15 @@
 <%@ page import="codeu.controller.AdminServlet" %>
 <!DOCTYPE html>
 <html>
-<head>
-  <title>CodeByter's Chat App</title>
-  <link rel="stylesheet" href="/css/main.css">
-</head>
+<title>Admin Page</title>
+<%@ include file = "/header.jsp" %>
 <body>
+  <style>
+    html {
+      zoom:80%;
+    }
+  </style>
+
   <%@ include file = "/navigations.jsp" %>
 
   <div id="container">
@@ -29,7 +33,7 @@
 
       <h1>Administration</h1>
       <p>
-        This is the administration page of the CodeU Chat App. Only the administrators of the site can view stats. (Enjoy the authority!) 
+        This is the administration page of the CodeU Chat App. Only the administrators of the site can view stats. (Enjoy the authority!)
       </p>
 
       <h2><strong>Site Statistics</strong></h2>
@@ -41,7 +45,7 @@
         <li><strong>Newest User:</strong><%= request.getAttribute("newestUser")%></li>
         <li><strong>Wordiest User:</strong><%= request.getAttribute("wordiestUser")%></li>
       </ul>
-      
+
     </div>
   </div>
 </body>
