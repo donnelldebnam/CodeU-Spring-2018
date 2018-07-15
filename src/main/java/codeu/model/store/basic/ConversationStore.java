@@ -91,7 +91,7 @@ public class ConversationStore {
     conversations.add(conversation);
     persistentStorageAgent.writeThrough(conversation);
     Activity activity1 = new Activity(conversation);
-    activity1.setIsPrivate(false);
+    activity1.setIsPrivate((conversation.isPrivate()?true:false));
     activityStore.addActivity(activity1);
   }
 

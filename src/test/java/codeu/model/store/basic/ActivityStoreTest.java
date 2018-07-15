@@ -52,7 +52,7 @@ public class ActivityStoreTest {
         new TestActivityBuilder()
             .withId(newAct)
             .withAction(Action.REGISTER_USER)
-            .withIsPublic(true)
+            .withIsPrivate(false)
             .build();
 
     activityStore.addActivity(inputActivity);
@@ -98,7 +98,7 @@ public class ActivityStoreTest {
         new TestActivityBuilder()
             .withId(activity1)
             .withAction(Action.SEND_MESSAGE)
-            .withIsPublic(true)
+            .withIsPrivate(false)
             .build();
 
     UUID activity2 = UUID.randomUUID();
@@ -106,7 +106,7 @@ public class ActivityStoreTest {
         new TestActivityBuilder()
             .withId(activity2)
             .withAction(Action.REGISTER_USER)
-            .withIsPublic(true)
+            .withIsPrivate(false)
             .build();
 
     activityStore.addActivity(activity_one);

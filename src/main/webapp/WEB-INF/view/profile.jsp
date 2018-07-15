@@ -103,10 +103,12 @@ List<String> hashWords = new ArrayList<String>();
       <div id="chat">
         <ul>
           <% for (Message message : messagesByUser) {
-            Instant time = message.getCreationTime();
-            String creation = Util.FormatDateTime(time);
+            if(!message.isPrivate()) {
+              Instant time = message.getCreationTime();
+              String creation = Util.FormatDateTime(time);
           %>
-            <li class="texts"><strong><%= creation %>:</strong> <%= StyleText.style(message.getContent()) %></li>
+              <li class="texts"><strong><%= creation %>:</strong> <%= StyleText.style(message.getContent()) %></li>
+            <% } %>
           <% } %>
         </ul>
       </div>

@@ -134,13 +134,13 @@ public class AdminServletTest {
     List<Message> fakeMessageList = new ArrayList<>();
     fakeMessageList.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), "Message1", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), false, "Message1", Instant.now()));
     fakeMessageList.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), "Message2", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), false, "Message2", Instant.now()));
     fakeMessageList.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), "Message3", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), UUID.randomUUID(), false, "Message3", Instant.now()));
     Mockito.when(mockMessageStore.getTotalMessages()).thenReturn(fakeMessageList.size());
 
     adminServlet.doGet(mockRequest, mockResponse);
@@ -167,10 +167,10 @@ public class AdminServletTest {
     List<Message> fakeMessageList_User1 = new ArrayList<>();
     fakeMessageList_User1.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message1", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message1", Instant.now()));
     fakeMessageList_User1.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message2", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message2", Instant.now()));
 
     Mockito.when(mockMessageStore.getMessagesByUser(user1.getId()))
         .thenReturn(fakeMessageList_User1);
@@ -195,24 +195,24 @@ public class AdminServletTest {
     List<Message> fakeMessageList_User1 = new ArrayList<>();
     fakeMessageList_User1.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message1", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message1", Instant.now()));
     fakeMessageList_User1.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message2", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message2", Instant.now()));
     List<Message> fakeMessageList_User2 = new ArrayList<>();
     fakeMessageList_User2.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message1", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message1", Instant.now()));
     fakeMessageList_User2.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message2", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message2", Instant.now()));
     fakeMessageList_User2.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message3", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message3", Instant.now()));
     List<Message> fakeMessageList_User3 = new ArrayList<>();
     fakeMessageList_User3.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message1", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message1", Instant.now()));
 
     Mockito.when(mockMessageStore.getMessagesByUser(user1.getId()))
         .thenReturn(fakeMessageList_User1);
@@ -241,15 +241,15 @@ public class AdminServletTest {
     List<Message> fakeMessageList_User1 = new ArrayList<>();
     fakeMessageList_User1.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message1", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message1", Instant.now()));
     List<Message> fakeMessageList_User2 = new ArrayList<>();
     fakeMessageList_User2.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message2", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message2", Instant.now()));
     List<Message> fakeMessageList_User3 = new ArrayList<>();
     fakeMessageList_User3.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message3", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message3", Instant.now()));
 
     Mockito.when(mockMessageStore.getMessagesByUser(user1.getId()))
         .thenReturn(fakeMessageList_User1);
@@ -314,15 +314,15 @@ public class AdminServletTest {
     List<Message> fakeMessageList_User1 = new ArrayList<>();
     fakeMessageList_User1.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message1", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message1", Instant.now()));
     List<Message> fakeMessageList_User2 = new ArrayList<>();
     fakeMessageList_User2.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message22", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message22", Instant.now()));
     List<Message> fakeMessageList_User3 = new ArrayList<>();
     fakeMessageList_User3.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message333", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message333", Instant.now()));
 
     Mockito.when(mockMessageStore.getMessagesByUser(user1.getId()))
         .thenReturn(fakeMessageList_User1);
@@ -351,21 +351,21 @@ public class AdminServletTest {
     List<Message> fakeMessageList_User1 = new ArrayList<>();
     fakeMessageList_User1.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message1", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message1", Instant.now()));
     fakeMessageList_User1.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message2", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message2", Instant.now()));
     List<Message> fakeMessageList_User2 = new ArrayList<>();
     fakeMessageList_User2.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message2", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message2", Instant.now()));
     fakeMessageList_User2.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "LongMessage1", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "LongMessage1", Instant.now()));
     List<Message> fakeMessageList_User3 = new ArrayList<>();
     fakeMessageList_User3.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message3", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message3", Instant.now()));
 
     Mockito.when(mockMessageStore.getMessagesByUser(user1.getId()))
         .thenReturn(fakeMessageList_User1);
@@ -394,21 +394,21 @@ public class AdminServletTest {
     List<Message> fakeMessageList_User1 = new ArrayList<>();
     fakeMessageList_User1.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message1", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message1", Instant.now()));
     fakeMessageList_User1.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message2", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message2", Instant.now()));
     List<Message> fakeMessageList_User2 = new ArrayList<>();
     fakeMessageList_User2.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "M e s s a g e 2", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "M e s s a g e 2", Instant.now()));
     fakeMessageList_User2.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "M e s s a g e 3", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "M e s s a g e 3", Instant.now()));
     List<Message> fakeMessageList_User3 = new ArrayList<>();
     fakeMessageList_User3.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message4", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message4", Instant.now()));
 
     Mockito.when(mockMessageStore.getMessagesByUser(user1.getId()))
         .thenReturn(fakeMessageList_User1);
@@ -437,15 +437,15 @@ public class AdminServletTest {
     List<Message> fakeMessageList_User1 = new ArrayList<>();
     fakeMessageList_User1.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message1", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message1", Instant.now()));
     List<Message> fakeMessageList_User2 = new ArrayList<>();
     fakeMessageList_User2.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message2", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message2", Instant.now()));
     List<Message> fakeMessageList_User3 = new ArrayList<>();
     fakeMessageList_User3.add(
         new Message(
-            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), "Message3", Instant.now()));
+            UUID.randomUUID(), UUID.randomUUID(), user1.getId(), false, "Message3", Instant.now()));
 
     Mockito.when(mockMessageStore.getMessagesByUser(user1.getId()))
         .thenReturn(fakeMessageList_User1);
