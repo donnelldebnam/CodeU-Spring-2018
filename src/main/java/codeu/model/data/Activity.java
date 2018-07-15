@@ -88,7 +88,7 @@ public class Activity implements Comparable<Activity>{
     return action;
   }
 
-  /** Returns true if the activity is public. */
+  /** Returns true if the activity is private. */
   public boolean isPrivate() {
     return isPrivate;
   }
