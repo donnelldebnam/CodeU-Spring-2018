@@ -73,19 +73,59 @@
   </div>
   <!-- Ends Slider -->
 
+  <!-- Middle of Homepage -->
   <div class="mid-home" align="center">
-    <h2 style="font-size:4vw;" >We offer next-level <b>instant messaging,<b></h2>
+    <h2 style="font-size:4vw;" >We offer next-level <b>instant messaging,</b></h2>
     <h3 style="font-size:2vw;" >making connecting with the world, 10x easier.</h3>
   </div>
+
+  <!--BEGINS FEATURES RUNDOWN -->
+  <!-- Messaging -->
+  <br>
+  <div class="container">
+    <div>
+      <img align="left" src="https://s8.postimg.cc/8quntkuqd/bubbles-alt.png" style="width:30%">
+    </div>
+    <h1 align="center">Instant Messaging</h1>
+    <p align="center">
+      With CodeByters' chat web-app, you can now create: <b>group, direct</b> and <b>solo</b> message threads.
+      For group messaging, we've made it easy for you to simply add in friends while in your
+      threads, instead of having to create unnecessary conversations!
+    </p>
+  </div>
+  <!-- Privacy -->
+  <div class="container">
+    <div>
+      <img align="left" src="https://s8.postimg.cc/hymwad9j9/lock-icon.png" style="width:30%">
+    </div>
+    <h1 align="center">Privacy</h1>
+    <p align="center">
+      You no longer need to worry about who hass access to your account and messages, as we have
+      included privacy options for all users. Upon creating a conversation, simply check the "Private" box,
+      and you're all set. This will enable only you, and select users, to have access.
+    </p>
+  </div>
+  <!-- Profile Tagging-->
+  <div class="container">
+    <div>
+      <img align="left" src="https://s8.postimg.cc/b86f11wp1/tagging-icons-94704.png" style="width:30%">
+    </div>
+    <h1 align="center">Profile Tagging</h1>
+    <p align="center">
+     "Profile Tagging" now enables users to personalize their profile pages in a way that makes it
+      easier to connect with peers sharing similar interests. By adding a tag to your profile, you may
+      view the tag globally, providing a rundown of all public users sharing this tag.
+    </p>
+  </div>
+  <br>
 
   <!-- Footer begins here-->
   <footer class="container-fluid text-center">
     <div class="row">
-      <div class="footer"align="center">
-        <a href="https://github.com/donnelldebnam/CodeU-Spring-2018-29" class="fa fa-github" style="scale:100px;"></a>
+      <div class="footer" align="center">
+        <a href="https://github.com/donnelldebnam/CodeU-Spring-2018-29" class="fa fa-github"></a>
         <p>CodeByters &bull; Google CodeU 2018</p>
       </div>
-
     </div>
     </div>
   </footer>
