@@ -1,12 +1,9 @@
 <%--
   Copyright 2017 Google Inc.
-
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
-
      http://www.apache.org/licenses/LICENSE-2.0
-
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -79,36 +76,36 @@ String currentHashtags = (String) request.getAttribute("currentHashtags");
       <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
 
-      <h1 style="text-align: right"><%=profileOwner%>'s Profile Page</h1>
-      <% if((!activeUser.getAboutMe().isEmpty()) || request.getSession().getAttribute("user") != null) {%>
-        <hr/>
-        <h3>About <%=profileOwner%></h3>
-        <p><%=StyleText.style(activeUser.getAboutMe())%></p>
-      <% } %>     
+    <% if (request.getSession().getAttribute("user") != null) { %>
+
+      <h1><%=profileOwner%>'s Profile Page</h1>
+      <hr/>
+      <strong>About <%=profileOwner%></strong><br>
+      <p><%=StyleText.style(activeUser.getAboutMe())%></p>
+
       <!--
           Only show the editable fields if the logged in user is the
           owner of this profile.
-      -->            
-      <% if (request.getSession().getAttribute("user") != null && request.getSession().getAttribute("user").equals(profileOwner)) { %>
+      -->
+      <% if (request.getSession().getAttribute("user").equals(profileOwner)) { %>
         <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
           <div class="form-group">
-            <textarea class="form-control"rows="5" cols="75" name="About Me" placeholder="Edit Your About Me..."></textarea>
+            <label class="form-control-label">Edit Your About Me:</label>
+            <textarea class="form-control"rows="5" cols="75" name="About Me" placeholder="I'm currently a student at..."></textarea>
           </div>
           <button type="submit" class="btn">submit</button>
         </form>
         <hr/>
       <% } %>
 
-      <h3><%=profileOwner%>'s Sent Messages</h3>
+      <h1><%=profileOwner%>'s Sent Messages</h1>
       <div id="chat">
         <ul>
           <% for (Message message : messagesByUser) {
-            if(!message.isPrivate()) {
-              Instant time = message.getCreationTime();
-              String creation = Util.FormatDateTime(time);
+            Instant time = message.getCreationTime();
+            String creation = Util.FormatDateTime(time);
           %>
-              <li class="texts"><strong><%= creation %>:</strong> <%= StyleText.style(message.getContent()) %></li>
-            <% } %>
+            <li class="texts"><strong><%= creation %>:</strong> <%= StyleText.style(message.getContent()) %></li>
           <% } %>
         </ul>
       </div>
