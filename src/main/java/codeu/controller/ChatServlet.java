@@ -165,9 +165,11 @@ public class ChatServlet extends HttpServlet {
       }
       // this removes any HTML from the message content
       messageContent = Jsoup.clean(messageContent, Whitelist.none());
+      boolean isPrivate = (conversation.isPrivate()?true:false);
       Message message =
               new Message(
-                      UUID.randomUUID(), conversation.getId(), user.getId(), messageContent, Instant.now());
+                      UUID.randomUUID(), conversation.getId(), user.getId(), isPrivate,
+                      messageContent, Instant.now());
       messageStore.addMessage(message);
     }
 
