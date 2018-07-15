@@ -34,7 +34,7 @@
     </ol>
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-      <img src="http://zeusmedina.com/images/codeu.JPG" style="width: 100%;">
+      <img src="https://s8.postimg.cc/smm1v5ow5/imageedit_15_5939279351.jpg" style="width: 100%;">
       <div class="carousel-caption">
         <ul>
           <% if (request.getSession().getAttribute("user") != null) { %>
@@ -72,6 +72,11 @@
     </a>
   </div>
   <!-- Ends Slider -->
+
+  <div class="mid-home" align="center">
+    <h2 style="font-size:4vw;" >We offer next-level <b>instant messaging,<b></h2>
+    <h3 style="font-size:2vw;" >making connecting with the world, 10x easier.</h3>
+  </div>
 
   <!-- Footer begins here-->
   <footer class="container-fluid text-center">

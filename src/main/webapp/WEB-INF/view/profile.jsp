@@ -84,11 +84,11 @@ List<String> hashWords = new ArrayList<String>();
         <hr/>
         <h3>About <%=profileOwner%></h3>
         <p><%=StyleText.style(activeUser.getAboutMe())%></p>
-      <% } %>     
+      <% } %>
       <!--
           Only show the editable fields if the logged in user is the
           owner of this profile.
-      -->            
+      -->
       <% if (request.getSession().getAttribute("user") != null && request.getSession().getAttribute("user").equals(profileOwner)) { %>
         <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
           <div class="form-group">

@@ -42,6 +42,16 @@
   .texts {
     font-size:18px;
   }
+  .newclass {
+    padding: 3%;
+    color: #FFF;
+    background: #1a718c;
+  }
+  .mid-home {
+    background: #46b9e2;
+    padding: 3%;
+    color: #FFF;
+  }
   @media (max-width: 900px) {
   .fa {
     font-size: 20px;
@@ -104,7 +114,14 @@
     font-size: 36px;
   }
   h1 {
-    color: #75757;
+    font-size: 36px;
+  }
+  h3 {
+    font-size: 28px;
+  }
+  h4 {
+    font-size: 38px;
+    color: #46b9e2;
   }
   input {
     font-size: 18px;

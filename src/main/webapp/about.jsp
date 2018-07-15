@@ -22,26 +22,35 @@
   </style>
   <%@ include file = "/navigations.jsp" %>
 
+
+  <div class="newclass" align="center">
+    <h4 style="font-size:5vw;">The Project</h4>
+     <h3 style="font-size:2vw;">
+       For the <b>CodeByters</b>, their ultimate goal was to create the most
+       <br>ideal chat web-app, giving users all of their favorite features for the best,
+       <br>most intriguing experience possible.
+     <h3>
+   </div>
+   <br>
+
+
   <div align="center"class="content-body no-active-tab" style="width: 100%;">
    <div class="page-body bg-gray page-about">
      <div class="container">
        <div class="row">
-         <div class="col-xxs-12 col-lg-10 m-x-auto">
-           <section class="card card-lg" id="about-about">
-             <h2 class="tex text-xxs-center">The Project</h2>
-             <p class="text-sm m-b-lg text-xxs-center">
-               As students of Google's new "CodeU" fellowship program, 150 high potential students
-               from all regions of North America are brought together and separated into cohorts
-               and teams to complete a complex project. For the CodeByters, the goal was to create
-               the most ideal chat web-app, giving users all of the features they've been requesting
-               from their favorite providers.
-             </p>
-             <h2 class="text-xxl m-b text-xxs-center">The Story</h2>
-             <div class="text-xs text-justify m-x-auto" style="max-width: 74rem;">
-               <p class="m-b-xs">
-                 <b>Here,</b> we can talk more about our experience and what our idea was for our project,
-                 our mission, and what we set out to accomplish from the beginning; we should give our
-                 visitors a personal connection to the CodeByters.
+         <div>
+           <section>
+             <h2 align="center">The Story</h2>
+             <div>
+               <p align="center">
+                 As students of Google's new "CodeU" fellowship program, we experienced 150
+                 high potential students from all regions of North America being brought together
+                 and separated into random teams to complete a complex project. With our team
+                 comprising of so many rich cultures and backgrounds, we were able to provide
+                 many unconventional solutions to problems we had never seen before.
+                 As for the asthetics, having a team of creative geniuses is always a lovely advantage.
+                 We wanted to give users a feel of community, privacy, and the ability to express
+                 when entering the site!
                </p>
              </div>
            </section>
@@ -60,8 +69,6 @@
                  Hampton University. He loves boxing and fashion, and has a keen interest in robotics
                  and forensics.
                </p>
-               <p class="text-xxs text-uppercase text-bold">DONNELL'S FAVORITE APPS:</p>
-               <p class="text-xxs"><strong>StockX, Grailed &amp; Spinrilla</strong></p>
                <a href="https://github.com/donnelldebnam" class="fa fa-github"> </a>
                <a href="https://www.linkedin.com/in/donnelldebnamjr" class="fa fa-linkedin-square"></a>
                <a href="mailto:donnell.debnam@my.hamptonu.edu" class="fa fa-envelope-square"></a>
@@ -78,11 +85,9 @@
                  located in Ithaca, NY.In his free time, Anthony enjoys playing soccer(a lot!) and
                  learning new things such as cooking.
                  </p>
-                 <p class="text-xxs text-uppercase text-bold">ANTHONY'S FAVORITE APPS:</p>
-                 <p class="text-xxs"><strong>Spotify, Yahoo Sports, &amp; Uber</strong></p>
                  <a href="https://github.com/anthony23334" class="fa fa-github"> </a>
                  <a href="https://www.linkedin.com/in/anthony-ngoma-76314756/" class="fa fa-linkedin-square"> </a>
-                 <a href="#" class="fa fa-envelope-square"></a>
+                 <a href="mailto:an474@cornell.edu" class="fa fa-envelope-square"></a>
                </div>
                  <!-- Jiayi Wang-->
                <div class="col-xxs-12 col-sm-6 col-xxl-3 m-b-xxl">
@@ -94,11 +99,8 @@
                  <p class="text-xs m-b-sm m-x-auto" style="max-width: 35rem;">
                  Jiayi is a driven, third year, Computer Science student at Virginia Tech in Blacksburg, VA!
                  </p>
-                 <p class="text-xxs text-uppercase text-bold">JIAYI'S FAVORITE APPS:</p>
-                 <p class="text-xxs"><strong>Spotify, Yahoo Sports, &amp; Uber</strong></p>
                  <a href="https://github.com/jiayiw6" class="fa fa-github"> </a>
-                 <a href="#" class="fa fa-linkedin-square"></a>
-                 <a href="#" class="fa fa-envelope-square"></a>
+                 <a href="mailto:jiayiw6@vt.edu" class="fa fa-envelope-square"></a>
                </div>
                <!-- Saroj Bhatta-->
                <div class="col-xxs-12 col-sm-6 col-xxl-3 m-b-xxl">
@@ -110,8 +112,6 @@
                  <p class="text-xs m-b-sm m-x-auto" style="max-width: 35rem;">
                  Saroj is a bright, second year, Computer Science student at Claflin University in Orangeburg, SC.
                  </p>
-                 <p class="text-xxs text-uppercase text-bold">SAROJ'S FAVORITE APPS:</p>
-                 <p class="text-xxs"><strong>Spotify, Yahoo Sports, &amp; Uber</strong></p>
                  <a href="https://github.com/sarojbhatta" class="fa fa-github"> </a>
                  <a href="https://www.linkedin.com/in/sarojbhatta/" class="fa fa-linkedin-square"></a>
                  <a href="#" class="fa fa-envelope-square"></a>
