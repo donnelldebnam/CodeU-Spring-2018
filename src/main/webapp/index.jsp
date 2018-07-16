@@ -34,7 +34,18 @@
     </ol>
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-      <img src="https://s8.postimg.cc/smm1v5ow5/imageedit_15_5939279351.jpg" style="width: 100%;">
+        <script>
+          function resize() {
+            if ($(window).width() < 600) {
+              $("#myCarousel img").attr('src', 'http://zeusmedina.com/images/codeu.JPG');
+            } else {
+              $("#myCarousel img").attr('src','https://s8.postimg.cc/8s970mjc5/imageedit_17_3270683892.jpg');
+            }
+          }
+          resize();
+          $(window).on('resize', resize);
+          </script>
+        <img src="https://s8.postimg.cc/smm1v5ow5/imageedit_15_5939279351.jpg" style="width: 100%;">
       <div class="carousel-caption">
         <ul>
           <% if (request.getSession().getAttribute("user") != null) { %>
@@ -121,6 +132,17 @@
      "Profile Tagging" now enables users to personalize their profile pages in a way that makes it
       easier to connect with peers sharing similar interests. By adding a tag to your profile, you may
       view the tag globally, providing a rundown of all public users sharing this tag.
+    </p>
+  </div>
+  <!-- Emojis-->
+  <div class="container">
+    <div>
+    <img align="left" src="https://s8.postimg.cc/g9iefsykl/Sunglasses_Emoji.png" style="width:28%">
+    </div>
+    <h1 align="center">Emojis</h1>
+    <p align="center">
+      We've included an extensive list of all your favorite emojis to choose from to simplify messages,
+      but also provide a more fun and animated way to express emotions, tone, and humor!
     </p>
   </div>
   <br>
