@@ -40,9 +40,6 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
     html {
       zoom:80%;
     }
-    .listMessages {
-      font-size:20px;
-    }
   </style>
 
   <script>
@@ -55,7 +52,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
     <% if (request.getSession().getAttribute("user") != null) { %>
        var authorLogin = "<%= request.getSession().getAttribute("user")%>";
             $(document).ready(function(){
-              $("li.listMessages > span").on({
+              $("li.chat-message > span").on({
                 mouseenter: function(){
                   $(this).css("cursor", "default");
                   var author = $($(this).siblings()).find('a').text();
@@ -76,10 +73,10 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
                   var author = $($(this).siblings()).find('a').text();
                   if (author == authorLogin) {
                     if(confirm("Are you sure you want to delete this message?")){
-                      var listMessage = $(this).parent(".listMessages");
-                      $(listMessage).fadeOut("slow");
+                      var chatMessage = $(this).parent(".chat-message");
+                      $(chatMessage).fadeOut("slow");
                       $.post("", {
-                            deletedMessageId: ($(listMessage).attr("value"))
+                            deletedMessageId: ($(chatMessage).attr("value"))
                       });
                     }
                   }
@@ -98,19 +95,22 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
         <a href="" style="float: right">&#8635;</a></h1>
     <hr/>
 
+
     <div class="chatbox" id="chat">
       <div class="chatlogs">
         <div class="chat">
-          <div class="user-photo">
-            <ul class="chat-message">
-              <% for (Message message : messages) {
-                String author = UserStore.getInstance()
-                .getUser(message.getAuthorId()).getName(); %>
-                <li class="listMessages" value="<%=message.getId()%>"><strong><a id="author" href="/users/<%= author%>"><%= author %></a>:</strong> <span class="messageOutput" ><%= StyleText.style(message.getContent()) %></%></span></li>
-              <% } %>
-            </ul>
-          </div>
+          <% for (Message message : messages) {
+              String author = UserStore.getInstance()
+              .getUser(message.getAuthorId()).getName();
+          %>
+          <div class="user-photo"></div>
+            <p class="chat-message" value="<%=message.getId()%>"><strong>
+            <a id="author" href="/users/<%= author%>"><%= author %></a>:</strong>
+            <%= StyleText.style(message.getContent()) %></p>
+            <% } %>
+          </p>
         </div>
+
       </div>
     </div>
 
