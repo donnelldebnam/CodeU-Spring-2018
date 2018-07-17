@@ -87,7 +87,7 @@ public class MessageStore {
     messages.add(message);
     persistentStorageAgent.writeThrough(message);
     Activity activity1 = new Activity(message);
-    activity1.setIsPublic(true);
+    activity1.setIsPrivate((message.isPrivate()?true:false));
     activityStore.addActivity(activity1);
   }
 

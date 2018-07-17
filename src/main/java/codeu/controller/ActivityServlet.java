@@ -3,6 +3,8 @@ package codeu.controller;
 import codeu.model.data.Activity;
 import codeu.model.store.basic.ActivityStore;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,7 +40,7 @@ public class ActivityServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
     List<Activity> activities = activityStore.getAllActivities();
-
+    Collections.sort(activities);
     request.setAttribute("activities", activities);
 
     request.getRequestDispatcher("/WEB-INF/view/activity.jsp").forward(request, response);
