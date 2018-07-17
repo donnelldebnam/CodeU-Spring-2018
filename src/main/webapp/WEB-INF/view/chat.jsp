@@ -103,12 +103,16 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
               String author = UserStore.getInstance()
               .getUser(message.getAuthorId()).getName();
           %>
-          <div class="user-photo"></div>
-            <p class="chat-message" value="<%=message.getId()%>"><strong>
-            <a id="author" href="/users/<%= author%>"><%= author %></a>:</strong>
-            <%= StyleText.style(message.getContent()) %></p>
+            <div class="user-photo"></div>
+            <% if (author.equals(request.getSession().getAttribute("user"))) { %>
+              <p class="chat-myMessage" value="<%=message.getId()%>">
+              <%= StyleText.style(message.getContent()) %></p>
+              <% } %>
+            <% if (!author.equals(request.getSession().getAttribute("user"))) { %>
+              <p class="chat-otherMessage" value="<%=message.getId()%>">
+              <%= StyleText.style(message.getContent()) %></p>
             <% } %>
-          </p>
+          <% } %>
         </div>
 
       </div>
