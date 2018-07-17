@@ -21,6 +21,7 @@ import codeu.model.data.User;
 import codeu.model.store.basic.HashtagStore;
 import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.UserStore;
+import codeu.model.util.Util;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.HashSet;
@@ -146,8 +147,9 @@ public class ProfileServlet extends HttpServlet {
     String aboutMeContent = request.getParameter("About Me");
     String newHashtagContent = request.getParameter("hashtag");
 
-    if (newHashtagContent != null && newHashtagContent.length() > 0) {
+    if (!Util.isNullOrWhiteSpace(newHashtagContent)) {
       String cleanedHashtag = Jsoup.clean(newHashtagContent, Whitelist.none());
+      cleanedHashtag = cleanedHashtag.replaceAll("[^a-zA-Z0-9]", "");
       Hashtag newHashtag =
           new Hashtag(
               UUID.randomUUID(),
