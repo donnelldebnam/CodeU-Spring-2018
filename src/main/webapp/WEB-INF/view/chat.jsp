@@ -114,7 +114,6 @@ List<User> users = (List<User>) request.getAttribute("users");
             <% } %>
           <% } %>
         </div>
-
       </div>
     </div>
 
