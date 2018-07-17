@@ -94,11 +94,18 @@ public class ChatServlet extends HttpServlet {
       response.sendRedirect("/conversations");
       return;
     }
+    // ONLY authorized users!!!
+    if (conversation.isPrivate() && request.getSession().getAttribute("user") == null) {
+      // couldn't find conversation, redirect to conversation list
+      response.sendRedirect("/conversations");
+      return;
+    }
 
     UUID conversationId = conversation.getId();
 
     List<Message> messages = messageStore.getMessagesInConversation(conversationId);
-
+    List<User> users = userStore.getUsers();
+    request.setAttribute("users", users);
     request.setAttribute("conversation", conversation);
     request.setAttribute("messages", messages);
     request.getRequestDispatcher("/WEB-INF/view/chat.jsp").forward(request, response);
@@ -140,6 +147,15 @@ public class ChatServlet extends HttpServlet {
 
     String messageContent = request.getParameter("messageInput");
     String deletedMessageId = request.getParameter("deletedMessageId");
+    String userNameToAdd = request.getParameter("nameToBeAdded");
+
+    // ONLY PRIVATE: adding a user
+    if (userNameToAdd != null) {
+      // this removes any HTML from the message content
+      userNameToAdd = Jsoup.clean(userNameToAdd, Whitelist.none());
+      conversation.addUser(userStore.getUser(userNameToAdd).getId());
+      conversationStore.updateConversation(conversation);
+    }
 
     // Adding a new message
     if (messageContent != null) {
@@ -149,9 +165,11 @@ public class ChatServlet extends HttpServlet {
       }
       // this removes any HTML from the message content
       messageContent = Jsoup.clean(messageContent, Whitelist.none());
+      boolean isPrivate = (conversation.isPrivate()?true:false);
       Message message =
               new Message(
-                      UUID.randomUUID(), conversation.getId(), user.getId(), messageContent, Instant.now());
+                      UUID.randomUUID(), conversation.getId(), user.getId(), isPrivate,
+                      messageContent, Instant.now());
       messageStore.addMessage(message);
     }
 

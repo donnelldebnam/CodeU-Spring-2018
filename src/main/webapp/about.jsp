@@ -12,7 +12,7 @@
 --%>
 <!DOCTYPE html>
 <html>
-<title>About</title>
+<title>About Us</title>
 <%@ include file = "/header.jsp" %>
 <body>
   <style>
@@ -22,38 +22,117 @@
   </style>
   <%@ include file = "/navigations.jsp" %>
 
-  <div class="container">
-    <div style="width:75%; margin-left:auto; margin-right:auto; margin-top: 50px;">
+  <div align="center"class="content-body no-active-tab" style="width: 100%;">
+   <div class="page-body bg-gray page-about">
+     <div class="container">
+       <div class="row">
+         <div class="col-xxs-12 col-lg-10 m-x-auto">
+           <section class="card card-lg" id="about-about">
+             <h2 class="tex text-xxs-center">The Project</h2>
+             <p class="text-sm m-b-lg text-xxs-center">
+               As students of Google's new "CodeU" fellowship program, 150 high potential students
+               from all regions of North America are brought together and separated into cohorts
+               and teams to complete a complex project. For the CodeByters, the goal was to create
+               the most ideal chat web-app, giving users all of the features they've been requesting
+               from their favorite providers.
+             </p>
+             <h2 class="text-xxl m-b text-xxs-center">The Story</h2>
+             <div class="text-xs text-justify m-x-auto" style="max-width: 74rem;">
+               <p class="m-b-xs">
+                 <b>Here,</b> we can talk more about our experience and what our idea was for our project,
+                 our mission, and what we set out to accomplish from the beginning; we should give our
+                 visitors a personal connection to the CodeByters.
+               </p>
+             </div>
+           </section>
 
-      <h1>About the CodeU Chat App</h1>
-      <p>
-        This is an example chat application designed to be a starting point
-        for your CodeU project team work. Here's some stuff to think about:
-      </p>
+           <section class="card card-lg p-b-0 text-xxs-center" id="about-leadership">
+             <h2 class="text-xxl m-b-xxl">The Team</h2>
 
-      <ul>
-        <li><strong>Algorithms and data structures:</strong> We've made the app
-            and the code as simple as possible. You will have to extend the
-            existing data structures to support your enhancements to the app,
-            and also make changes for performance and scalability as your app
-            increases in complexity.</li>
-        <li><strong>Look and feel:</strong> The focus of CodeU is on the Java
-          side of things, but if you're particularly interested you might use
-          HTML, CSS, and JavaScript to make the chat app prettier.</li>
-        <li><strong>Customization:</strong> Think about a group you care about.
-          What needs do they have? How could you help? Think about technical
-          requirements, privacy concerns, and accessibility and
-          internationalization.</li>
-      </ul>
+             <!-- Donnell Debnam Jr-->
+             <div class="row"><div class="col-xxs-12 col-sm-6 col-xxl-3 m-b-xxl">
+               <br>
+               <img class="img-circle img-fluid m-x-auto m-b" style="width: 112px;" src="http://i1067.photobucket.com/albums/u437/donnedebnam1/imageedit_14_9724364802_zpsasyzt330.gif">
+               <h3 class="text-md text-bold">Donnell Debnam Jr</h3>
+               <p class="text-xxxs m-b-sm text-uppercase">Hampton University</p>
+               <p class="text-xs m-b-sm m-x-auto" style="max-width: 35rem;">
+                 Donnell is a second year, Computer Science/Cybersecurity student currently attending
+                 Hampton University. He loves boxing and fashion, and has a keen interest in robotics
+                 and forensics.
+               </p>
+               <p class="text-xxs text-uppercase text-bold">DONNELL'S FAVORITE APPS:</p>
+               <p class="text-xxs"><strong>StockX, Grailed &amp; Spinrilla</strong></p>
+               <a href="https://github.com/donnelldebnam" class="fa fa-github"> </a>
+               <a href="https://www.linkedin.com/in/donnelldebnamjr" class="fa fa-linkedin-square"></a>
+               <a href="mailto:donnell.debnam@my.hamptonu.edu" class="fa fa-envelope-square"></a>
+             </div>
+               <!-- Anthony Ngoma-->
+               <div class="col-xxs-12 col-sm-6 col-xxl-3 m-b-xxl">
+                 <br>
+                 <img class="img-circle img-fluid m-x-auto m-b" style="width: 112px;"
+                      src="http://i1067.photobucket.com/albums/u437/donnedebnam1/imageedit_5_4636194873_zpshlrdd0aj.gif">
+                 <h3 class="text-md text-bold">Anthony Ngoma</h3>
+                 <p class="text-xxxs m-b-sm text-uppercase">Cornell University</p>
+                 <p class="text-xs m-b-sm m-x-auto" style="max-width: 35rem;">
+                 Anthony is a second year CS/CE student attending the illustrious Cornell University
+                 located in Ithaca, NY.In his free time, Anthony enjoys playing soccer(a lot!) and
+                 learning new things such as cooking.
+                 </p>
+                 <p class="text-xxs text-uppercase text-bold">ANTHONY'S FAVORITE APPS:</p>
+                 <p class="text-xxs"><strong>Spotify, Yahoo Sports, &amp; Uber</strong></p>
+                 <a href="https://github.com/anthony23334" class="fa fa-github"> </a>
+                 <a href="https://www.linkedin.com/in/anthony-ngoma-76314756/" class="fa fa-linkedin-square"> </a>
+                 <a href="#" class="fa fa-envelope-square"></a>
+               </div>
+                 <!-- Jiayi Wang-->
+               <div class="col-xxs-12 col-sm-6 col-xxl-3 m-b-xxl">
+                <br>
+                 <img class="img-circle img-fluid m-x-auto m-b" style="width: 112px;"
+                      src="http://i1067.photobucket.com/albums/u437/donnedebnam1/imageedit_12_8988254368_zpssfyxzbsx.gif">
+                 <h3 class="text-md text-bold">Jiayi Wang</h3>
+                 <p class="text-xxxs m-b-sm text-uppercase">Virginia Tech</p>
+                 <p class="text-xs m-b-sm m-x-auto" style="max-width: 35rem;">
+                 Jiayi is a driven, third year, Computer Science student at Virginia Tech in Blacksburg, VA!
+                 </p>
+                 <p class="text-xxs text-uppercase text-bold">JIAYI'S FAVORITE APPS:</p>
+                 <p class="text-xxs"><strong>Spotify, Yahoo Sports, &amp; Uber</strong></p>
+                 <a href="https://github.com/jiayiw6" class="fa fa-github"> </a>
+                 <a href="#" class="fa fa-linkedin-square"></a>
+                 <a href="#" class="fa fa-envelope-square"></a>
+               </div>
+               <!-- Saroj Bhatta-->
+               <div class="col-xxs-12 col-sm-6 col-xxl-3 m-b-xxl">
+                 <br>
+                 <img class="img-circle img-fluid m-x-auto m-b" style="width: 112px;"
+                      src="http://i1067.photobucket.com/albums/u437/donnedebnam1/imageedit_7_2530905731_zpshmm3ddnp.gif">
+                 <h3 class="text-md text-bold">Saroj Bhatta</h3>
+                 <p class="text-xxxs m-b-sm text-uppercase">Claflin University</p>
+                 <p class="text-xs m-b-sm m-x-auto" style="max-width: 35rem;">
+                 Saroj is a bright, second year, Computer Science student at Claflin University in Orangeburg, SC.
+                 </p>
+                 <p class="text-xxs text-uppercase text-bold">SAROJ'S FAVORITE APPS:</p>
+                 <p class="text-xxs"><strong>Spotify, Yahoo Sports, &amp; Uber</strong></p>
+                 <a href="https://github.com/sarojbhatta" class="fa fa-github"> </a>
+                 <a href="https://www.linkedin.com/in/sarojbhatta/" class="fa fa-linkedin-square"></a>
+                 <a href="#" class="fa fa-envelope-square"></a>
+               </div>
+             </section>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ <!-- Footer begins here-->
+ <br>
+ <footer class="container-fluid text-center">
+   <div class="row">
+     <div class="footer" align="center">
+       <a href="https://github.com/donnelldebnam/CodeU-Spring-2018-29" class="fa fa-github"></a>
+       <p>CodeByters &bull; Google CodeU 2018</p>
+     </div>
+   </div>
+   </div>
+ </footer>
 
-      <p>
-        This is your code now. Get familiar with it and get comfortable
-        working with your team to plan and make changes. Start by updating the
-        homepage and this about page to tell your users more about your team.
-        This page should also be used to describe the features and improvements
-        you've added.
-      </p>
-    </div>
-  </div>
 </body>
 </html>

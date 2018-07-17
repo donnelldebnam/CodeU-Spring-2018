@@ -15,12 +15,14 @@
 --%>
 <%@ page import="java.util.List" %>
 <%@ page import="codeu.model.data.Conversation" %>
+<%@ page import="codeu.model.data.User" %>
 <%@ page import="codeu.model.data.StyleText" %>
 <%@ page import="codeu.model.data.Message" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
 <%
 Conversation conversation = (Conversation) request.getAttribute("conversation");
 List<Message> messages = (List<Message>) request.getAttribute("messages");
+List<User> users = (List<User>) request.getAttribute("users");
 %>
 
 <!DOCTYPE html>
@@ -32,15 +34,13 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
 
   <style>
     #chat {
+      box-shadow: 0 3px #ccc;
       background-color: white;
       height: 500px;
       overflow-y: scroll
     }
     html {
       zoom:80%;
-    }
-    .listMessages {
-      font-size:20px;
     }
   </style>
 
@@ -54,7 +54,7 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
     <% if (request.getSession().getAttribute("user") != null) { %>
        var authorLogin = "<%= request.getSession().getAttribute("user")%>";
             $(document).ready(function(){
-              $("li.listMessages > span").on({
+              $("li.chat-message > span").on({
                 mouseenter: function(){
                   $(this).css("cursor", "default");
                   var author = $($(this).siblings()).find('a').text();
@@ -75,10 +75,10 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
                   var author = $($(this).siblings()).find('a').text();
                   if (author == authorLogin) {
                     if(confirm("Are you sure you want to delete this message?")){
-                      var listMessage = $(this).parent(".listMessages");
-                      $(listMessage).fadeOut("slow");
+                      var chatMessage = $(this).parent(".chat-message");
+                      $(chatMessage).fadeOut("slow");
                       $.post("", {
-                            deletedMessageId: ($(listMessage).attr("value"))
+                            deletedMessageId: ($(chatMessage).attr("value"))
                       });
                     }
                   }
@@ -92,20 +92,30 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
   <%@ include file = "/navigations.jsp" %>
 
   <div class="container">
-
     <h1><%= conversation.getTitle() %>
         <a href="" style="float: right">&#8635;</a></h1>
-
     <hr/>
 
-    <div id="chat">
-      <ul>
-        <% for (Message message : messages) {
-          String author = UserStore.getInstance()
-              .getUser(message.getAuthorId()).getName(); %>
-          <li class="listMessages" value="<%=message.getId()%>"><strong><a id="author" href="/users/<%= author%>"><%= author %></a>:</strong> <span class="messageOutput" ><%= StyleText.style(message.getContent()) %></%></span></li>
-        <% } %>
-      </ul>
+    <div class="chatbox" id="chat">
+      <div class="chatlogs">
+        <div class="chat">
+          <% for (Message message : messages) {
+              String author = UserStore.getInstance()
+              .getUser(message.getAuthorId()).getName();
+          %>
+            <div class="user-photo"></div>
+            <% if (author.equals(request.getSession().getAttribute("user"))) { %>
+              <p class="chat-myMessage" value="<%=message.getId()%>">
+              <%= StyleText.style(message.getContent()) %></p>
+              <% } %>
+            <% if (!author.equals(request.getSession().getAttribute("user"))) { %>
+              <p class="chat-otherMessage" value="<%=message.getId()%>">
+              <%= StyleText.style(message.getContent()) %></p>
+            <% } %>
+          <% } %>
+        </div>
+
+      </div>
     </div>
 
     <% if (request.getSession().getAttribute("user") != null) { %>
@@ -119,10 +129,8 @@ List<Message> messages = (List<Message>) request.getAttribute("messages");
     <% } else { %>
       <p><a href="/login">Login</a> to send a message.</p>
     <% } %>
-
+      </div>
     <hr/>
-
   </div>
-
 </body>
 </html>

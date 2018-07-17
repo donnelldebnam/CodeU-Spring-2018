@@ -92,7 +92,7 @@ public class ModelDataTestHelpers {
       assertEquals(expected.getId(), actual.getId());
       assertEquals(expected.getOwnerId(), actual.getOwnerId());
       assertEquals(expected.getAction(), actual.getAction());
-      assertEquals(expected.isPublic(), actual.isPublic());
+      assertEquals(expected.isPrivate(), actual.isPrivate());
       assertEquals(expected.getCreationTime(), actual.getCreationTime());
       assertEquals(expected.getThumbnail(), actual.getThumbnail());
     }
@@ -118,12 +118,14 @@ public class ModelDataTestHelpers {
     private UUID ownerId;
     private String title;
     private Instant creationTime;
+    private boolean isPrivate;
 
     public TestConversationBuilder() {
       this.id = UUID.randomUUID();
       this.ownerId = UUID.randomUUID();
       this.title = UUID.randomUUID().toString();
       this.creationTime = Instant.now();
+      this.isPrivate = false;
     }
 
     public TestConversationBuilder withId(UUID id) {
@@ -146,8 +148,13 @@ public class ModelDataTestHelpers {
       return this;
     }
 
+    public TestConversationBuilder withIsPrivate(boolean isPrivate) {
+      this.isPrivate = isPrivate;
+      return this;
+    }
+
     public Conversation build() {
-      return new Conversation(id, ownerId, title, creationTime);
+      return new Conversation(id, ownerId, title, creationTime, isPrivate);
     }
   }
 
@@ -170,13 +177,16 @@ public class ModelDataTestHelpers {
     private UUID id;
     private UUID conversationId;
     private UUID authorId;
+    private boolean isPrivate;
     private String content;
     private Instant creationTime;
+
 
     public TestMessageBuilder() {
       this.id = UUID.randomUUID();
       this.conversationId = UUID.randomUUID();
       this.authorId = UUID.randomUUID();
+      this.isPrivate = false;
       this.content = UUID.randomUUID().toString();
       this.creationTime = Instant.now();
     }
@@ -196,6 +206,11 @@ public class ModelDataTestHelpers {
       return this;
     }
 
+    public TestMessageBuilder withIsPrivate(boolean isPrivate) {
+      this.isPrivate = isPrivate;
+      return this;
+    }
+
     public TestMessageBuilder withContent(String content) {
       this.content = content;
       return this;
@@ -207,7 +222,7 @@ public class ModelDataTestHelpers {
     }
 
     public Message build() {
-      return new Message(id, conversationId, authorId, content, creationTime);
+      return new Message(id, conversationId, authorId, isPrivate, content, creationTime);
     }
   }
 
@@ -232,14 +247,12 @@ public class ModelDataTestHelpers {
     private boolean admin;
     private String aboutMe;
 
-    private Random random = new Random();
-
     public TestUserBuilder() {
       this.id = UUID.randomUUID();
       this.name = UUID.randomUUID().toString();
       this.passwordHash = UUID.randomUUID().toString();
       this.creationTime = Instant.now();
-      this.admin = random.nextBoolean();
+      this.admin = false;
       this.aboutMe = UUID.randomUUID().toString();
     }
 
@@ -348,9 +361,9 @@ public class ModelDataTestHelpers {
    * {
    *   &#64;code
    *   UUID fakeOwner = UUID.randomUUID();
-   *   boolean isPublic = true;
+   *   boolean isPrivate = false;
    *   Activity fakeActivity =
-   *       new TestActivityBuilder().withOwnerId(fakeOwner).withIsPublic(isPublic).build();
+   *       new TestActivityBuilder().withOwnerId(fakeOwner).withIsPrivate(isPrivate).build();
    * }
    * </pre>
    */
@@ -358,16 +371,14 @@ public class ModelDataTestHelpers {
     private UUID id;
     private UUID ownerId;
     private Action action;
-    private boolean isPublic;
+    private boolean isPrivate;
     private Instant creationTime;
     private String thumbnail;
-
-    private Random random = new Random();
 
     public TestActivityBuilder() {
       this.id = UUID.randomUUID();
       this.ownerId = UUID.randomUUID();
-      this.isPublic = random.nextBoolean();
+      this.isPrivate = false;
       this.creationTime = Instant.now();
       // default action: Registering_USER
       this.action = Action.REGISTER_USER;
@@ -384,8 +395,8 @@ public class ModelDataTestHelpers {
       return this;
     }
 
-    public TestActivityBuilder withIsPublic(boolean isPublic) {
-      this.isPublic = isPublic;
+    public TestActivityBuilder withIsPrivate(boolean isPrivate) {
+      this.isPrivate = isPrivate;
       return this;
     }
 
@@ -405,7 +416,7 @@ public class ModelDataTestHelpers {
     }
 
     public Activity build() {
-      Activity activity = new Activity(id, ownerId, action, isPublic, creationTime, thumbnail);
+      Activity activity = new Activity(id, ownerId, action, isPrivate, creationTime, thumbnail);
       return activity;
     }
   }

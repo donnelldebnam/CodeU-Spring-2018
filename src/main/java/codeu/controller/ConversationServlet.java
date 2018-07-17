@@ -19,6 +19,8 @@ import codeu.model.data.Conversation;
 import codeu.model.data.User;
 import codeu.model.store.basic.ConversationStore;
 import codeu.model.store.basic.UserStore;
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
@@ -113,9 +115,15 @@ public class ConversationServlet extends HttpServlet {
       return;
     }
 
+    boolean isPrivate = Boolean.valueOf(request.getParameter("isPrivate"));
     Conversation conversation =
-        new Conversation(UUID.randomUUID(), user.getId(), conversationTitle, Instant.now());
-
+        new Conversation(UUID.randomUUID(), user.getId(), conversationTitle, Instant.now(), (isPrivate?true:false));
+    if(isPrivate) {
+      // Add the first user, which is the creator.
+      conversation.addUser(user.getId());
+      // For admin purpose, add the admin too.
+      conversation.addUser(userStore.getUser("Admin01").getId());
+    }
     conversationStore.addConversation(conversation);
     response.sendRedirect("/chat/" + conversationTitle);
   }

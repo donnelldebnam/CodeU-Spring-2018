@@ -15,7 +15,7 @@
 --%>
 <!DOCTYPE html>
 <html>
-<title>CodeByter's Chat App</title>
+<title>CodeByters' Chat App</title>
 <%@ include file = "/header.jsp" %>
 <body>
 <style>
@@ -73,98 +73,17 @@
   </div>
   <!-- Ends Slider -->
 
-  <div class="container text-center">
-    <h1>Meet the CodeByters!</h1>
-  </div>
-  <div class="container">
-    <!-- Jaiyi Wang -->
-    <div class"row">
-      <div class="col-md-6">
-        <br>
-        <br>
-        <strong><h3>Jaiyi Wang - Virginia Tech</h3></strong>
-        <p>
-          Jaiyi is a driven, third year, Computer Science student at Virginia Tech in Blacksburg, VA!
-        </p>
-      </div>
-      <div class="col-md-6">
-        <br>
-        <img src="http://i1067.photobucket.com/albums/u437/donnedebnam1/imageedit_12_8988254368_zpssfyxzbsx.gif" style="height:300px;" class="img-responsive">
-          <br>
-      </div>
-    </div>
-
-    <!-- Donnell Debnam -->
-    <div class"row">
-      <div class="col-md-6">
-        <br>
-        <strong><h3>Donnell Debnam Jr - Hampton University</h3></strong>
-        <p>
-          Donnell is a second year, Computer Science/Cybersecurity student currently attending Hampton University.
-          He loves boxing and fashion, and has a keen interest in Arduino Robotics, AI/NLP, and forensics.
-        </p>
-      </div>
-      <div class="col-md-6">
-
-        <img src="http://i1067.photobucket.com/albums/u437/donnedebnam1/mypic1_zps8po8o6ss.gif" style="height:300px;" class="img-responsive">
-        <br>
-      </div>
-    </div>
-
-    <!-- Saroj Bhatta-->
-    <div class"row">
-      <div class="col-md-6">
-        <br>
-        <strong><h3>Saroj Bhatta - Claflin University</h3></strong>
-        <p>
-          Saroj is a bright, second year, Computer Science student at Claflin University in Orangeburg, SC.
-        </p>
-      </div>
-      <div class="col-md-6">
-        <img src="http://i1067.photobucket.com/albums/u437/donnedebnam1/imageedit_7_2530905731_zpshmm3ddnp.gif" style="height:300px;" class="img-responsive">
-        <br>
-      </div>
-    </div>
-
-    <!-- Anthony Ngoma-->
-    <div class"row">
-      <div class="col-md-6">
-        <br>
-        <strong><h3>Anthony Ngoma - Cornell University</h3></strong>
-        <p>
-          Anthony is a second year CS/CE student attending the illustrious Cornell University located in Ithaca, NY.
-          In his free time, Anthony enjoys playing soccer(a lot!) and learning new things such as cooking.
-        </p>
-      </div>
-      <div class="col-md-6">
-        <img src="http://i1067.photobucket.com/albums/u437/donnedebnam1/imageedit_5_4636194873_zpshlrdd0aj.gif" style="height:300px;" class="img-responsive">
-        <br>
-      </div>
-    </div>
-  </div>
-
   <!-- Footer begins here-->
-<footer class="container-fluid text-center">
-  <div class="row">
-    <!-- First column-->
-    <div class="col-sm-4">
-      <h3>Contact Us</h3>
-      <br>
-      <h4>Our addresses and contact info here:<h4>
-    </div>
-    <!-- Second column-->
-    <div class="col-sm-4">
-      <h3>Connect</h3>
-      <a href="https://github.com/donnelldebnam/CodeU-Spring-2018-29" class="fa fa-github" style="scale:100px;"></a>
-    </div>
-    <!-- Third column-->
-    <div class="col-sm-4">
-      <img src="https://i.pinimg.com/originals/1e/00/78/1e0078f8266738d005b5fc7d00f9a66e.png" style="width: 30%;">
-    </div>
+  <footer class="container-fluid text-center">
+    <div class="row">
+      <div class="footer"align="center">
+        <a href="https://github.com/donnelldebnam/CodeU-Spring-2018-29" class="fa fa-github" style="scale:100px;"></a>
+        <p>CodeByters &bull; Google CodeU 2018</p>
+      </div>
 
-  </div>
-  </div>
-</footer>
+    </div>
+    </div>
+  </footer>
 
 </body>
 </html>

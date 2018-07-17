@@ -22,17 +22,40 @@ import org.junit.Test;
 public class ConversationTest {
 
   @Test
-  public void testCreate() {
+  public void testCreate1() {
     UUID id = UUID.randomUUID();
     UUID owner = UUID.randomUUID();
     String title = "Test_Title";
     Instant creation = Instant.now();
+    Boolean isPrivate = false;
 
-    Conversation conversation = new Conversation(id, owner, title, creation);
+    Conversation conversation = new Conversation(id, owner, title, creation, isPrivate);
 
     Assert.assertEquals(id, conversation.getId());
     Assert.assertEquals(owner, conversation.getOwnerId());
     Assert.assertEquals(title, conversation.getTitle());
     Assert.assertEquals(creation, conversation.getCreationTime());
+    Assert.assertEquals(isPrivate, conversation.isPrivate());
+    // Testing that users IS null
+    Assert.assertNull(conversation.getUsers());
+  }
+
+  @Test
+  public void testCreate2() {
+    UUID id = UUID.randomUUID();
+    UUID owner = UUID.randomUUID();
+    String title = "Test_Title";
+    Instant creation = Instant.now();
+    Boolean isPrivate = true;
+
+    Conversation conversation = new Conversation(id, owner, title, creation, isPrivate);
+
+    Assert.assertEquals(id, conversation.getId());
+    Assert.assertEquals(owner, conversation.getOwnerId());
+    Assert.assertEquals(title, conversation.getTitle());
+    Assert.assertEquals(creation, conversation.getCreationTime());
+    Assert.assertEquals(isPrivate, conversation.isPrivate());
+    // Testing the creation of the set users
+    Assert.assertTrue(conversation.getUsers().isEmpty());
   }
 }
