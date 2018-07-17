@@ -1,12 +1,9 @@
 <%--
   Copyright 2017 Google Inc.
-
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
-
      http://www.apache.org/licenses/LICENSE-2.0
-
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,6 +11,8 @@
   limitations under the License.
 --%>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.HashSet" %>
+<%@ page import="java.util.Set" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.regex.Pattern" %>
@@ -35,8 +34,9 @@ User activeUser = (User) request.getAttribute("user");
 String profileOwner = (String) request.getAttribute("profileOwner");
 List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByUser");
 List<User> users = (List<User>) request.getAttribute("users");
-Map<String,Hashtag> tags = (Map<String,Hashtag>) request.getAttribute("hashtags");
-List<String> hashWords = new ArrayList<String>();
+Map<String,Hashtag> allHashtags = (Map<String,Hashtag>) request.getAttribute("hashtagMap");
+Set<String> userSet = (Set<String>) request.getAttribute("userWithSameHashtags");
+String currentHashtags = (String) request.getAttribute("currentHashtags");
 %>
 
 <!DOCTYPE html>
@@ -92,39 +92,55 @@ List<String> hashWords = new ArrayList<String>();
       <% if (request.getSession().getAttribute("user") != null && request.getSession().getAttribute("user").equals(profileOwner)) { %>
         <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
           <div class="form-group">
-            <textarea class="form-control"rows="5" cols="75" name="About Me" placeholder="Edit Your About Me..."></textarea>
+            <label class="form-control-label">Edit Your About Me:</label>
+            <textarea class="form-control"rows="5" cols="75" name="About Me" placeholder="I'm currently a student at..."></textarea>
           </div>
           <button type="submit" class="btn">submit</button>
         </form>
         <hr/>
       <% } %>
 
-      <h3><%=profileOwner%>'s Sent Messages</h3>
+      <h1><%=profileOwner%>'s Sent Messages</h1>
       <div id="chat">
         <ul>
           <% for (Message message : messagesByUser) {
-            if(!message.isPrivate()) {
-              Instant time = message.getCreationTime();
-              String creation = Util.FormatDateTime(time);
+            Instant time = message.getCreationTime();
+            String creation = Util.FormatDateTime(time);
           %>
-              <li class="texts"><strong><%= creation %>:</strong> <%= StyleText.style(message.getContent()) %></li>
-            <% } %>
+            <li class="texts"><strong><%= creation %>:</strong> <%= StyleText.style(message.getContent()) %></li>
           <% } %>
         </ul>
       </div>
       <hr/>
-      <h3>Hashtags in this Profile</h3>
-      <ul>
-        <% for (User user: users) { %>
-          <%
-            Pattern pattern = Pattern.compile("#(\\S+)");
-            Matcher mat = pattern.matcher(user.getAboutMe());
-            while (mat.find())
-              hashWords.add(mat.group(1));
-          %>
-        <% } %>
-        <%= hashWords %>
-      </ul>
-  </div>
+
+      <% if (request.getSession().getAttribute("user").equals(profileOwner)) { %>
+        <h1>Add Hashtags to this Profile!</h1>
+        <p>Your Current Hashtags: </p>
+        <p>
+          <%=currentHashtags%>
+        </p>
+
+        <div class="form-group">
+        <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
+          <input type="text" name="hashtag"/>
+          <button type="submit" class="btn">submit</button>
+        </form>
+        </div>
+
+        <p>Users with similar Hashtags as you: </p>
+        <% for (String hashtagUser: userSet) { %>
+			<a href="/users/<%=hashtagUser %>"> <%=hashtagUser %>'s Profile </a>
+       	<% } %>
+      <% } %>
+
+      <% if (!request.getSession().getAttribute("user").equals(profileOwner)) { %>
+      	<h1><%=profileOwner %>'s Hashtags: </h1>
+        <p>
+          <%=currentHashtags%>
+        </p>
+      <% } %>
+     <% } %>
+<hr/>
+</div>
 </body>
 </html>

@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//    http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,14 +32,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-
-import codeu.model.data.Message;
-import codeu.model.data.ModelDataTestHelpers.TestMessageBuilder;
-import codeu.model.data.ModelDataTestHelpers.TestUserBuilder;
-import codeu.model.data.User;
-import codeu.model.data.Hashtag;
-import codeu.model.store.basic.MessageStore;
-import codeu.model.store.basic.UserStore;
 import codeu.model.store.basic.HashtagStore;
 
 public class ProfileServletTest {
@@ -120,6 +112,7 @@ public class ProfileServletTest {
   public void testDoPost_CleansHtmlContent() throws IOException, ServletException {
     Mockito.when(mockRequest.getParameter("About Me"))
         .thenReturn("Contains <b>html</b> and <script>JavaScript</script> content.");
+    Mockito.when(mockRequest.getParameter("hashtag")).thenReturn("Sports");
     Mockito.when(mockSession.getAttribute("user")).thenReturn("test_user");
 
     User fakeUser = new TestUserBuilder().withName("test_user").build();
@@ -127,8 +120,8 @@ public class ProfileServletTest {
 
     profileServlet.doPost(mockRequest, mockResponse);
 
-    Assert.assertEquals(
-        mockUserStore.getUser("test_user").getAboutMe(), "Contains html and  content.");
+    Assert.assertEquals(mockUserStore.getUser("test_user").getAboutMe(),
+        "Contains html and  content.");
     Mockito.verify(mockResponse).sendRedirect("/users/test_user");
   }
 }
