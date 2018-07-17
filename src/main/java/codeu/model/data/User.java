@@ -4,7 +4,7 @@
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
-//    http://www.apache.org/licenses/LICENSE-2.0
+// http://www.apache.org/licenses/LICENSE-2.0
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -86,12 +86,20 @@ public class User {
   public void setAboutMe(String aboutMe) {
     this.aboutMe = aboutMe;
   }
-  
-  public void addHashtag(String content){
+
+  public void addHashtag(String content) {
     this.hashtagSet.add(content);
   }
-  
-  public String getHashtagNames(){
-    return String.join(",", this.hashtagSet);
+
+  public String getHashtagNames() {
+    return String.join(", ", this.hashtagSet);
+  }
+
+  public Set<String> getHashtagSet() {
+    return hashtagSet;
+  }
+
+  public void setHashtagSet(HashSet<String> hashtagSet) {
+    this.hashtagSet = hashtagSet;
   }
 }

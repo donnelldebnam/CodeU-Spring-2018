@@ -14,24 +14,24 @@
 
 package codeu.controller;
 
-import codeu.model.data.Message;
-import codeu.model.data.User;
 import codeu.model.data.Hashtag;
 import codeu.model.data.HashtagCreator;
-import codeu.model.store.basic.MessageStore;
+import codeu.model.data.Message;
+import codeu.model.data.User;
 import codeu.model.store.basic.HashtagStore;
+import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;
-import java.util.UUID;
 import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import codeu.model.util.Util;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
@@ -108,6 +108,7 @@ public class ProfileServlet extends HttpServlet {
     List<User> users = userStore.getUsers();
     String currentHashtags = user.getHashtagNames();
     Map<String, Hashtag> hashtagMap = hashtagStore.getAllHashtags();
+    Set<String> userSet = userStore.getUsersWithSameHashtag(user, hashtagMap);
 
     request.setAttribute("users", users);
     request.setAttribute("messagesByUser", messagesByUser);
@@ -115,6 +116,7 @@ public class ProfileServlet extends HttpServlet {
     request.setAttribute("hashtagMap", hashtagMap);
     request.setAttribute("currentHashtags", currentHashtags);
     request.setAttribute("user", user);
+    request.setAttribute("userWithSameHashtags", userSet);
     request.getRequestDispatcher("/WEB-INF/view/profile.jsp").forward(request, response);
   }
 
@@ -146,11 +148,17 @@ public class ProfileServlet extends HttpServlet {
 
     if (newHashtagContent != null && newHashtagContent.length() > 0) {
       String cleanedHashtag = Jsoup.clean(newHashtagContent, Whitelist.none());
-      Hashtag newHashtag = new Hashtag(UUID.randomUUID(), cleanedHashtag, Instant.now(),
-          new HashSet<String>(), new HashSet<String>());
+      Hashtag newHashtag =
+          new Hashtag(
+              UUID.randomUUID(),
+              cleanedHashtag,
+              Instant.now(),
+              new HashSet<String>(),
+              new HashSet<String>());
       hashtagStore.addHashtag(newHashtag, HashtagCreator.USER, user.getId());
       user.addHashtag(cleanedHashtag);
       newHashtag.addUser(user.getId());
+      hashtagStore.updateHashtag(newHashtag);
     }
 
     if (aboutMeContent != null) {

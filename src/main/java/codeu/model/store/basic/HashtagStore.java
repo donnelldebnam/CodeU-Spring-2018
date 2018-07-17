@@ -16,7 +16,6 @@ package codeu.model.store.basic;
 
 import codeu.model.data.Hashtag;
 import codeu.model.data.HashtagCreator;
-import codeu.model.data.User;
 import codeu.model.store.persistence.PersistentStorageAgent;
 import java.util.HashMap;
 import java.util.Map;
@@ -83,12 +82,8 @@ public class HashtagStore {
       case CONVERSATION:
         hashtag.addConversation(id);
     }
+    this.map.remove(content);
     this.map.put(content, hashtag);
-    persistentStorageAgent.writeThrough(hashtag);
-  }
-  
-  /** Update an existing Hashtag. */
-  public void updateHashtag(Hashtag hashtag) {
     persistentStorageAgent.writeThrough(hashtag);
   }
 
@@ -100,5 +95,14 @@ public class HashtagStore {
   /** Access the current set of Hashtags known to the application. */
   public Map<String, Hashtag> getAllHashtags() {
     return map;
+  }
+
+  /** Returns the corresponding Hashtag based on the name of the hashtag. */
+  public Hashtag findHashtag(String hashtagName) {
+    return map.get(hashtagName);
+  }
+
+  public void updateHashtag(Hashtag newHashtag) {
+    persistentStorageAgent.writeThrough(newHashtag);
   }
 }

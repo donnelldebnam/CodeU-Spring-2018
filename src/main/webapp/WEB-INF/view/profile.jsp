@@ -11,6 +11,8 @@
   limitations under the License.
 --%>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.HashSet" %>
+<%@ page import="java.util.Set" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.regex.Pattern" %>
@@ -33,6 +35,7 @@ String profileOwner = (String) request.getAttribute("profileOwner");
 List<Message> messagesByUser = (List<Message>) request.getAttribute("messagesByUser");
 List<User> users = (List<User>) request.getAttribute("users");
 Map<String,Hashtag> allHashtags = (Map<String,Hashtag>) request.getAttribute("hashtagMap");
+Set<String> userSet = (Set<String>) request.getAttribute("userWithSameHashtags");
 String currentHashtags = (String) request.getAttribute("currentHashtags");
 %>
 
@@ -110,19 +113,35 @@ String currentHashtags = (String) request.getAttribute("currentHashtags");
         </ul>
       </div>
       <hr/>
-    <% } %>
 
-    <h1>Add Hashtags to this Profile!</h1>
-    <p>Your Current Hashtags: </p>
-    <p>
-      <%=currentHashtags%>
-    </p>
-    <div class="form-group">
-    <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
-      <input type="text" name="hashtag"/>
-      <button type="submit" class="btn">submit</button>
-   	</form>
-    </div>
-  </div>
+      <% if (request.getSession().getAttribute("user").equals(profileOwner)) { %>
+        <h1>Add Hashtags to this Profile!</h1>
+        <p>Your Current Hashtags: </p>
+        <p>
+          <%=currentHashtags%>
+        </p>
+
+        <div class="form-group">
+        <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
+          <input type="text" name="hashtag"/>
+          <button type="submit" class="btn">submit</button>
+        </form>
+        </div>
+
+        <p>Users with similar Hashtags as you: </p>
+        <% for (String hashtagUser: userSet) { %>
+			<a href="/users/<%=hashtagUser %>"> <%=hashtagUser %>'s Profile </a>
+       	<% } %>
+      <% } %>
+      
+      <% if (!request.getSession().getAttribute("user").equals(profileOwner)) { %>
+      	<h1><%=profileOwner %>'s Hashtags: </h1>
+        <p>
+          <%=currentHashtags%>
+        </p>
+      <% } %>
+     <% } %>
+<hr/>
+</div>
 </body>
 </html>
