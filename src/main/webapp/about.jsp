@@ -82,7 +82,7 @@
                  <p class="text-xxxs m-b-sm text-uppercase">Cornell University</p>
                  <p class="text-xs m-b-sm m-x-auto" style="max-width: 35rem;">
                  Anthony is a second year CS/CE student attending the illustrious Cornell University
-                 located in Ithaca, NY.In his free time, Anthony enjoys playing soccer(a lot!) and
+                 located in Ithaca, NY. In his free time, Anthony enjoys playing soccer(a lot!) and
                  learning new things such as cooking.
                  </p>
                  <a href="https://github.com/anthony23334" class="fa fa-github"> </a>
@@ -114,7 +114,7 @@
                  </p>
                  <a href="https://github.com/sarojbhatta" class="fa fa-github"> </a>
                  <a href="https://www.linkedin.com/in/sarojbhatta/" class="fa fa-linkedin-square"></a>
-                 <a href="#" class="fa fa-envelope-square"></a>
+                 <a href="mailto:sbhatta@claflin.edu" class="fa fa-envelope-square"></a>
                </div>
              </section>
            </div>

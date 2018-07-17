@@ -34,18 +34,9 @@
     </ol>
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-        <script>
-          function resize() {
-            if ($(window).width() < 600) {
-              $("#myCarousel img").attr('src', 'http://zeusmedina.com/images/codeu.JPG');
-            } else {
-              $("#myCarousel img").attr('src','https://s8.postimg.cc/8s970mjc5/imageedit_17_3270683892.jpg');
-            }
-          }
-          resize();
-          $(window).on('resize', resize);
-          </script>
-        <img src="https://s8.postimg.cc/smm1v5ow5/imageedit_15_5939279351.jpg" style="width: 100%;">
+        <div class="first-img">
+          <img src="http://zeusmedina.com/images/codeu.JPG" style="width: 100%;">
+        </div>
       <div class="carousel-caption">
         <ul>
           <% if (request.getSession().getAttribute("user") != null) { %>
