@@ -105,11 +105,7 @@
      border-radius: 50%;
    }
   .chat .chat-otherMessage {
-<<<<<<< HEAD
     width: 80%;
-=======
-    width: 80% auto;
->>>>>>> 3ec44b5221e970eb0001dc1a6824eecd5b228c8d
     padding: 10px;
     margin: 5px 10px 0%;
     background: #eee;
@@ -118,11 +114,7 @@
     font-size: 18px;
   }
   .chat .chat-myMessage {
-<<<<<<< HEAD
     width: 80%;
-=======
-    width: 80% auto;
->>>>>>> 3ec44b5221e970eb0001dc1a6824eecd5b228c8d
     padding: 10px;
     margin: 5px 10px 0%;
     background: #46b9e2;
