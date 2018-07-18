@@ -33,7 +33,8 @@
 
       <h1>Administration</h1>
       <p>
-        This is the administration page of the CodeU Chat App. Only the administrators of the site can view stats. (Enjoy the authority!)
+        This is the administration page of the CodeU Chat App. Only the administrators
+        of the site can view stats. (Enjoy the authority!)
       </p>
 
       <h2><strong>Site Statistics</strong></h2>
@@ -41,9 +42,9 @@
         <li><strong>Total Users: </strong><%= request.getAttribute("totalUsers")%></li>
         <li><strong>Total Conversations: </strong><%= request.getAttribute("totalConversations")%></li>
         <li><strong>Total Messages: </strong><%= request.getAttribute("totalMessages")%></li>
-        <li><strong>Most Active User:</strong><%= request.getAttribute("mostActive")%></li>
-        <li><strong>Newest User:</strong><%= request.getAttribute("newestUser")%></li>
-        <li><strong>Wordiest User:</strong><%= request.getAttribute("wordiestUser")%></li>
+        <li><strong>Most Active User: </strong><%= request.getAttribute("mostActive")%></li>
+        <li><strong>Newest User: </strong><%= request.getAttribute("newestUser")%></li>
+        <li><strong>Wordiest User: </strong><%= request.getAttribute("wordiestUser")%></li>
       </ul>
 
     </div>
