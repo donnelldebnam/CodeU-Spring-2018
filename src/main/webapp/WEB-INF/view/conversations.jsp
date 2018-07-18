@@ -43,7 +43,12 @@ List<Conversation> conversations = (List<Conversation>) request.getAttribute("co
       <form class="form-group" action="/conversations" method="POST">
         <label class="form-control-label">Title:</label>
         <input class="form-control"type="text" name="conversationTitle">
-        </br>
+        <div class="form-check">
+          <label class="form-check-label" for="checkF">
+          Private
+          </label>
+          <input class="form-check-input" type="checkbox" value="true" id="checkF" name="isPrivate">
+        </div>
         <button type="submit" class="btn">Create</button>
       </form>
 
@@ -57,8 +62,13 @@ List<Conversation> conversations = (List<Conversation>) request.getAttribute("co
     <% } else { %>
       <ul class="mdl-list">
         <% for (Conversation conversation : conversations) { %>
-          <li><a href="/chat/<%= conversation.getTitle() %>">
-              <%= conversation.getTitle() %></a></li>
+            <% if (!conversation.isPrivate()) { %>
+              <li><a href="/chat/<%= conversation.getTitle() %>">
+                  <%= conversation.getTitle() %></a></li>
+           <% } else if(request.getSession().getAttribute("user") != null &&
+                        conversation.check(request.getSession().getAttribute("user").toString())) { %>
+                   <li><a href="/chat/<%= conversation.getTitle() %>">&#x1F512;<%= conversation.getTitle() %></a></li>
+              <% } %>
         <% } %>
       </ul>
     <% } %>

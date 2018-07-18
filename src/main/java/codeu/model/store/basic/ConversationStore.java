@@ -81,12 +81,17 @@ public class ConversationStore {
     return conversations;
   }
 
+  /** Update an existing Conversation. */
+  public void updateConversation(Conversation conv) {
+    persistentStorageAgent.writeThrough(conv);
+  }
+
   /** Add a new conversation to the current set of conversations known to the application. */
   public void addConversation(Conversation conversation) {
     conversations.add(conversation);
     persistentStorageAgent.writeThrough(conversation);
     Activity activity1 = new Activity(conversation);
-    activity1.setIsPublic(true);
+    activity1.setIsPrivate((conversation.isPrivate()?true:false));
     activityStore.addActivity(activity1);
   }
 

@@ -17,8 +17,6 @@ package codeu.model.store.persistence;
 import codeu.model.data.*;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import org.mindrot.jbcrypt.BCrypt;
-
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * This class handles all interactions with Google App Engine's Datastore service. On startup it
@@ -69,8 +68,13 @@ public class PersistentDataStore {
         User user = new User(uuid, userName, passwordHash, creationTime);
         String aboutMe = (String) entity.getProperty("about_me");
         user.setAboutMe(aboutMe);
+        HashSet<String> hashtags =
+            new HashSet<String>(
+                Arrays.asList((((String) (entity.getProperty("hashtag_set"))).split(", "))));
+        user.setHashtagSet(hashtags);
+
         // Forces an admin to have "true" for the admin field
-        if(BCrypt.checkpw("AdminPass203901", user.getPasswordHash().toString())) {
+        if (BCrypt.checkpw("AdminPass203901", user.getPasswordHash().toString())) {
           user.setAdmin(true);
         }
         users.add(user);
@@ -108,7 +112,15 @@ public class PersistentDataStore {
         UUID ownerUuid = UUID.fromString((String) entity.getProperty("owner_uuid"));
         String title = (String) entity.getProperty("title");
         Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
-        Conversation conversation = new Conversation(uuid, ownerUuid, title, creationTime);
+        Boolean isPrivate = Boolean.valueOf((String) entity.getProperty("isPrivate"));
+        Conversation conversation =
+            new Conversation(uuid, ownerUuid, title, creationTime, isPrivate);
+        if (isPrivate) {
+          Set<String> users =
+              new HashSet<String>(
+                  Arrays.asList(((String) (entity.getProperty("users"))).split(",")));
+          conversation.setUsers(users);
+        }
         conversations.add(conversation);
       } catch (Exception e) {
         // In a production environment, errors should be very rare.
@@ -145,7 +157,9 @@ public class PersistentDataStore {
         UUID authorUuid = UUID.fromString((String) entity.getProperty("author_uuid"));
         Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
         String content = (String) entity.getProperty("content");
-        Message message = new Message(uuid, conversationUuid, authorUuid, content, creationTime);
+        Boolean isPrivate = Boolean.valueOf((String) entity.getProperty("isPrivate"));
+        Message message =
+            new Message(uuid, conversationUuid, authorUuid, isPrivate, content, creationTime);
         messages.add(message);
       } catch (Exception e) {
         // In a production environment, errors should be very rare.
@@ -179,11 +193,11 @@ public class PersistentDataStore {
         UUID uuid = UUID.fromString((String) entity.getProperty("uuid"));
         UUID uuidOwner = UUID.fromString((String) entity.getProperty("owner_uuid"));
         Action action = Action.valueOf((String) entity.getProperty("action"));
-        Boolean isPublic = Boolean.valueOf((String) entity.getProperty("isPublic"));
+        Boolean isPrivate = Boolean.valueOf((String) entity.getProperty("isPrivate"));
         Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
         String thumbnail = (String) entity.getProperty("thumbnail");
         Activity activity =
-            new Activity(uuid, uuidOwner, action, isPublic, creationTime, thumbnail);
+            new Activity(uuid, uuidOwner, action, isPrivate, creationTime, thumbnail);
         activities.add(activity);
       } catch (Exception e) {
         // In a production environment, errors should be very rare. Errors which may
@@ -210,10 +224,10 @@ public class PersistentDataStore {
         Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
         Set<String> userSource =
             new HashSet<String>(
-                Arrays.asList(((String) (entity.getProperty("user_source"))).split(",")));
+                Arrays.asList(((String) (entity.getProperty("user_source"))).split(", ")));
         Set<String> convSource =
             new HashSet<String>(
-                Arrays.asList(((String) (entity.getProperty("conv_source"))).split(",")));
+                Arrays.asList(((String) (entity.getProperty("conv_source"))).split(", ")));
         Hashtag hashtag = new Hashtag(uuid, content, creationTime, userSource, convSource);
         hashtags.put(content.toLowerCase(), hashtag);
       } catch (Exception e) {
@@ -236,6 +250,7 @@ public class PersistentDataStore {
     userEntity.setProperty("password_hash", user.getPasswordHash());
     userEntity.setProperty("creation_time", user.getCreationTime().toString());
     userEntity.setProperty("about_me", user.getAboutMe());
+    userEntity.setProperty("hashtag_set", user.getHashtagNames());
     datastore.put(userEntity);
   }
 
@@ -245,6 +260,7 @@ public class PersistentDataStore {
     messageEntity.setProperty("uuid", message.getId().toString());
     messageEntity.setProperty("conv_uuid", message.getConversationId().toString());
     messageEntity.setProperty("author_uuid", message.getAuthorId().toString());
+    messageEntity.setProperty("isPrivate", String.valueOf(message.isPrivate()));
     messageEntity.setProperty("content", message.getContent());
     messageEntity.setProperty("creation_time", message.getCreationTime().toString());
     datastore.put(messageEntity);
@@ -257,6 +273,8 @@ public class PersistentDataStore {
     conversationEntity.setProperty("owner_uuid", conversation.getOwnerId().toString());
     conversationEntity.setProperty("title", conversation.getTitle());
     conversationEntity.setProperty("creation_time", conversation.getCreationTime().toString());
+    conversationEntity.setProperty("isPrivate", String.valueOf(conversation.isPrivate()));
+    if (conversation.isPrivate()) conversationEntity.setProperty("users", conversation.getUsers());
     datastore.put(conversationEntity);
   }
 
@@ -277,7 +295,7 @@ public class PersistentDataStore {
     activityEntity.setProperty("uuid", activity.getId().toString());
     activityEntity.setProperty("owner_uuid", activity.getOwnerId().toString());
     activityEntity.setProperty("action", activity.getAction().name());
-    activityEntity.setProperty("isPublic", String.valueOf(activity.isPublic()));
+    activityEntity.setProperty("isPrivate", String.valueOf(activity.isPrivate()));
     activityEntity.setProperty("creation_time", activity.getCreationTime().toString());
     activityEntity.setProperty("thumbnail", activity.getThumbnail().toString());
     datastore.put(activityEntity);

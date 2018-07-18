@@ -38,7 +38,7 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
   <%@ include file = "/navigations.jsp" %>
 
     <div class="container">
-      <h2 style="color:blue; text-aligned:left; margin-bottom:25px"> ACTIVITY </h2>
+      <h1>Activity Feed</h1>
       <% if (activities == null || activities.size() == 1) { %>
       <h3> Nothing happened on the site so far! </h3>
       <% } else { %>
@@ -47,7 +47,7 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
             <ul>
               <%
               for (Activity activity: activities) {
-                if(activity.isPublic()) {
+                if(!activity.isPrivate()) {
                   Action action = activity.getAction();
                   UUID id = activity.getId();
                   UUID idOwnerId = activity.getOwnerId();
