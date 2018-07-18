@@ -117,7 +117,8 @@ List<User> users = (List<User>) request.getAttribute("users");
       <%@ include file = "/emoji.jsp" %>
 
       <form class="form-group" action="/chat/<%= conversation.getTitle() %>" method="POST">
-        <input class="form-control" id="input" type="text" style="font-size:20px" name="messageInput" required>
+        <input pattern=".{4,}" required title="4 characters minimum"
+        class="form-control" id="input" type="text" style="font-size:20px" name="messageInput" required>
         <button type="submit" class="btn btn-default">Send</button>
       </form>
     <% } else { %>

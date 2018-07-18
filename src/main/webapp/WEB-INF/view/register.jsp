@@ -34,10 +34,12 @@
 
     <form action="/register" method="POST">
       <label class="form-control-label" for="username">Username: </label>
-      <input class="form-control" type="text" name="username" id="username" required>
+      <input pattern=".{4,}" required title="4 characters minimum"
+      class="form-control" type="text" name="username" id="username" required>
       </br>
       <label class="form-control-label" for="password">Password: </label>
-      <input class="form-control" type="password" name="password" id="password" required>
+      <input pattern=".{4,}" required title="4 characters minimum"
+      class="form-control" type="password" name="password" id="password" required>
       </br>
       <button type="submit" class="btn">Submit</button>
     </form>

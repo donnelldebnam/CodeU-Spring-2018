@@ -42,7 +42,8 @@ List<Conversation> conversations = (List<Conversation>) request.getAttribute("co
       <h1>New Conversation</h1>
       <form class="form-group" action="/conversations" method="POST">
         <label class="form-control-label">Title:</label>
-        <input class="form-control"type="text" name="conversationTitle" required>
+        <input pattern=".{4,}" required title="4 characters minimum"
+        class="form-control"type="text" name="conversationTitle" required>
         <div class="form-check">
           <label class="form-check-label" for="checkF">
           Private
