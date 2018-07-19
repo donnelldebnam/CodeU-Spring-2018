@@ -10,12 +10,4 @@ public class Util {
   public static String FormatDateTime(Instant creationTime) {
     return DateTimeFormatter.RFC_1123_DATE_TIME.withZone(ZoneOffset.UTC).format(creationTime);
   }
-  /** Checks for white spaces */
-  public static boolean isWhiteSpace(String value) {
-    return value.trim().isEmpty();
-  }
-  /** Checks for null values and white spaces */
-  public static boolean isNullOrWhiteSpace(String value) {
-    return value == null || value.trim().isEmpty();
-  }
 }
