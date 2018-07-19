@@ -3,6 +3,7 @@
 <%@ page import="codeu.model.data.Conversation" %>
 <%@ page import="codeu.model.data.Message" %>
 <%@ page import="codeu.model.data.Action" %>
+<%@ page import="codeu.model.data.StyleText" %>
 <%@ page import="codeu.model.store.basic.UserStore" %>
 <%@ page import="codeu.model.store.basic.ConversationStore" %>
 <%@ page import="codeu.model.store.basic.MessageStore" %>
@@ -38,7 +39,7 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
   <%@ include file = "/navigations.jsp" %>
 
     <div class="container">
-      <h2 style="color:blue; text-aligned:left; margin-bottom:25px"> ACTIVITY </h2>
+      <h1>Activity Feed</h1>
       <% if (activities == null || activities.size() == 1) { %>
       <h3> Nothing happened on the site so far! </h3>
       <% } else { %>
@@ -72,7 +73,7 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
                      Message mess = MessageStore.getInstance().getMessageById(id);
                      Conversation conv2 = ConversationStore.getInstance().getConversationById(mess.getConversationId());%>
                      <li class=texts><b><%= time %>:</b> <a href="/users/<%= name%>"><%= name %></a>  sent a message in
-                     <a href="/chat/<%= conv2.getTitle() %>"> <%= conv2.getTitle() %> </a>: "<%= mess.getContent() %>".</li>
+                     <a href="/chat/<%= conv2.getTitle() %>"> <%= conv2.getTitle() %> </a>: "<%= StyleText.style(mess.getContent()) %>".</li>
 
                   <% } %>
                 <% } %>

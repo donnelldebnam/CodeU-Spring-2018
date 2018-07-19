@@ -147,7 +147,7 @@ public class ProfileServlet extends HttpServlet {
     String aboutMeContent = request.getParameter("About Me");
     String newHashtagContent = request.getParameter("hashtag");
 
-    if (!Util.isNullOrWhiteSpace(newHashtagContent)) {
+    if (newHashtagContent != null) {
       String cleanedHashtag = Jsoup.clean(newHashtagContent, Whitelist.none());
       cleanedHashtag = cleanedHashtag.replaceAll("[^a-zA-Z0-9]", "");
       Hashtag newHashtag =
