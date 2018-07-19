@@ -44,7 +44,7 @@
     </form>
 
     <p>New users can register <a href="/register">here</a>.</p>
-    <p>Forgot password? Click <a href="/reset.jsp">here</a>.</p>
+    <p>Forgot password? Click <a href="/reset">here</a>.</p>
   </div>
 </body>
 </html>
