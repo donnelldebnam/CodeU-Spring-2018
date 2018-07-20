@@ -39,6 +39,9 @@ public class ResetServlet extends HttpServlet {
           throws IOException, ServletException {
     String requestUrl = request.getRequestURI();
     Boolean isReset = !requestUrl.contains("resetQuestion");
+    if(request.getAttribute("username") == null){
+      isReset = false;
+    }
     request.setAttribute("isReset", isReset.toString());
     request.getRequestDispatcher("/WEB-INF/view/reset.jsp").forward(request, response);
   }
@@ -47,6 +50,11 @@ public class ResetServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws IOException, ServletException {
     String username = request.getParameter("username");
+    String password = request.getParameter("password");
+
+    if(password != null){
+      // ADD the emaillll
+    }
 
     if(username != null) {
       if (!userStore.isUserRegistered(username)) {
@@ -55,9 +63,13 @@ public class ResetServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/view/reset.jsp").forward(request, response);
         return;
       }
-
-      request.setAttribute("isReset", "true");
+      if (userStore.getUser(username).getEmail().equals("")) {
+        request.setAttribute("error", "No email. Sorry, we cannot retrieve the password.");
+        request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
+        return;
+      }
       request.setAttribute("username", username);
+      request.setAttribute("isReset", "true");
       request.getRequestDispatcher("/WEB-INF/view/reset.jsp").forward(request, response);
     }
   }

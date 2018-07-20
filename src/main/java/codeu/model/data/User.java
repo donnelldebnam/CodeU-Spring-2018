@@ -45,6 +45,7 @@ public class User {
     this.creation = creation;
     this.admin = false;
     this.aboutMe = "";
+    this.email = "";
     this.hashtagSet = new HashSet<String>();
   }
 
