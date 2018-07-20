@@ -26,6 +26,7 @@ public class User {
   private final String passwordHash;
   private final Instant creation;
   private boolean admin;
+  private String email;
   private String aboutMe;
   private Set<String> hashtagSet;
 
@@ -85,6 +86,14 @@ public class User {
   /** Sets the about me String of this User. */
   public void setAboutMe(String aboutMe) {
     this.aboutMe = aboutMe;
+  }
+
+  /** Returns the email of this User. */
+  public String getEmail() { return email; }
+
+  /** Sets the  email  of this User. */
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public void addHashtag(String content) {

@@ -67,12 +67,13 @@ public class PersistentDataStore {
         Instant creationTime = Instant.parse((String) entity.getProperty("creation_time"));
         User user = new User(uuid, userName, passwordHash, creationTime);
         String aboutMe = (String) entity.getProperty("about_me");
-        user.setAboutMe(aboutMe);
+        String email = (String) entity.getProperty("email");
         HashSet<String> hashtags =
             new HashSet<String>(
                 Arrays.asList((((String) (entity.getProperty("hashtag_set"))).split(", "))));
         user.setHashtagSet(hashtags);
-
+        user.setAboutMe(aboutMe);
+        user.setEmail(email);
         // Forces an admin to have "true" for the admin field
         if (BCrypt.checkpw("AdminPass203901", user.getPasswordHash().toString())) {
           user.setAdmin(true);
@@ -247,6 +248,7 @@ public class PersistentDataStore {
     Entity userEntity = new Entity("chat-users", user.getId().toString());
     userEntity.setProperty("uuid", user.getId().toString());
     userEntity.setProperty("username", user.getName());
+    userEntity.setProperty("email", user.getEmail());
     userEntity.setProperty("password_hash", user.getPasswordHash());
     userEntity.setProperty("creation_time", user.getCreationTime().toString());
     userEntity.setProperty("about_me", user.getAboutMe());
