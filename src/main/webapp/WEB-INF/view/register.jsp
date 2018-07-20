@@ -41,7 +41,7 @@
   <%@ include file = "/navigations.jsp" %>
 
   <div class="container">
-    <h1 class="">Create a New Account <i> --It's Free-- </i></h1>
+    <h1 class="">Create a New Account: It's Free</h1>
     <br>
     
     <% if (request.getAttribute("error") != null) { %>
@@ -53,12 +53,12 @@
       <input pattern="\S{3,}" required title="3 characters minimum: No spaces"
       class="form-control" type="text" name="username" id="username" placeholder="Username"required>
       <br>
-      <label class="form-control-label" for="email">Email Address <span id="info">ℹ️</span></label>
+      <label class="form-control-label" for="email">Email Address <i id="info" style="color:blue">&#x2139;</i></label>
       <div class="input-group mb-2 mr-sm-2 mb-sm-0">
         <div class="input-group-addon">@</div>
         <input class="form-control" type="email" name="email" placeholder="name@example.com">
       </div>
-      <small class="form-text text-muted" style="display:none">In case, you need to retrieve your password.<br /></small>
+      <small class="form-text text-muted" style="display:none">In case, you forget your password.<br /></small>
       <br>
       <label class="form-control-label" for="password">Password</label>
       <input pattern="\S{3,}" required title="3 characters minimum: No spaces"
