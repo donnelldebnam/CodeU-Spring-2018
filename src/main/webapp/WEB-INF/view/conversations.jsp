@@ -42,7 +42,8 @@ List<Conversation> conversations = (List<Conversation>) request.getAttribute("co
       <h1>New Conversation</h1>
       <form class="form-group" action="/conversations" method="POST">
         <label class="form-control-label">Title:</label>
-        <input class="form-control"type="text" name="conversationTitle">
+        <input pattern=".{3,}" required title="3 characters minimum"
+        class="form-control"type="text" name="conversationTitle" required>
         <div class="form-check">
           <label class="form-check-label" for="checkF">
           Private
@@ -73,22 +74,6 @@ List<Conversation> conversations = (List<Conversation>) request.getAttribute("co
       </ul>
     <% } %>
     <hr/>
-
-    <h1>Hashtag Conversations</h1>
-    <% if (conversations == null || conversations.isEmpty()) { %>
-      <p>Create a Hashtag conversation to get started.</p>
-    <% } else { %>
-      <ul class="mdl-list">
-        <% for (Conversation conversation : conversations) { %>
-        <% if (conversation.getTitle().toLowerCase().contains("hashtag")){ %>
-        	<li><a href="/chat/<%= conversation.getTitle() %>">
-              <%= conversation.getTitle() %></a></li>
-        <% } %>
-
-        <% } %>
-      </ul>
-    <% } %>
-
 
   </div>
 </body>
