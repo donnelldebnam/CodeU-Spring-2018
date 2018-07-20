@@ -81,7 +81,7 @@ public class ResetServlet extends HttpServlet {
           request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
           return;
         } else {
-          request.setAttribute("error", "Something went wrong with the sent. Create a new account");
+          request.setAttribute("error", "Something went wrong. Create a new account.");
           request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
           return;
         }
