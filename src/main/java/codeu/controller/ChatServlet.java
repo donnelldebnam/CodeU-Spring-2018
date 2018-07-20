@@ -159,10 +159,6 @@ public class ChatServlet extends HttpServlet {
 
     // Adding a new message
     if (messageContent != null) {
-      if (Util.isWhiteSpace(messageContent)) {
-        response.sendRedirect("/chat/" + conversationTitle);
-        return;
-      }
       // this removes any HTML from the message content
       messageContent = Jsoup.clean(messageContent, Whitelist.none());
       boolean isPrivate = (conversation.isPrivate()?true:false);
