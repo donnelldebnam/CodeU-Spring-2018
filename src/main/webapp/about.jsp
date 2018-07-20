@@ -69,9 +69,9 @@
                  Hampton University. He loves boxing and fashion, and has a keen interest in robotics
                  and forensics.
                </p>
-               <a href="https://github.com/donnelldebnam" class="fa fa-github"> </a>
-               <a href="https://www.linkedin.com/in/donnelldebnamjr" class="fa fa-linkedin-square"></a>
-               <a href="mailto:donnell.debnam@my.hamptonu.edu" class="fa fa-envelope-square"></a>
+               <a href="https://github.com/donnelldebnam" target="_blank" class="fa fa-github"> </a>
+               <a href="https://www.linkedin.com/in/donnelldebnamjr" target="_blank" class="fa fa-linkedin-square"></a>
+               <a href="mailto:donnell.debnam@my.hamptonu.edu" target="_blank" class="fa fa-envelope-square"></a>
              </div>
                <!-- Anthony Ngoma-->
                <div class="col-xxs-12 col-sm-6 col-xxl-3 m-b-xxl">
@@ -85,9 +85,9 @@
                  located in Ithaca, NY. In his free time, Anthony enjoys playing soccer(a lot!) and
                  learning new things such as cooking.
                  </p>
-                 <a href="https://github.com/anthony23334" class="fa fa-github"> </a>
-                 <a href="https://www.linkedin.com/in/anthony-ngoma-76314756/" class="fa fa-linkedin-square"> </a>
-                 <a href="mailto:an474@cornell.edu" class="fa fa-envelope-square"></a>
+                 <a href="https://github.com/anthony23334" target="_blank" class="fa fa-github"> </a>
+                 <a href="https://www.linkedin.com/in/anthony-ngoma-76314756/" target="_blank" class="fa fa-linkedin-square"> </a>
+                 <a href="mailto:an474@cornell.edu" target="_blank" class="fa fa-envelope-square"></a>
                </div>
                  <!-- Jiayi Wang-->
                <div class="col-xxs-12 col-sm-6 col-xxl-3 m-b-xxl">
@@ -99,8 +99,8 @@
                  <p class="text-xs m-b-sm m-x-auto" style="max-width: 35rem;">
                  Jiayi is a driven, third year, Computer Science student at Virginia Tech in Blacksburg, VA!
                  </p>
-                 <a href="https://github.com/jiayiw6" class="fa fa-github"> </a>
-                 <a href="mailto:jiayiw6@vt.edu" class="fa fa-envelope-square"></a>
+                 <a href="https://github.com/jiayiw6" target="_blank" class="fa fa-github"> </a>
+                 <a href="mailto:jiayiw6@vt.edu" target="_blank" class="fa fa-envelope-square"></a>
                </div>
                <!-- Saroj Bhatta-->
                <div class="col-xxs-12 col-sm-6 col-xxl-3 m-b-xxl">
@@ -112,9 +112,9 @@
                  <p class="text-xs m-b-sm m-x-auto" style="max-width: 35rem;">
                  Saroj is a bright, second year, Computer Science student at Claflin University in Orangeburg, SC.
                  </p>
-                 <a href="https://github.com/sarojbhatta" class="fa fa-github"> </a>
-                 <a href="https://www.linkedin.com/in/sarojbhatta/" class="fa fa-linkedin-square"></a>
-                 <a href="mailto:sbhatta@claflin.edu" class="fa fa-envelope-square"></a>
+                 <a href="https://github.com/sarojbhatta" target="_blank" class="fa fa-github"> </a>
+                 <a href="https://www.linkedin.com/in/sarojbhatta/" target="_blank" class="fa fa-linkedin-square"></a>
+                 <a href="mailto:sbhatta@claflin.edu" target="_blank" class="fa fa-envelope-square"></a>
                </div>
              </section>
            </div>
@@ -127,7 +127,7 @@
  <footer class="container-fluid text-center">
    <div class="row">
      <div class="footer" align="center">
-       <a href="https://github.com/donnelldebnam/CodeU-Spring-2018-29" class="fa fa-github"></a>
+       <a href="https://github.com/donnelldebnam/CodeU-Spring-2018-29" target="_blank" class="fa fa-github"></a>
        <p>CodeByters &bull; Google CodeU 2018</p>
      </div>
    </div>
