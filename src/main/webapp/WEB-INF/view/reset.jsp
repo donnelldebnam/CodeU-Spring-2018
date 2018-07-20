@@ -28,6 +28,19 @@ String isReset = (String) request.getAttribute("isReset");
       zoom:80%;
     }
   </style>
+  
+  <script>
+    $(document).ready(function(){
+      $('#password, #password_two').on('keyup', function(){
+        if(($('#password').val() != $('#password_two').val())
+           && $('#password_two').val() != ""){
+        $('#error').css("display", "block");
+        }else{
+        $('#error').css("display", "none");
+        }
+      });
+    });
+  </script>
 
   <%@ include file = "/navigations.jsp" %>
 
@@ -43,6 +56,7 @@ String isReset = (String) request.getAttribute("isReset");
         <input class="form-control" type="password" name="password" id="password" required>
         </br>
         <label class="form-control-label" for="password_two">Confirm Password: </label>
+        <p id="error" style="display:none; color:red"> The passwords you entered do not match. Please re-enter your password.</p>
         <input class="form-control" type="password" name="password_two" id="password_two" required>
         </br>
         <button type="submit" class="btn">Reset</button>
