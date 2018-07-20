@@ -15,7 +15,7 @@
 --%>
 <!DOCTYPE html>
 <html>
-<title>Login</title>
+<title>Reset Password</title>
 <%@ include file = "/header.jsp" %>
 <body>
   <style>
@@ -27,24 +27,22 @@
   <%@ include file = "/navigations.jsp" %>
 
   <div class="container">
-    <h1>Login</h1>
+    <h1>Reset Password</h1>
 
     <% if (request.getAttribute("error") != null) { %>
       <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
 
     <form class="form-group" action="/login" method="POST">
-      <label class="form-control-label" for="username">Username: </label>
-      <input class="form-control" type="text" name="username" id="username" required>
-      </br>
-      <label class="form-control-label" for="password">Password: </label>
+      <label class="form-control-label" for="password">New Password: </label>
       <input class="form-control" type="password" name="password" id="password" required>
       </br>
-      <button type="submit" class="btn">Login</button>
+      <label class="form-control-label" for="password">Confirm Password: </label>
+      <input class="form-control" type="password" name="password" id="password" required>
+      </br>
+      <button type="submit" class="btn">Reset</button>
     </form>
 
-    <p>New users can register <a href="/register">here</a>.</p>
-    <p>Forgot password? Click <a href="/reset">here</a>.</p>
   </div>
 </body>
 </html>
