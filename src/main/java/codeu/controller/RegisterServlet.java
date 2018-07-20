@@ -1,5 +1,6 @@
 package codeu.controller;
 
+import codeu.model.data.User;
 import codeu.model.util.Util;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
@@ -42,6 +43,7 @@ public class RegisterServlet extends HttpServlet {
       throws IOException, ServletException {
 
     String username = request.getParameter("username");
+    String email = request.getParameter("email");
 
     if (!username.matches("[\\w*\\s*]*")) {
       request.setAttribute("error", "Please enter only letters or numbers");
@@ -56,7 +58,11 @@ public class RegisterServlet extends HttpServlet {
     }
 
     String password = request.getParameter("password");
+
     userStore.addUser(username, password, /*admin=*/ false);
+    User user = userStore.getUser(username);
+    user.setEmail(email);
+    userStore.updateUser(user);
     response.sendRedirect("/login");
   }
 }
