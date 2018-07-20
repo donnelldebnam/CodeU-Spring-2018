@@ -97,7 +97,7 @@
                  <h3 class="text-md text-bold">Jiayi Wang</h3>
                  <p class="text-xxxs m-b-sm text-uppercase">Virginia Tech</p>
                  <p class="text-xs m-b-sm m-x-auto" style="max-width: 35rem;">
-                 Jiayi is a driven, third year, Computer Science student at Virginia Tech in Blacksburg, VA!
+                 Jiayi is a driven, third year, Computer Science student at Virginia Tech in Blacksburg, VA! She is interested in Human Computer Interaction and fuzz testing. Most importantly, she loves and is really good at cooking!
                  </p>
                  <a href="https://github.com/jiayiw6" target="_blank" class="fa fa-github"> </a>
                  <a href="mailto:jiayiw6@vt.edu" target="_blank" class="fa fa-envelope-square"></a>
