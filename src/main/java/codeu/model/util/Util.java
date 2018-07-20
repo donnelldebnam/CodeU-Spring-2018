@@ -32,7 +32,7 @@ public class Util {
       String part1 = "Hi " + name + ",</br></br>To reset your password, Use " +
               "the following code as a password to login to your account: </br></br>";
       String link = "To log back in, use: <a>" + url + "</a></br></br>";
-      String thank = "Thanks, <br/>The CodeByter Security Team";
+      String thank = "Thanks, <br/>The CodeByter's Security Team";
       String messageText = part1 + code + "</br></br>"+ link + thank;
       boolean sessionDebug = false;
 
@@ -71,7 +71,7 @@ public class Util {
    * For security purpose:
    * Hides the email of the User to the public.
    * Ex: an474@cornell.edu
-   * return: an**@c******.***
+   * return: an***@c******.***
    * @return
    */
   public static String transform(String email){
