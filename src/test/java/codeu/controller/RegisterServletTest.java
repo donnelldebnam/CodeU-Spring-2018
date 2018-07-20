@@ -42,7 +42,7 @@ public class RegisterServletTest {
     registerServlet.doPost(mockRequest, mockResponse);
 
     Mockito.verify(mockRequest)
-        .setAttribute("error", "Please enter only letters, numbers, and spaces.");
+        .setAttribute("error", "Please enter only letters or numbers");
     Mockito.verify(mockRequestDispatcher).forward(mockRequest, mockResponse);
   }
 
