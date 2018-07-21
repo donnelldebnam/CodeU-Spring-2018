@@ -1,7 +1,5 @@
 package codeu.controller;
 
-import codeu.model.data.User;
-import codeu.model.util.Util;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -9,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class RegisterServlet extends HttpServlet {
+public class ResetServlet extends HttpServlet {
 
   /** Store class that gives access to Users. */
   private UserStore userStore;
@@ -32,40 +30,35 @@ public class RegisterServlet extends HttpServlet {
     this.userStore = userStore;
   }
 
+  /**
+   * This function fires when a user requests the /reset URL. It forwards the request to
+   * reset.jsp.
+   */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws IOException, ServletException {
-    request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
+          throws IOException, ServletException {
+    String requestUrl = request.getRequestURI();
+    Boolean isReset = !requestUrl.contains("resetQuestion");
+    request.setAttribute("isReset", isReset.toString());
+    request.getRequestDispatcher("/WEB-INF/view/reset.jsp").forward(request, response);
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws IOException, ServletException {
-
+          throws IOException, ServletException {
     String username = request.getParameter("username");
-    String email = request.getParameter("email");
 
-    if (!username.matches("[\\w*\\s*]*")) {
-      request.setAttribute("error", "Please enter only letters or numbers");
-      request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
-      return;
+    if(username != null) {
+      if (!userStore.isUserRegistered(username)) {
+        request.setAttribute("error", "Username does not exist.");
+        request.setAttribute("isReset", "false");
+        request.getRequestDispatcher("/WEB-INF/view/reset.jsp").forward(request, response);
+        return;
+      }
+
+      request.setAttribute("isReset", "true");
+      request.setAttribute("username", username);
+      request.getRequestDispatcher("/WEB-INF/view/reset.jsp").forward(request, response);
     }
-
-    if (userStore.isUserRegistered(username)) {
-      request.setAttribute("error", "That username is already taken.");
-      request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
-      return;
-    }
-
-    String password = request.getParameter("password");
-
-    userStore.addUser(username, password, /*admin=*/ false);
-    
-    if(email != null){
-      User user = userStore.getUser(username);
-      user.setEmail(email);
-      userStore.updateUser(user);
-    }
-    response.sendRedirect("/login");
   }
 }

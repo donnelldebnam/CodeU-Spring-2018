@@ -93,8 +93,9 @@ String currentHashtags = (String) request.getAttribute("currentHashtags");
       <% if (request.getSession().getAttribute("user").equals(profileOwner)) { %>
         <form action="/users/<%=request.getSession().getAttribute("user") %>" method="POST">
           <div class="form-group">
-            <label class="form-control-label">Edit Your About Me:</label>
-            <textarea class="form-control"rows="5" cols="75" name="About Me"
+            <label class="form-control-label">Edit Your About Me</label>
+            <textarea pattern="[\S]+(\s[\S]+)*" required title="No spaces in front/end"
+            class="form-control"rows="5" cols="75" name="About Me"
             placeholder="I'm currently a student at..." required></textarea>
           </div>
           <button type="submit" class="btn">submit</button>
@@ -117,7 +118,7 @@ String currentHashtags = (String) request.getAttribute("currentHashtags");
 
       <% if (request.getSession().getAttribute("user").equals(profileOwner)) { %>
         <h1>Add Hashtags to this Profile!</h1>
-        <p>Your Current Hashtags: </p>
+        <p>Your Current Hashtags</p>
         <p>
           <%=currentHashtags%>
         </p>
@@ -129,14 +130,14 @@ String currentHashtags = (String) request.getAttribute("currentHashtags");
         </form>
         </div>
 
-        <p>Users with similar Hashtags as you: </p>
+        <p>Users with similar Hashtags as you</p>
         <% for (String hashtagUser: userSet) { %>
-			<a href="/users/<%=hashtagUser %>"> <%=hashtagUser %>'s Profile </a>
+			<a href="/users/<%=hashtagUser %>"> <%=hashtagUser %>'s Profile</a>
        	<% } %>
       <% } %>
       
       <% if (!request.getSession().getAttribute("user").equals(profileOwner)) { %>
-      	<h1><%=profileOwner %>'s Hashtags: </h1>
+      	<h1><%=profileOwner %>'s Hashtags</h1>
         <p>
           <%=currentHashtags%>
         </p>
