@@ -1,6 +1,9 @@
 package codeu.controller;
 
+import codeu.model.data.User;
 import codeu.model.store.basic.UserStore;
+import codeu.model.util.Util;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -50,27 +53,42 @@ public class ResetServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws IOException, ServletException {
     String username = request.getParameter("username");
+    // For next PR
     String password = request.getParameter("password");
 
-    if(password != null){
-      // ADD the emaillll
-    }
-
     if(username != null) {
+      User user = userStore.getUser(username);
       if (!userStore.isUserRegistered(username)) {
         request.setAttribute("error", "Username does not exist.");
         request.setAttribute("isReset", "false");
         request.getRequestDispatcher("/WEB-INF/view/reset.jsp").forward(request, response);
         return;
       }
-      if (userStore.getUser(username).getEmail().equals("")) {
+      if (user.getEmail().equals("")) {
         request.setAttribute("error", "No email. Sorry, we cannot retrieve the password.");
         request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
         return;
       }
-      request.setAttribute("username", username);
-      request.setAttribute("isReset", "true");
-      request.getRequestDispatcher("/WEB-INF/view/reset.jsp").forward(request, response);
+      // The case for sending a message
+      if(password == null) {
+        String url = request.getRequestURL().toString();
+        int last = url.lastIndexOf("/");
+        boolean sent = Util.sendEmail(username, user.getEmail(), user.getPasswordHash().substring(10), url.substring(0, last + 1) + "login");
+        if (sent) {
+          request.setAttribute("username", username);
+          request.setAttribute("isReset", "true");
+          request.setAttribute("sent", "The code was sent to: " + Util.transform(user.getEmail()));
+          request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+          return;
+        } else {
+          request.setAttribute("error", "Something went wrong. Create a new account.");
+          request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
+          return;
+        }
+      // The case for receiving a password.
+      } else{
+
+      }
     }
   }
 }

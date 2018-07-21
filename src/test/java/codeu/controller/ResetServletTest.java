@@ -88,9 +88,9 @@ public class ResetServletTest {
   @Test
   public void testDoPost() throws IOException, ServletException {
     Mockito.when(mockRequest.getRequestURI()).thenReturn("/chat/reset");
+    Mockito.when(mockRequest.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8080/reset"));
     Mockito.when(mockRequest.getParameter("username")).thenReturn("user");
-    Mockito.when(mockRequest.getParameter("password")).thenReturn("0000");
-    Mockito.when(mockRequest.getRequestDispatcher("/WEB-INF/view/reset.jsp"))
+    Mockito.when(mockRequest.getRequestDispatcher("/WEB-INF/view/login.jsp"))
             .thenReturn(mockRequestDispatcher);
 
 

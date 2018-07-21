@@ -32,6 +32,9 @@
     <% if (request.getAttribute("error") != null) { %>
       <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
+    <% if (request.getAttribute("sent") != null) { %>
+      <h2 style="color:green"><%= request.getAttribute("sent") %></h2>
+    <% } %>
 
     <form class="form-group" action="/login" method="POST">
       <label class="form-control-label" for="username">Username</label>
