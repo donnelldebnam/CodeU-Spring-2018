@@ -1,4 +1,5 @@
 <%@ page import="codeu.model.data.User" %>
+<%@ page import="java.util.List" %>
 <style>
 .dropbtn {
   background-color: #46b9e2;
@@ -112,12 +113,13 @@
 <button class="dropbtn">Add User</button>
   <div id="myDropdown" class="dropdown-content">
     <input type="text" placeholder="&#x1f50d;Search.." id="myInput" onkeyup="filterFunction()">
-    <% for (User user : users) {
-          if (!user.isAdmin()){
-             String name = user.getName(); 
-    %>
-             <a class="user"><%=name%></a>
-        <% } %>
-      <% } %>
+	<% List<User> users2 = (List<User>) request.getAttribute("users"); %>
+	<% for (User user: users2){
+		if(!user.isAdmin()){
+		  String name = user.getName();
+	%>
+		<a class="user"><%=name%></a>
+		<% } %>
+	<% } %>
   </div>
 </div>

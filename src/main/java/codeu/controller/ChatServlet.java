@@ -14,7 +14,6 @@
 
 package codeu.controller;
 
-import codeu.model.util.Util;
 import codeu.model.data.Conversation;
 import codeu.model.data.Message;
 import codeu.model.data.User;
@@ -161,11 +160,15 @@ public class ChatServlet extends HttpServlet {
     if (messageContent != null) {
       // this removes any HTML from the message content
       messageContent = Jsoup.clean(messageContent, Whitelist.none());
-      boolean isPrivate = (conversation.isPrivate()?true:false);
+      boolean isPrivate = (conversation.isPrivate() ? true : false);
       Message message =
-              new Message(
-                      UUID.randomUUID(), conversation.getId(), user.getId(), isPrivate,
-                      messageContent, Instant.now());
+          new Message(
+              UUID.randomUUID(),
+              conversation.getId(),
+              user.getId(),
+              isPrivate,
+              messageContent,
+              Instant.now());
       messageStore.addMessage(message);
     }
 
