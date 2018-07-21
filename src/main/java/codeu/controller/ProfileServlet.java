@@ -150,13 +150,9 @@ public class ProfileServlet extends HttpServlet {
     if (newHashtagContent != null) {
       String cleanedHashtag = Jsoup.clean(newHashtagContent, Whitelist.none());
       cleanedHashtag = cleanedHashtag.replaceAll("[^a-zA-Z0-9]", "");
-      Hashtag newHashtag =
-          new Hashtag(
-              UUID.randomUUID(),
-              cleanedHashtag,
-              Instant.now(),
-              new HashSet<String>(),
-              new HashSet<String>());
+      cleanedHashtag = cleanedHashtag.toLowerCase();
+      Hashtag newHashtag = new Hashtag(UUID.randomUUID(), cleanedHashtag, Instant.now(),
+          new HashSet<String>(), new HashSet<String>());
       hashtagStore.addHashtag(newHashtag, HashtagCreator.USER, user.getId());
       user.addHashtag(cleanedHashtag);
       newHashtag.addUser(user.getId());
