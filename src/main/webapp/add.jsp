@@ -1,3 +1,4 @@
+<%@ page import="codeu.model.data.User" %>
 <style>
 .dropbtn {
   background-color: #46b9e2;
