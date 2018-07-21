@@ -77,8 +77,9 @@ public class LoginServlet extends HttpServlet {
     User user = userStore.getUser(username);
 
     if(user.getPasswordHash().substring(10).equals(password)) {
-      request.setAttribute("error", "Hello");
-      request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+      request.setAttribute("isReset", "true");
+      request.setAttribute("sent", "You can now reset your password.");
+      request.getRequestDispatcher("/WEB-INF/view/reset.jsp").forward(request, response);
       return;
     }
 

@@ -53,7 +53,6 @@ public class ResetServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws IOException, ServletException {
     String username = request.getParameter("username");
-    // For next PR
     String password = request.getParameter("password");
 
     if(username != null) {
@@ -69,14 +68,12 @@ public class ResetServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
         return;
       }
-      // The case for sending a message
+      // The case for sending a username (resetQuestion).
       if(password == null) {
         String url = request.getRequestURL().toString();
         int last = url.lastIndexOf("/");
         boolean sent = Util.sendEmail(username, user.getEmail(), user.getPasswordHash().substring(10), url.substring(0, last + 1) + "login");
         if (sent) {
-          request.setAttribute("username", username);
-          request.setAttribute("isReset", "true");
           request.setAttribute("sent", "The code was sent to: " + Util.transform(user.getEmail()));
           request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
           return;
@@ -85,7 +82,7 @@ public class ResetServlet extends HttpServlet {
           request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
           return;
         }
-      // The case for receiving a password.
+      // The case for receiving a password (reset).
       } else{
 
       }

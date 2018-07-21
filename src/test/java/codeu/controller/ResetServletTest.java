@@ -103,10 +103,6 @@ public class ResetServletTest {
     resetServlet.setUserStore(mockUserStore);
 
     resetServlet.doPost(mockRequest, mockResponse);
-    Mockito.verify(mockRequest)
-            .setAttribute("username", "user");
-    Mockito.verify(mockRequest)
-            .setAttribute("isReset", "true");
     Mockito.verify(mockRequestDispatcher).forward(mockRequest, mockResponse);
   }
 }

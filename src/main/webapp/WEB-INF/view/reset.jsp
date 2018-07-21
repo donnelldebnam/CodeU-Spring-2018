@@ -49,6 +49,9 @@ String isReset = (String) request.getAttribute("isReset");
     <% if (request.getAttribute("error") != null) { %>
           <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
+    <% if (request.getAttribute("sent") != null) { %>
+            <h2 style="color:green"><%= request.getAttribute("sent") %></h2>
+     <% } %>
 
     <% if (isReset.equals("true")) { %>
       <form class="form-group" action="/reset" method="POST">
