@@ -84,7 +84,10 @@ public class ResetServlet extends HttpServlet {
         }
       // The case for receiving a password (reset).
       } else{
-
+        // Updating the password.
+        user.setPassword(password);
+        userStore.updateUser(user);
+        response.sendRedirect("/login");
       }
     }
   }

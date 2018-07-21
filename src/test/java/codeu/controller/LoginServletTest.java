@@ -91,4 +91,31 @@ public class LoginServletTest {
     Mockito.verify(mockSession).setAttribute("user", "test username");
     Mockito.verify(mockResponse).sendRedirect("/conversations");
   }
+
+  @Test
+  public void testDoPost_ResetUser() throws IOException, ServletException {
+    Mockito.when(mockRequest.getRequestDispatcher("/WEB-INF/view/reset.jsp"))
+            .thenReturn(mockRequestDispatcher);
+    User user =
+            new TestUserBuilder()
+                    .withName("test username")
+                    .withPasswordHash("$2a$10$.e.4EEfngEXmxAO085XnYOmDntkqod0C384jOR9oagwxMnPNHaGLa")
+                    .build();
+    Mockito.when(mockRequest.getParameter("username")).thenReturn("test username");
+    Mockito.when(mockRequest.getParameter("password")).thenReturn(user.getPasswordHash().substring(10));
+
+    UserStore mockUserStore = Mockito.mock(UserStore.class);
+    Mockito.when(mockUserStore.isUserRegistered("test username")).thenReturn(true);
+    Mockito.when(mockUserStore.getUser("test username")).thenReturn(user);
+    loginServlet.setUserStore(mockUserStore);
+
+    HttpSession mockSession = Mockito.mock(HttpSession.class);
+    Mockito.when(mockRequest.getSession()).thenReturn(mockSession);
+
+    loginServlet.doPost(mockRequest, mockResponse);
+    Mockito.verify(mockRequest).setAttribute("sent", "You can now reset your password.");
+    Mockito.verify(mockRequest).setAttribute("username", "test username");
+    Mockito.verify(mockRequest).setAttribute("isReset", "true");
+    Mockito.verify(mockRequestDispatcher).forward(mockRequest, mockResponse);
+  }
 }

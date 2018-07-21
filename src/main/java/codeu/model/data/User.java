@@ -14,6 +14,8 @@
 
 package codeu.model.data;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +25,7 @@ import java.util.UUID;
 public class User {
   private final UUID id;
   private final String name;
-  private final String passwordHash;
+  private String passwordHash;
   private final Instant creation;
   private boolean admin;
   private String email;
@@ -92,9 +94,15 @@ public class User {
   /** Returns the email of this User. */
   public String getEmail() { return email; }
 
-  /** Sets the  email  of this User. */
+  /** Sets the email of this User. */
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  /** Sets the password of this User. */
+  public void setPassword(String newPassword) {
+    String password = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+    this.passwordHash = password;
   }
 
   public void addHashtag(String content) {

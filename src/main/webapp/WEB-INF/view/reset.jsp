@@ -51,7 +51,7 @@ String isReset = (String) request.getAttribute("isReset");
     <% } %>
     <% if (request.getAttribute("sent") != null) { %>
             <h2 style="color:green"><%= request.getAttribute("sent") %></h2>
-     <% } %>
+    <% } %>
 
     <% if (isReset.equals("true")) { %>
       <form class="form-group" action="/reset" method="POST">
@@ -63,6 +63,7 @@ String isReset = (String) request.getAttribute("isReset");
         <input class="form-control" type="password" name="password_two" id="password_two" required>
         </br>
         <button type="submit" class="btn">Reset</button>
+        <input type="hidden" name="username" value= <%= request.getAttribute("username") %> />
       </form>
     <% } else { %>
        <p>Lost your password? Please enter your username. If you registered an email, you will receive a temporary code to use to reset password</p>

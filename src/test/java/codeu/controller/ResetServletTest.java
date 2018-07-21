@@ -86,7 +86,7 @@ public class ResetServletTest {
   }
 
   @Test
-  public void testDoPost() throws IOException, ServletException {
+  public void testDoPostResetQuestion() throws IOException, ServletException {
     Mockito.when(mockRequest.getRequestURI()).thenReturn("/chat/reset");
     Mockito.when(mockRequest.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8080/reset"));
     Mockito.when(mockRequest.getParameter("username")).thenReturn("user");
@@ -104,5 +104,23 @@ public class ResetServletTest {
 
     resetServlet.doPost(mockRequest, mockResponse);
     Mockito.verify(mockRequestDispatcher).forward(mockRequest, mockResponse);
+  }
+
+  @Test
+  public void testDoPostReset() throws IOException, ServletException {
+    Mockito.when(mockRequest.getRequestURI()).thenReturn("/chat/reset");
+    Mockito.when(mockRequest.getParameter("username")).thenReturn("user");
+    Mockito.when(mockRequest.getParameter("password")).thenReturn("newPassword");
+
+    UserStore mockUserStore = Mockito.mock(UserStore.class);
+    User user = new ModelDataTestHelpers.TestUserBuilder().withName("name").build();
+    user.setEmail("user@gmail.com");
+    Mockito.when(mockUserStore.isUserRegistered("user")).thenReturn(true);
+    Mockito.when(mockUserStore.getUser("user")).thenReturn(user);
+
+    resetServlet.setUserStore(mockUserStore);
+
+    resetServlet.doPost(mockRequest, mockResponse);
+    Mockito.verify(mockResponse).sendRedirect("/login");
   }
 }
