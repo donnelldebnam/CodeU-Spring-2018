@@ -22,6 +22,7 @@ import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletException;
@@ -104,6 +105,20 @@ public class ChatServlet extends HttpServlet {
 
     List<Message> messages = messageStore.getMessagesInConversation(conversationId);
     List<User> users = userStore.getUsers();
+
+    // List of users who are not in the private conversation
+    if(conversation.isPrivate()){
+      List<User> excludedUsers = new ArrayList<>();
+      String existingUsers = conversation.getUsers();
+      for(User u: users){
+        // if the user IS NOT in the conversation
+        if(!existingUsers.contains(u.getId().toString())){
+          excludedUsers.add(u);
+        }
+      }
+      request.setAttribute("excludedUsers", excludedUsers);
+    }
+
     request.setAttribute("users", users);
     request.setAttribute("conversation", conversation);
     request.setAttribute("messages", messages);
