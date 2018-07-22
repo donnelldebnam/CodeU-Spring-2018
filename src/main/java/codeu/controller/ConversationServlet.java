@@ -85,13 +85,13 @@ public class ConversationServlet extends HttpServlet {
       throws IOException, ServletException {
 
     String username = (String) request.getSession().getAttribute("user");
-    username = username.toLowerCase();
     
     if (username == null) {
       // user is not logged in, don't let them create a conversation
       response.sendRedirect("/conversations");
       return;
     }
+    username = username.toLowerCase();
 
     User user = userStore.getUser(username);
     if (user == null) {
