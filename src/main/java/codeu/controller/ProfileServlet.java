@@ -90,7 +90,8 @@ public class ProfileServlet extends HttpServlet {
 
     String requestUrl = request.getRequestURI();
     String profileOwner = requestUrl.substring("/users/".length());
-
+    profileOwner = profileOwner.toLowerCase();
+    
     User user = userStore.getUser(profileOwner);
     if (user == null) {
       // user is not logged in, redirect to login page

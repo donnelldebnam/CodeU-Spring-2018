@@ -87,6 +87,7 @@ public class ChatServlet extends HttpServlet {
       throws IOException, ServletException {
     String requestUrl = request.getRequestURI();
     String conversationTitle = requestUrl.substring("/chat/".length());
+    conversationTitle = conversationTitle.toLowerCase();
 
     Conversation conversation = conversationStore.getConversationWithTitle(conversationTitle);
     if (conversation == null) {
@@ -136,11 +137,13 @@ public class ChatServlet extends HttpServlet {
       throws IOException, ServletException {
 
     String username = (String) request.getSession().getAttribute("user");
+    
     if (username == null) {
       // user is not logged in, don't let them add a message
       response.sendRedirect("/login");
       return;
     }
+    username = username.toLowerCase();
 
     User user = userStore.getUser(username);
     if (user == null) {
