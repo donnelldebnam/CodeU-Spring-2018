@@ -27,12 +27,14 @@ public class Util {
    */
   public static String sendEmail(String name, String to, String code, String url) {
     String from = "angoma@codeustudents.com";
-    String subject = "CodeByter password reset";
-    String part1 = "Hi " + name + ",</br></br>To reset your password, Use " +
-            "the following code as a password to login to your account: </br></br>";
-    String link = "To log back in, use: <a>" + url + "</a></br></br>";
-    String thank = "Thanks, <br/>The CodeByter's Security Team";
-    String messageText = part1 + code + "</br></br>" + link + thank;
+    String subject = "CodeByter Password Reset";
+
+    String messageText = String.format("Hello %s, \n\n" +
+            "Can't remember your password? \n" +
+            "It happens to the best of us.\n\n" +
+            "Use this temporary code to login:\t\t%s\n\n" +
+            "Use this link to login:\t%s\n\n" +
+            "Thanks, \nThe CodeByter's Security Team", name, code, url);
 
     Properties props = new Properties();
     Session mailSession = Session.getDefaultInstance(props, null);
@@ -45,7 +47,7 @@ public class Util {
       msg.addRecipients(Message.RecipientType.TO, addressTo);
       msg.setSubject(subject);
       msg.setSentDate(new Date());
-      msg.setContent(messageText, "text/html; charset=utf-8");
+      msg.setText(messageText);
       Transport.send(msg);
     } catch (AddressException email) {
       return "Your email address was NOT valid.";
