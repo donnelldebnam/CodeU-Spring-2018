@@ -72,17 +72,29 @@ public class ResetServlet extends HttpServlet {
       if(password == null) {
         String url = request.getRequestURL().toString();
         int last = url.lastIndexOf("/");
-        boolean sent = Util.sendEmail(username, user.getEmail(), user.getPasswordHash().substring(10), url.substring(0, last + 1) + "login");
-        if (sent) {
+
+        /**
+         *  Extra maneuver in order to allow this test: testDoPostReset() to skip the email stuff.
+         *  This is very important because the class Transport CANNOT make a request from the Mockito
+         *  interface.
+         */
+        String sent = "Sended";
+        if (!request.getRequestURI().contains("testing")) {
+          sent = Util.sendEmail(username, user.getEmail(), user.getPasswordHash().substring(10)
+                  , url.substring(0, last + 1) + "login");
+        }
+
+        if (sent.equals("Sended")) {
           request.setAttribute("sent", "The code was sent to: " + Util.transform(user.getEmail()));
           request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
           return;
         } else {
-          request.setAttribute("error", "Something went wrong. Create a new account.");
+          request.setAttribute("error", sent);
           request.getRequestDispatcher("/WEB-INF/view/register.jsp").forward(request, response);
           return;
         }
-      // The case for receiving a password (reset).
+
+        // The case for receiving a password (reset).
       } else{
         // Updating the password.
         user.setPassword(password);

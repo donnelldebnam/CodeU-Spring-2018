@@ -33,7 +33,7 @@ public class ResetServletTest {
 
   @Test
   public void testDoGet() throws IOException, ServletException {
-    Mockito.when(mockRequest.getRequestURI()).thenReturn("/chat/reset");
+    Mockito.when(mockRequest.getRequestURI()).thenReturn("testing/chat/reset");
     Mockito.when(mockRequest.getParameter("username")).thenReturn("user");
     Mockito.when(mockRequest.getRequestDispatcher("/WEB-INF/view/reset.jsp"))
             .thenReturn(mockRequestDispatcher);
@@ -65,7 +65,7 @@ public class ResetServletTest {
 
   @Test
   public void testDoPost_NoEmail() throws IOException, ServletException {
-    Mockito.when(mockRequest.getRequestURI()).thenReturn("/chat/reset");
+    Mockito.when(mockRequest.getRequestURI()).thenReturn("testing/chat/reset");
     Mockito.when(mockRequest.getParameter("username")).thenReturn("user");
     Mockito.when(mockRequest.getParameter("password")).thenReturn("0000");
     Mockito.when(mockRequest.getRequestDispatcher("/WEB-INF/view/register.jsp"))
@@ -87,7 +87,7 @@ public class ResetServletTest {
 
   @Test
   public void testDoPostResetQuestion() throws IOException, ServletException {
-    Mockito.when(mockRequest.getRequestURI()).thenReturn("/chat/reset");
+    Mockito.when(mockRequest.getRequestURI()).thenReturn("testing/chat/reset");
     Mockito.when(mockRequest.getRequestURL()).thenReturn(new StringBuffer("http://localhost:8080/reset"));
     Mockito.when(mockRequest.getParameter("username")).thenReturn("user");
     Mockito.when(mockRequest.getRequestDispatcher("/WEB-INF/view/login.jsp"))
@@ -108,7 +108,7 @@ public class ResetServletTest {
 
   @Test
   public void testDoPostReset() throws IOException, ServletException {
-    Mockito.when(mockRequest.getRequestURI()).thenReturn("/chat/reset");
+    Mockito.when(mockRequest.getRequestURI()).thenReturn("testing/chat/reset");
     Mockito.when(mockRequest.getParameter("username")).thenReturn("user");
     Mockito.when(mockRequest.getParameter("password")).thenReturn("newPassword");
 
