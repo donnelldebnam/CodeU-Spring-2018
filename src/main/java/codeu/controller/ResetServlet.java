@@ -53,6 +53,7 @@ public class ResetServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
           throws IOException, ServletException {
     String username = request.getParameter("username");
+    username = username.toLowerCase();
     String password = request.getParameter("password");
 
     if(username != null) {

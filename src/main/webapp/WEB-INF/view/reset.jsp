@@ -56,11 +56,13 @@ String isReset = (String) request.getAttribute("isReset");
     <% if (isReset.equals("true")) { %>
       <form class="form-group" action="/reset" method="POST">
         <label class="form-control-label" for="password">New Password: </label>
-        <input class="form-control" type="password" name="password" id="password" required>
+        <input pattern="\S{3,}" required title="3 characters minimum: No spaces"
+        class="form-control" type="password" name="password" id="password" required>
         </br>
         <label class="form-control-label" for="password_two">Confirm Password: </label>
         <p id="error" style="display:none; color:red"> The passwords you entered do not match. Please re-enter your password.</p>
-        <input class="form-control" type="password" name="password_two" id="password_two" required>
+        <input pattern="\S{3,}" required title="3 characters minimum: No spaces"
+        class="form-control" type="password" name="password_two" id="password_two" required>
         </br>
         <button type="submit" class="btn">Reset</button>
         <input type="hidden" name="username" value= <%= request.getAttribute("username") %> />
@@ -69,7 +71,8 @@ String isReset = (String) request.getAttribute("isReset");
        <p>Lost your password? Please enter your username. If you registered an email, you will receive a temporary code to use to reset password</p>
        <form class="form-group" action="/reset" method="POST">
           <label class="form-control-label" for="username">Username: </label>
-          <input class="form-control" type="text" name="username" id="username" required>
+          <input pattern="\S{3,}" required title="3 characters minimum: No spaces"
+          class="form-control" type="text" name="username" id="username" required>
           </br>
           <button type="submit" class="btn">Reset</button>
        </form>

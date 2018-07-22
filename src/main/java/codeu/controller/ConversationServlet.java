@@ -85,6 +85,7 @@ public class ConversationServlet extends HttpServlet {
       throws IOException, ServletException {
 
     String username = (String) request.getSession().getAttribute("user");
+
     if (username == null) {
       // user is not logged in, don't let them create a conversation
       response.sendRedirect("/conversations");
