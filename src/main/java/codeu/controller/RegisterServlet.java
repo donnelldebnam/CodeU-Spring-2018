@@ -1,7 +1,6 @@
 package codeu.controller;
 
 import codeu.model.data.User;
-import codeu.model.util.Util;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -60,8 +59,8 @@ public class RegisterServlet extends HttpServlet {
     String password = request.getParameter("password");
 
     userStore.addUser(username, password, /*admin=*/ false);
-    
-    if(email != null){
+
+    if (email != null) {
       User user = userStore.getUser(username);
       user.setEmail(email);
       userStore.updateUser(user);

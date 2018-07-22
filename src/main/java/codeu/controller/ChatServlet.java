@@ -14,7 +14,6 @@
 
 package codeu.controller;
 
-import codeu.model.util.Util;
 import codeu.model.data.Conversation;
 import codeu.model.data.Message;
 import codeu.model.data.User;
@@ -23,6 +22,7 @@ import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletException;
@@ -105,6 +105,20 @@ public class ChatServlet extends HttpServlet {
 
     List<Message> messages = messageStore.getMessagesInConversation(conversationId);
     List<User> users = userStore.getUsers();
+
+    // List of users who are not in the private conversation
+    if(conversation.isPrivate()){
+      List<User> excludedUsers = new ArrayList<>();
+      String existingUsers = conversation.getUsers();
+      for(User u: users){
+        // if the user IS NOT in the conversation
+        if(!existingUsers.contains(u.getId().toString())){
+          excludedUsers.add(u);
+        }
+      }
+      request.setAttribute("excludedUsers", excludedUsers);
+    }
+
     request.setAttribute("users", users);
     request.setAttribute("conversation", conversation);
     request.setAttribute("messages", messages);
@@ -161,11 +175,15 @@ public class ChatServlet extends HttpServlet {
     if (messageContent != null) {
       // this removes any HTML from the message content
       messageContent = Jsoup.clean(messageContent, Whitelist.none());
-      boolean isPrivate = (conversation.isPrivate()?true:false);
+      boolean isPrivate = (conversation.isPrivate() ? true : false);
       Message message =
-              new Message(
-                      UUID.randomUUID(), conversation.getId(), user.getId(), isPrivate,
-                      messageContent, Instant.now());
+          new Message(
+              UUID.randomUUID(),
+              conversation.getId(),
+              user.getId(),
+              isPrivate,
+              messageContent,
+              Instant.now());
       messageStore.addMessage(message);
     }
 
