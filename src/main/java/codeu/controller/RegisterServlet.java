@@ -42,6 +42,7 @@ public class RegisterServlet extends HttpServlet {
       throws IOException, ServletException {
 
     String username = request.getParameter("username");
+    username = username.toLowerCase();
     String email = request.getParameter("email");
 
     if (!username.matches("[\\w*\\s*]*")) {

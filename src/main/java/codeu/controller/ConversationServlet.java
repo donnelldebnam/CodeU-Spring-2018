@@ -14,13 +14,10 @@
 
 package codeu.controller;
 
-import codeu.model.util.Util;
 import codeu.model.data.Conversation;
 import codeu.model.data.User;
 import codeu.model.store.basic.ConversationStore;
 import codeu.model.store.basic.UserStore;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
@@ -88,11 +85,13 @@ public class ConversationServlet extends HttpServlet {
       throws IOException, ServletException {
 
     String username = (String) request.getSession().getAttribute("user");
+
     if (username == null) {
       // user is not logged in, don't let them create a conversation
       response.sendRedirect("/conversations");
       return;
     }
+    username = username.toLowerCase();
 
     User user = userStore.getUser(username);
     if (user == null) {
@@ -102,6 +101,8 @@ public class ConversationServlet extends HttpServlet {
     }
 
     String conversationTitle = request.getParameter("conversationTitle");
+    conversationTitle = conversationTitle.toLowerCase();
+    
     if (!conversationTitle.matches("[\\w*]*")) {
       request.setAttribute("error", "Please enter only letters and numbers.");
       request.getRequestDispatcher("/WEB-INF/view/conversations.jsp").forward(request, response);
