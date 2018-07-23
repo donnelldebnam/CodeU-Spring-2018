@@ -39,6 +39,9 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
   <%@ include file = "/navigations.jsp" %>
 
     <div class="container">
+      <% if (request.getAttribute("admin") != null) { %>
+          <h2 style="color:green"><%= request.getAttribute("admin") %></h2>
+      <% } %>
       <h1>Activity Feed</h1>
       <% if (activities == null || activities.size() == 1) { %>
       <h3> Nothing happened on the site so far! </h3>

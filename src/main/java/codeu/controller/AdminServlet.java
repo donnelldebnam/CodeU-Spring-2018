@@ -90,8 +90,9 @@ public class AdminServlet extends HttpServlet {
     }
 
     if (!user.isAdmin()) {
-      // user is not an Admin, redirect to about page
-      response.sendRedirect("/about");
+      // user is not an Admin, redirect to profile page with error
+      request.setAttribute("error", "Sorry, you are not an admin.");
+      request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
       return;
     }
 

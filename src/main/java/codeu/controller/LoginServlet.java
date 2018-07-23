@@ -92,6 +92,11 @@ public class LoginServlet extends HttpServlet {
     }
 
     request.getSession().setAttribute("user", username);
+    if (user.isAdmin()) {
+      request.setAttribute("admin", "Welcome to the Administration Account.");
+      request.getRequestDispatcher("/WEB-INF/view/activity.jsp").forward(request, response);
+      return;
+    }
     response.sendRedirect("/conversations");
   }
 }
