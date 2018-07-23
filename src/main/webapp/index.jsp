@@ -142,7 +142,7 @@
   <footer class="container-fluid text-center">
     <div class="row">
       <div class="footer" align="center">
-        <a href="https://github.com/donnelldebnam/CodeU-Spring-2018-29" class="fa fa-github"></a>
+        <a href="https://github.com/donnelldebnam/CodeU-Spring-2018-29" target="_blank" class="fa fa-github"></a>
         <p>CodeByters &bull; Google CodeU 2018</p>
       </div>
     </div>
