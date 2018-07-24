@@ -14,12 +14,15 @@
 
 package codeu.controller;
 
+import codeu.model.data.Activity;
 import codeu.model.data.Message;
 import codeu.model.data.User;
+import codeu.model.store.basic.ActivityStore;
 import codeu.model.store.basic.ConversationStore;
 import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -95,7 +98,10 @@ public class AdminServlet extends HttpServlet {
       request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
       return;
     }
+    List<Activity> activities = ActivityStore.getInstance().getAllActivities();
+    Collections.sort(activities);
 
+    request.setAttribute("activities", activities);
     request.setAttribute("totalUsers", userStore.getUsers().size());
     request.setAttribute("totalConversations", conversationStore.getAllConversations().size());
     request.setAttribute("totalMessages", messageStore.getTotalMessages());
