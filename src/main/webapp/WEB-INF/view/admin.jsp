@@ -36,7 +36,7 @@ List<Activity> activities = (List<Activity>) request.getAttribute("activities");
     <%@ include file = "/header.jsp" %>
     <style>
       #activityfeed {
-        background-color: white;
+        background-color: #45bae221;
         height: 380px;
         overflow-y: scroll;
       }

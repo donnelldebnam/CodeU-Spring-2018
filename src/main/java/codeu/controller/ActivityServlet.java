@@ -2,6 +2,8 @@ package codeu.controller;
 
 import codeu.model.data.Activity;
 import codeu.model.store.basic.ActivityStore;
+import codeu.model.store.basic.UserStore;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,6 +44,12 @@ public class ActivityServlet extends HttpServlet {
     List<Activity> activities = activityStore.getAllActivities();
     Collections.sort(activities);
     request.setAttribute("activities", activities);
+
+    String name = (String) request.getSession().getAttribute("user");
+    if(name != null && UserStore.getInstance().getUser(name).isAdmin()){
+      response.sendRedirect("/admin");
+      return;
+    }
 
     request.getRequestDispatcher("/WEB-INF/view/activity.jsp").forward(request, response);
   }

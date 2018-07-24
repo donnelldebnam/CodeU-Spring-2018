@@ -14,9 +14,13 @@
 
 package codeu.controller;
 
+import codeu.model.data.Activity;
 import codeu.model.data.User;
+import codeu.model.store.basic.ActivityStore;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -93,8 +97,7 @@ public class LoginServlet extends HttpServlet {
 
     request.getSession().setAttribute("user", username);
     if (user.isAdmin()) {
-      request.setAttribute("admin", "Welcome to the Administration Account.");
-      request.getRequestDispatcher("/WEB-INF/view/activity.jsp").forward(request, response);
+      response.sendRedirect("/admin");
       return;
     }
     response.sendRedirect("/conversations");
