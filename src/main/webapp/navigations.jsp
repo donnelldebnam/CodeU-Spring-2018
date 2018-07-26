@@ -1,3 +1,7 @@
+<%@ page import="codeu.model.store.basic.UserStore" %>
+<%@ page import="codeu.model.data.User" %>
+<% String userSigned = (String) request.getSession().getAttribute("user"); %>
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -19,7 +23,11 @@
         <% } else { %>
           <a href="/login">Login</a>
         <% } %>
-        <a href="/activity">Activity Feed</a>
+        <% if (userSigned != null && UserStore.getInstance().getUser(userSigned).isAdmin()) { %>
+          <a href="/admin">Administration</a>
+        <% } else { %>
+          <a href="/activity">Activity Feed</a>
+        <% } %>
         <a href="/about.jsp">About Us</a>
         </nav>
       </ul>

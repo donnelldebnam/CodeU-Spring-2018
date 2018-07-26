@@ -211,6 +211,6 @@ public class UserStore {
   /** A helper function that adds an admin to the list of users. */
   public void addAdmin() {
     // hard-coded initial Admin:
-    instance.addUser("Admin01", "AdminPass203901", /* admin= */ true);
+    instance.addUser("admin01", "AdminPass203901", /* admin= */ true);
   }
 }

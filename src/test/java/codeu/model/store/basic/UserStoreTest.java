@@ -148,7 +148,7 @@ public class UserStoreTest {
     assertEquals(3, resultUsers.size());
     Map<UUID, User> resultUsersSet = new HashMap<>();
     for (User resultUser : resultUsers) {
-      if (resultUser.getName().equals("Admin01")) {
+      if (resultUser.getName().equals("admin01")) {
         assertFalse(foundInitialAdmin);
         foundInitialAdmin = true;
       } else {
