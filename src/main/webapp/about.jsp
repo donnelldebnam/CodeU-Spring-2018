@@ -69,7 +69,8 @@
                  Hampton University. He loves boxing and fashion, and has a keen interest in robotics
                  and forensics.
                </p>
-               <a href="https://github.com/donnelldebnam" target="_blank" class="fa fa-github"> </a>
+               <a href="http://www.donnelldebnamjr.com" target="_blank" class="fa fa-globe"></a>
+               <a href="https://github.com/donnelldebnam" target="_blank" class="fa fa-github"></a>
                <a href="https://www.linkedin.com/in/donnelldebnamjr" target="_blank" class="fa fa-linkedin-square"></a>
                <a href="mailto:donnell.debnam@my.hamptonu.edu" target="_blank" class="fa fa-envelope-square"></a>
              </div>
