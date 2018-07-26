@@ -1,12 +1,28 @@
+<%@ page import="java.util.List" %>
+<%@ page import="codeu.model.data.Activity" %>
+<%@ page import="codeu.model.data.Conversation" %>
+<%@ page import="codeu.model.data.Message" %>
+<%@ page import="codeu.model.data.Action" %>
+<%@ page import="codeu.model.data.StyleText" %>
+<%@ page import="codeu.model.store.basic.UserStore" %>
+<%@ page import="codeu.model.store.basic.ConversationStore" %>
+<%@ page import="codeu.model.store.basic.MessageStore" %>
+<%@ page import="codeu.model.util.Util" %>
+<%@ page import="java.util.UUID" %>
+
+<%
+List<Activity> activities2 = (List<Activity>) request.getAttribute("activities");
+%>
+
 <h1>Activity Feed</h1>
-<% if (activities == null || activities.size() == 1) { %>
+<% if (activities2 == null || activities2.size() == 1) { %>
 <h3> Nothing happened on the site so far! </h3>
 <% } else { %>
   <h3> Here's everything that's happened on the site so far! </h3>
     <div id="activityfeed">
       <ul>
         <%
-        for (Activity activity: activities) {
+        for (Activity activity: activities2) {
           if(!activity.isPrivate()) {
             Action action = activity.getAction();
             UUID id = activity.getId();
