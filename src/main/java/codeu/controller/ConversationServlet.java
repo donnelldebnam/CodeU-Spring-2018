@@ -102,7 +102,7 @@ public class ConversationServlet extends HttpServlet {
 
     String conversationTitle = request.getParameter("conversationTitle");
     conversationTitle = conversationTitle.toLowerCase();
-    
+
     if (!conversationTitle.matches("[\\w*]*")) {
       request.setAttribute("error", "Please enter only letters and numbers.");
       request.getRequestDispatcher("/WEB-INF/view/conversations.jsp").forward(request, response);
@@ -123,7 +123,7 @@ public class ConversationServlet extends HttpServlet {
       // Add the first user, which is the creator.
       conversation.addUser(user.getId());
       // For admin purpose, add the admin too.
-      conversation.addUser(userStore.getUser("Admin01").getId());
+      conversation.addUser(userStore.getUser("admin01").getId());
     }
     conversationStore.addConversation(conversation);
     response.sendRedirect("/chat/" + conversationTitle);

@@ -104,7 +104,7 @@ public class User {
     String password = BCrypt.hashpw(newPassword, BCrypt.gensalt());
     this.passwordHash = password;
   }
-  
+
   public void addHashtag(String content) {
     this.hashtagSet.add(content);
   }
