@@ -14,12 +14,15 @@
 
 package codeu.controller;
 
+import codeu.model.data.Activity;
 import codeu.model.data.Message;
 import codeu.model.data.User;
+import codeu.model.store.basic.ActivityStore;
 import codeu.model.store.basic.ConversationStore;
 import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -74,6 +77,31 @@ public class AdminServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
+
+    String username = (String) request.getSession().getAttribute("user");
+    if (username == null) {
+      // user is not logged in, can't access page
+      response.sendRedirect("/login");
+      return;
+    }
+
+    User user = userStore.getUser(username);
+    if (user == null) {
+      // user was not found, can't access page
+      response.sendRedirect("/login");
+      return;
+    }
+
+    if (!user.isAdmin()) {
+      // user is not an Admin, redirect to profile page with error
+      request.setAttribute("error", "Sorry, you are not an admin.");
+      request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+      return;
+    }
+    List<Activity> activities = ActivityStore.getInstance().getAllActivities();
+    Collections.sort(activities);
+
+    request.setAttribute("activities", activities);
     request.setAttribute("totalUsers", userStore.getUsers().size());
     request.setAttribute("totalConversations", conversationStore.getAllConversations().size());
     request.setAttribute("totalMessages", messageStore.getTotalMessages());

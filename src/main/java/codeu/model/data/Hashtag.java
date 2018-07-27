@@ -15,7 +15,6 @@
 package codeu.model.data;
 
 import java.time.Instant;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -38,8 +37,8 @@ public class Hashtag {
     this.id = id;
     this.content = content.toLowerCase();
     this.creation = creation;
-    this.userSource = new HashSet<>();
-    this.conversationSource = new HashSet<>();
+    this.userSource = userSource;
+    this.conversationSource = conversationSource;
   }
 
   /** Returns the ID of this Hashtag. */
@@ -59,12 +58,22 @@ public class Hashtag {
 
   /** Returns the String representation of the users that contain this Hashtag. */
   public String getUserSource() {
-    return String.join(",", this.userSource);
+    return String.join(", ", this.userSource);
   }
 
   /** Returns the String representation of the conversations that contain this Hashtag. */
   public String getConversationSource() {
-    return String.join(",", this.conversationSource);
+    return String.join(", ", this.conversationSource);
+  }
+
+  /** Returns the String representation in a Set of the users that contain this Hashtag. */
+  public Set<String> getUserSourceSet() {
+    return this.userSource;
+  }
+
+  /** Returns the String representation in a Set of the conversations that contain this Hashtag. */
+  public Set<String> getConversationSourceSet() {
+    return this.conversationSource;
   }
 
   /**

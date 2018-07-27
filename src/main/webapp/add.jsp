@@ -1,3 +1,5 @@
+<%@ page import="codeu.model.data.User" %>
+<%@ page import="java.util.List" %>
 <style>
 .dropbtn {
   background-color: #46b9e2;
@@ -54,6 +56,7 @@
         if(confirm("Are you sure you want to add " + name + " to this chat?")){
            $.post("", {nameToBeAdded: name });
         }
+        $(this).fadeOut("fast");
         var menu = $(document.getElementById("myDropdown"));
         menu.fadeOut('slow');
       }
@@ -111,12 +114,11 @@
 <button class="dropbtn">Add User</button>
   <div id="myDropdown" class="dropdown-content">
     <input type="text" placeholder="&#x1f50d;Search.." id="myInput" onkeyup="filterFunction()">
-    <% for (User user : users) {
-          if (!user.isAdmin()){
-             String name = user.getName(); 
+    <% List<User> excludedUsers = (List<User>) request.getAttribute("excludedUsers"); %>
+    <% for (User user: excludedUsers){
+        String name = user.getName();
     %>
-             <a class="user"><%=name%></a>
-        <% } %>
-      <% } %>
+		    <a class="user"><%=name%></a>
+	  <% } %>
   </div>
 </div>

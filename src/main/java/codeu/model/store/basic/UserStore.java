@@ -15,11 +15,16 @@
 package codeu.model.store.basic;
 
 import codeu.model.data.Activity;
+import codeu.model.data.Hashtag;
 import codeu.model.data.User;
 import codeu.model.store.persistence.PersistentStorageAgent;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -47,9 +52,6 @@ public class UserStore {
     if (instance == null) {
       instance = new UserStore(PersistentStorageAgent.getInstance());
       instance.setActivityStore(ActivityStore.getInstance());
-
-      // hard-coded initial Admin:
-      instance.addUser("Admin01", "AdminPass203901", /* admin= */ true);
     }
     return instance;
   }
@@ -64,7 +66,7 @@ public class UserStore {
     instance.setActivityStore(ActivityStore.getTestInstance(persistentStorageAgent));
 
     // hard-coded initial Admin:
-    instance.addUser("Admin01", "AdminPass203901", /* admin= */ true);
+    instance.addAdmin();
     return instance;
   }
 
@@ -123,6 +125,20 @@ public class UserStore {
   }
 
   /**
+   * Access the User object with the given UUID.
+   *
+   * @return null if the UUID does not match any existing User.
+   */
+  public User getUserUUIDString(String id) {
+    for (User user : users) {
+      if (user.getId().toString().equals(id)) {
+        return user;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Add a new user to the current set of users known to the application. This should only be called
    * to add a new user, not to update an existing user.
    */
@@ -130,7 +146,7 @@ public class UserStore {
     users.add(user);
     persistentStorageAgent.writeThrough(user);
     Activity activity1 = new Activity(user);
-    activity1.setIsPrivate((user.isAdmin() ? true:false));
+    activity1.setIsPrivate((user.isAdmin() ? true : false));
     activityStore.addActivity(activity1);
   }
 
@@ -173,5 +189,28 @@ public class UserStore {
       }
     }
     return admins;
+  }
+
+  public Set<String> getUsersWithSameHashtag(User user, Map<String, Hashtag> hashtagMap) {
+    Set<String> users = new HashSet<String>();
+    Collection<Hashtag> allHashtags = hashtagMap.values();
+    Set<String> userHashtags = user.getHashtagSet();
+    // Iterate through all values(Hashtags) in the Map:
+    for (Hashtag thisHashtag : allHashtags) {
+      if (userHashtags.contains(thisHashtag.getContent())) {
+        Set<String> otherUsers = thisHashtag.getUserSourceSet();
+        for (String userID : otherUsers) {
+          String userName = getUserUUIDString(userID).getName();
+          if (!userName.equals(user.getName())) users.add(userName);
+        }
+      }
+    }
+    return users;
+  }
+
+  /** A helper function that adds an admin to the list of users. */
+  public void addAdmin() {
+    // hard-coded initial Admin:
+    instance.addUser("admin01", "AdminPass203901", /* admin= */ true);
   }
 }

@@ -14,7 +14,6 @@
 
 package codeu.controller;
 
-import codeu.model.util.Util;
 import codeu.model.data.Conversation;
 import codeu.model.data.Message;
 import codeu.model.data.User;
@@ -23,6 +22,7 @@ import codeu.model.store.basic.MessageStore;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import javax.servlet.ServletException;
@@ -87,6 +87,7 @@ public class ChatServlet extends HttpServlet {
       throws IOException, ServletException {
     String requestUrl = request.getRequestURI();
     String conversationTitle = requestUrl.substring("/chat/".length());
+    conversationTitle = conversationTitle.toLowerCase();
 
     Conversation conversation = conversationStore.getConversationWithTitle(conversationTitle);
     if (conversation == null) {
@@ -105,6 +106,20 @@ public class ChatServlet extends HttpServlet {
 
     List<Message> messages = messageStore.getMessagesInConversation(conversationId);
     List<User> users = userStore.getUsers();
+
+    // List of users who are not in the private conversation
+    if(conversation.isPrivate()){
+      List<User> excludedUsers = new ArrayList<>();
+      String existingUsers = conversation.getUsers();
+      for(User u: users){
+        // if the user IS NOT in the conversation
+        if(!existingUsers.contains(u.getId().toString())){
+          excludedUsers.add(u);
+        }
+      }
+      request.setAttribute("excludedUsers", excludedUsers);
+    }
+
     request.setAttribute("users", users);
     request.setAttribute("conversation", conversation);
     request.setAttribute("messages", messages);
@@ -122,11 +137,13 @@ public class ChatServlet extends HttpServlet {
       throws IOException, ServletException {
 
     String username = (String) request.getSession().getAttribute("user");
+    
     if (username == null) {
       // user is not logged in, don't let them add a message
       response.sendRedirect("/login");
       return;
     }
+    username = username.toLowerCase();
 
     User user = userStore.getUser(username);
     if (user == null) {
@@ -159,17 +176,17 @@ public class ChatServlet extends HttpServlet {
 
     // Adding a new message
     if (messageContent != null) {
-      if (Util.isWhiteSpace(messageContent)) {
-        response.sendRedirect("/chat/" + conversationTitle);
-        return;
-      }
       // this removes any HTML from the message content
       messageContent = Jsoup.clean(messageContent, Whitelist.none());
-      boolean isPrivate = (conversation.isPrivate()?true:false);
+      boolean isPrivate = (conversation.isPrivate() ? true : false);
       Message message =
-              new Message(
-                      UUID.randomUUID(), conversation.getId(), user.getId(), isPrivate,
-                      messageContent, Instant.now());
+          new Message(
+              UUID.randomUUID(),
+              conversation.getId(),
+              user.getId(),
+              isPrivate,
+              messageContent,
+              Instant.now());
       messageStore.addMessage(message);
     }
 

@@ -32,18 +32,22 @@
     <% if (request.getAttribute("error") != null) { %>
       <h2 style="color:red"><%= request.getAttribute("error") %></h2>
     <% } %>
+    <% if (request.getAttribute("sent") != null) { %>
+      <h2 style="color:green"><%= request.getAttribute("sent") %></h2>
+    <% } %>
 
     <form class="form-group" action="/login" method="POST">
-      <label class="form-control-label" for="username">Username: </label>
-      <input class="form-control" type="text" name="username" id="username">
+      <label class="form-control-label" for="username">Username</label>
+      <input class="form-control" type="text" name="username" id="username" placeholder="Username" required>
       </br>
-      <label class="form-control-label" for="password">Password: </label>
-      <input class="form-control" type="password" name="password" id="password">
+      <label class="form-control-label" for="password">Password</label>
+      <input class="form-control" type="password" name="password" id="password" placeholder="Password" required>
       </br>
       <button type="submit" class="btn">Login</button>
     </form>
 
     <p>New users can register <a href="/register">here</a>.</p>
+    <p>Forgot password? Click <a href="/resetQuestion">here</a>.</p>
   </div>
 </body>
 </html>

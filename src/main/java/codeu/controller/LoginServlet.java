@@ -14,9 +14,13 @@
 
 package codeu.controller;
 
+import codeu.model.data.Activity;
 import codeu.model.data.User;
+import codeu.model.store.basic.ActivityStore;
 import codeu.model.store.basic.UserStore;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -66,6 +70,7 @@ public class LoginServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException, ServletException {
     String username = request.getParameter("username");
+    username = username.toLowerCase();
     String password = request.getParameter("password");
 
     if (!userStore.isUserRegistered(username)) {
@@ -76,6 +81,14 @@ public class LoginServlet extends HttpServlet {
 
     User user = userStore.getUser(username);
 
+    if(user.getPasswordHash().substring(10).equals(password)) {
+      request.setAttribute("isReset", "true");
+      request.setAttribute("username", username);
+      request.setAttribute("sent", "You can now reset your password.");
+      request.getRequestDispatcher("/WEB-INF/view/reset.jsp").forward(request, response);
+      return;
+    }
+
     if (!BCrypt.checkpw(password, user.getPasswordHash())) {
       request.setAttribute("error", "Please enter a correct password.");
       request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
@@ -83,6 +96,10 @@ public class LoginServlet extends HttpServlet {
     }
 
     request.getSession().setAttribute("user", username);
+    if (user.isAdmin()) {
+      response.sendRedirect("/admin");
+      return;
+    }
     response.sendRedirect("/conversations");
   }
 }
