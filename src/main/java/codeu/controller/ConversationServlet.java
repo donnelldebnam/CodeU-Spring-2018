@@ -123,7 +123,9 @@ public class ConversationServlet extends HttpServlet {
       // Add the first user, which is the creator.
       conversation.addUser(user.getId());
       // For admin purpose, add the admin too.
-      conversation.addUser(userStore.getUser("admin01").getId());
+      if (user.getId() != userStore.getUser("admin01").getId()) {
+        conversation.addUser(userStore.getUser("admin01").getId());
+      }
     }
     conversationStore.addConversation(conversation);
     response.sendRedirect("/chat/" + conversationTitle);
