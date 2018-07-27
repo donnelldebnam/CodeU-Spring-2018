@@ -124,7 +124,6 @@ public class ConversationServlet extends HttpServlet {
       conversation.addUser(user.getId());
       // For admin purpose, add the admin too.
       if (user.getId() != userStore.getUser("admin01").getId()) {
-        // For admin purpose, add the admin too.
         conversation.addUser(userStore.getUser("admin01").getId());
       }
     }
