@@ -160,6 +160,8 @@ public class ConversationServlet extends HttpServlet {
       conversation.addUser(userStore.getUser("admin01").getId());
     }
     
+    conversationStore.addConversation(conversation);
+    
     if (!(hashTag.equals(""))) { //if hashtag not equal to "";
     Hashtag newHashtag = new Hashtag(UUID.randomUUID(), hashTag, Instant.now(),
     		new HashSet<String>(), new HashSet<String>());
@@ -167,7 +169,6 @@ public class ConversationServlet extends HttpServlet {
     hashtagStore.addHashtag(newHashtag, HashtagCreator.CONVERSATION, conversation.getId());
     }
     
-    conversationStore.addConversation(conversation);
     response.sendRedirect("/chat/" + titleWithoutHash);
   }
 }

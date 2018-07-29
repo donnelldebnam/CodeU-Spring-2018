@@ -86,13 +86,14 @@ Map<String,Hashtag> allHashtags = (Map<String,Hashtag>) request.getAttribute("ha
     <% } else { %>
       <ul class="mdl-list">
         <% for (Conversation conversation : conversations) { %>
-        	<% if (conversation.getTitle().contains("-")){ %>
+        	<% if (conversation.getTitle().contains("*")){ %>
             	<% if (!conversation.isPrivate()) { %>
               		<li><a href="/chat/<%= conversation.getTitle() %>"> 
-                  		<%= conversation.getTitle() %></a></li>
+                  		<%= conversation.getTitle().toString().replaceAll("*", "#") %></a></li>
+                  		<% System.out.println("Content = " + conversation.getTitle().toString().replaceAll("*", "#")); %>
            		<% } else if(request.getSession().getAttribute("user") != null &&
                         		conversation.check(request.getSession().getAttribute("user").toString())) { %>
-                   		<li><a href="/chat/<%= conversation.getTitle() %>">&#x1F512;<%= conversation.getTitle().replaceAll("-", "#") %></a></li>
+                   		<li><a href="/chat/<%= conversation.getTitle() %>">&#x1F512;<%= conversation.getTitle().replaceAll("*", "#") %></a></li>
               	<% } %>
            <% } %>
         <% } %>
