@@ -14,12 +14,13 @@
 
 package codeu.model.store.basic;
 
-import codeu.model.data.Activity;
-import codeu.model.data.Conversation;
-import codeu.model.store.persistence.PersistentStorageAgent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import codeu.model.data.Activity;
+import codeu.model.data.Conversation;
+import codeu.model.store.persistence.PersistentStorageAgent;
 
 /**
  * Store class that uses in-memory data structures to hold values and automatically loads from and
@@ -99,11 +100,13 @@ public class ConversationStore {
   public boolean isTitleTaken(String title) {
     // This approach will be pretty slow if we have many Conversations.
     for (Conversation conversation : conversations) {
-      if (conversation.getTitle().equalsIgnoreCase(title)) {
+    	String storedTitle = conversation.getTitle();
+    	storedTitle = storedTitle.replaceAll("\\#", "*");
+      if (storedTitle.equalsIgnoreCase(title)) {
         return true;
       }
     }
-    return false;
+    return false; 
   }
 
   /** Find and return the Conversation with the given title. */

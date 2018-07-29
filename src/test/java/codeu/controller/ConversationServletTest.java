@@ -14,25 +14,32 @@
 
 package codeu.controller;
 
-import codeu.model.data.Conversation;
-import codeu.model.data.ModelDataTestHelpers.TestConversationBuilder;
-import codeu.model.data.ModelDataTestHelpers.TestUserBuilder;
-import codeu.model.data.User;
-import codeu.model.store.basic.ConversationStore;
-import codeu.model.store.basic.UserStore;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+
+import codeu.model.data.Conversation;
+import codeu.model.data.Hashtag;
+import codeu.model.data.ModelDataTestHelpers.TestConversationBuilder;
+import codeu.model.data.ModelDataTestHelpers.TestHashtagBuilder;
+import codeu.model.data.ModelDataTestHelpers.TestUserBuilder;
+import codeu.model.data.User;
+import codeu.model.store.basic.ConversationStore;
+import codeu.model.store.basic.HashtagStore;
+import codeu.model.store.basic.UserStore;
 
 public class ConversationServletTest {
 
@@ -43,6 +50,7 @@ public class ConversationServletTest {
   private RequestDispatcher mockRequestDispatcher;
   private ConversationStore mockConversationStore;
   private UserStore mockUserStore;
+  private HashtagStore mockHashtagStore;
 
   @Before
   public void setup() {
@@ -62,6 +70,9 @@ public class ConversationServletTest {
 
     mockUserStore = Mockito.mock(UserStore.class);
     conversationServlet.setUserStore(mockUserStore);
+    
+    mockHashtagStore = Mockito.mock(HashtagStore.class);
+    conversationServlet.setHashtagStore(mockHashtagStore);
   }
 
   @Test
@@ -69,7 +80,11 @@ public class ConversationServletTest {
     List<Conversation> fakeConversationList = new ArrayList<>();
     fakeConversationList.add(new TestConversationBuilder().withTitle("test_conversation").build());
     Mockito.when(mockConversationStore.getAllConversations()).thenReturn(fakeConversationList);
-
+    
+    HashMap<String, Hashtag> fakeHashtags = new HashMap<>();
+    fakeHashtags.put("test_content",new TestHashtagBuilder().withContent("test_content").build());
+    Mockito.when(mockHashtagStore.getAllHashtags()).thenReturn(fakeHashtags);
+    
     conversationServlet.doGet(mockRequest, mockResponse);
 
     Mockito.verify(mockRequest).setAttribute("conversations", fakeConversationList);

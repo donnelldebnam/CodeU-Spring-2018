@@ -15,8 +15,12 @@
 --%>
 <%@ page import="java.util.List" %>
 <%@ page import="codeu.model.data.Conversation" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="codeu.model.data.Hashtag" %>
+<%@ page import="codeu.model.store.basic.HashtagStore" %>
 <%
 List<Conversation> conversations = (List<Conversation>) request.getAttribute("conversations");
+Map<String,Hashtag> allHashtags = (Map<String,Hashtag>) request.getAttribute("hashtagMap");
 %>
 
 <!DOCTYPE html>
@@ -70,6 +74,27 @@ List<Conversation> conversations = (List<Conversation>) request.getAttribute("co
                         conversation.check(request.getSession().getAttribute("user").toString())) { %>
                    <li><a href="/chat/<%= conversation.getTitle() %>">&#x1F512;<%= conversation.getTitle() %></a></li>
               <% } %>
+        <% } %>
+      </ul>
+    <% } %>
+    <hr/>
+    
+    <h1>Hashtag Conversations</h1>
+
+    <% if (allHashtags == null || allHashtags.isEmpty()) { %>
+      <p>Create a Hash-Tag conversation to get started.</p>
+    <% } else { %>
+      <ul class="mdl-list">
+        <% for (Conversation conversation : conversations) { %>
+        	<% if (conversation.getTitle().contains("-")){ %>
+            	<% if (!conversation.isPrivate()) { %>
+              		<li><a href="/chat/<%= conversation.getTitle() %>"> 
+                  		<%= conversation.getTitle() %></a></li>
+           		<% } else if(request.getSession().getAttribute("user") != null &&
+                        		conversation.check(request.getSession().getAttribute("user").toString())) { %>
+                   		<li><a href="/chat/<%= conversation.getTitle() %>">&#x1F512;<%= conversation.getTitle().replaceAll("-", "#") %></a></li>
+              	<% } %>
+           <% } %>
         <% } %>
       </ul>
     <% } %>

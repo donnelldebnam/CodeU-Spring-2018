@@ -14,12 +14,13 @@
 
 package codeu.model.store.basic;
 
-import codeu.model.data.Hashtag;
-import codeu.model.data.HashtagCreator;
-import codeu.model.store.persistence.PersistentStorageAgent;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import codeu.model.data.Hashtag;
+import codeu.model.data.HashtagCreator;
+import codeu.model.store.persistence.PersistentStorageAgent;
 
 public class HashtagStore {
 
